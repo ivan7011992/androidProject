@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".meters.activity.MainActivity">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/unnamed"
+    >
+
+
+    <EditText
+        android:id="@+id/login"
+        android:layout_width="110dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="450dp"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+
+        tools:layout_editor_absoluteX="146dp"
+        tools:layout_editor_absoluteY="218dp"
+
+        />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="110dp"
+        android:layout_height="60dp"
+
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="450dp"
+        android:layout_marginRight="80dp"
+        android:layout_toEndOf="@+id/login"
+
+
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="141dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/login"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="26dp"
+        android:background="#B0D2DD"
+        android:onClick="formSubmit"
+        android:text="Войти" />
+
+    <TextView
+        android:id="@+id/log"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+
+        />
+</RelativeLayout>
+</LinearLayout>

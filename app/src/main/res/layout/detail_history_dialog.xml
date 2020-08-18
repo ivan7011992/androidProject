@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/RelativeLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    >
+
+    <RelativeLayout
+        android:layout_width="400dp"
+        android:layout_height="400dp">
+
+        <TextView
+            android:id="@+id/heading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="4dp"
+            android:text="Передеча показаний "
+            android:paddingTop="17dp"
+            android:paddingBottom="17dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
+            android:textColor="#FFFCFC"
+            android:textSize="18sp"
+            android:background="@drawable/dra3"
+            android:gravity="center"
+            />
+
+        <TextView
+            android:id="@+id/heading2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/heading"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/dra"
+            android:text="№ узла:"
+            android:paddingLeft="8dp"
+            android:textColor="#000"
+            android:textSize="14sp" />
+
+
+
+    </RelativeLayout>
+</RelativeLayout>
+
+
+
+

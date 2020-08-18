@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="140dp"
+    android:layout_margin="4dp"
+    app:cardCornerRadius="4dp"
+    >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <RelativeLayout
+            android:id="@+id/con3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:orientation="vertical"
+            android:padding="16dp"
+
+
+            tools:context=".meters.activity.MainActivity">
+
+
+
+
+            <TextView
+                android:id="@+id/Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Номер ПУ"
+                android:textSize="14sp"
+                android:textStyle="bold"
+
+
+                />
+            <TextView
+                android:id="@+id/TitleValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Значение"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_alignParentRight="true"
+
+                />
+
+            <TextView
+                android:id="@+id/viewPU"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/Title"
+                android:paddingRight="3dp"
+                android:text="Вид ПУ"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/viewPuValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/Title"
+                android:layout_alignParentRight="true"
+                android:fontFamily="@font/alfa_slab_one"
+                android:layout_marginTop="5dp"
+                android:text="Значение"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/dateInstal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/viewPU"
+                android:layout_marginTop="5dp"
+                android:paddingRight="3dp"
+                android:text="Дата установки"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/dateInstalValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/viewPuValue"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="3dp"
+                android:layout_alignParentRight="true"
+                android:fontFamily="@font/alfa_slab_one"
+                android:text="Значение"
+                android:textSize="11sp"
+
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/datePoverk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/dateInstal"
+                android:layout_marginTop="5dp"
+                android:paddingRight="3dp"
+                android:text="Дата поверки"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/datePoverkValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/dateInstalValue"
+                android:layout_marginTop="5dp"
+                android:layout_alignParentRight="true"
+                android:fontFamily="@font/alfa_slab_one"
+                android:text="Значение"
+                android:textSize="11sp"
+
+                android:textStyle="bold" />
+
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

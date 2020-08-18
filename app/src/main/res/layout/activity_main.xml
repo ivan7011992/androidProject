@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".meters.activity.MainActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/fon3">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="310dp"
+            android:layout_height="234dp"
+            android:padding="20dp"
+            app:srcCompat="@drawable/logo"
+            android:layout_centerHorizontal="true"
+
+            />
+
+        <EditText
+            android:id="@+id/login"
+            android:layout_width="310dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/image"
+            android:layout_marginTop="25dp"
+             android:layout_centerHorizontal="true"
+            android:textSize="20sp"
+            android:background="@drawable/dra4"
+            android:textColorHint="#fff"
+            android:gravity="center"
+            android:ems="10"
+            android:textColor="#FFFFFF"
+            android:hint="@string/login"
+            tools:layout_editor_absoluteX="146dp"
+            tools:layout_editor_absoluteY="218dp"
+            />
+
+
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="310dp"
+            android:layout_height="60dp"
+            android:layout_below="@+id/login"
+         android:layout_marginTop="16dp"
+            android:hint="Пароль"
+            android:textColor="#FFFFFF"
+             android:background="@drawable/dra4"
+            android:layout_centerHorizontal="true"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:textColorHint="#fff"
+            android:inputType="textPassword"
+            /><![CDATA[
+
+
+
+
+            />
+
+        ]]>
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="320dp"
+            android:layout_height="70dp"
+            android:layout_below="@+id/password"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="14dp"
+            android:background="@drawable/dra5"
+            android:onClick="formSubmit"
+            android:text="Войти"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="310dp"
+            android:layout_height="60dp"
+            android:layout_below="@+id/button"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/dra"
+            android:onClick="formSubmit"
+            android:text="Регистрация"
+
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            />
+
+
+
+    </RelativeLayout>
+</LinearLayout>

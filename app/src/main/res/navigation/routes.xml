@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/routes"
+    app:startDestination="@id/generalInfoFragment"
+
+    >
+
+    <fragment
+        android:id="@+id/generalInfoFragment"
+        android:name="com.gorvodokanal.meters.activity.GeneralInfoFragment"
+        android:label="fragment_general_info"
+        tools:layout="@layout/fragment_general_info" >
+
+        <action
+            android:id="@+id/action_generalInfoFragment_to_historyMetersFragment"
+            app:destination="@id/historyMetersFragment" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/historyMetersFragment"
+        android:name="com.gorvodokanal.meters.activity.HistoryMetersFragment"
+        android:label="fragment_history_meters"
+        tools:layout="@layout/fragment_history_meters" >
+        <action
+            android:id="@+id/action_historyMetersFragment_to_passMetrrsFragment"
+            app:destination="@id/passMetersFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/passMetersFragment"
+        android:name="com.gorvodokanal.meters.activity.PassMetersFragment"
+        android:label="fragment_pass_metrrs"
+        tools:layout="@layout/fragment_pass_meters" >
+        <action
+            android:id="@+id/action_passMetersFragment_to_paymentFragment2"
+            app:destination="@id/paymentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/paymentFragment"
+        android:name="com.gorvodokanal.meters.activity.PaymentFragment"
+        android:label="PaymentFragment"
+        tools:layout="@layout/fragment_payment"/>
+
+
+</navigation>

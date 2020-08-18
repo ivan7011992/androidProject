@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scroll"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".meters.activity.MainActivity"
+    android:orientation="vertical"
+    android:layout_margin="8dp"
+    android:id="@+id/con3"
+
+    ><![CDATA[
+
+    >
+
+    ]]>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="223dp"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/fon" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="20dp"
+        android:text="ОБЩАЯ ИНФОРМАЦИЯ"
+        android:textAlignment="center"
+        android:textColor="#6421DA"
+        android:textStyle="bold" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+
+        <TextView
+            android:id="@+id/kod_abonent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="Код абонента"
+            android:textColor="#0B0B0B"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/kod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10-66666"
+            android:layout_toEndOf="@id/kod_abonent"
+            android:layout_marginLeft="5dp"/>
+
+
+        <TextView
+            android:id="@+id/fio_abonent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ф.И.О.абонента:"
+            android:layout_marginLeft="15dp"
+            android:layout_below="@id/kod_abonent"
+            android:textStyle="bold"
+            android:textColor="#0B0B0B"
+            />
+        <TextView
+            android:id="@+id/fio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ЖИЛЕЦ1"
+            android:layout_toEndOf="@id/fio_abonent"
+            android:layout_below="@id/kod_abonent"
+            android:layout_marginLeft="5dp"/>
+
+        <TextView
+            android:id="@+id/address_abonent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Адрес абонента: ул."
+            android:layout_marginLeft="15dp"
+            android:layout_below="@id/fio_abonent"
+            android:textStyle="bold"
+            android:textColor="#0B0B0B"
+            />
+        <TextView
+            android:id="@+id/address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="РЕВОЛЮЦИИ, дом 5, кв. 1"
+            android:layout_toEndOf="@id/address_abonent"
+            android:layout_below="@id/fio_abonent"
+            android:layout_marginLeft="5dp"/>
+
+
+
+
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        >
+
+        <TextView
+            android:id="@+id/tariff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="Действующие тарифы"
+            android:textColor="#0B0B0B"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+
+
+        <TextView
+            android:id="@+id/cool"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Холодное водоснабжение:"
+            android:layout_marginLeft="15dp"
+            android:layout_below="@id/tariff"
+            android:textStyle="bold"
+            android:textColor="#0B0B0B"
+            />
+        <TextView
+            android:id="@+id/cool_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="18.56 руб./м"
+            android:layout_toEndOf="@id/cool"
+            android:layout_below="@id/tariff"
+            android:layout_marginLeft="5dp"/>
+
+        <TextView
+            android:id="@+id/voootv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Адрес абонента: ул."
+            android:layout_marginLeft="15dp"
+            android:layout_below="@id/cool_data"
+            android:textStyle="bold"
+            android:textColor="#0B0B0B"
+            />
+        <TextView
+            android:id="@+id/vootv_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="14.24 руб./м"
+            android:layout_toEndOf="@id/voootv"
+            android:layout_below="@id/cool"
+            android:layout_marginLeft="5dp" />
+
+
+
+
+
+    </RelativeLayout>
+    <HorizontalScrollView
+        android:id="@+id/hscroll"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+    <TableLayout
+          android:id="@+id/table1"
+        android:layout_width="match_parent"
+        android:layout_height="233dp"
+        android:layout_marginStart="1dp"
+
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="40dp"
+
+
+        >
+
+        <TableRow
+            android:layout_width="50dp"
+            android:layout_height="54dp"
+                   android:background="#0079D6"
+
+            >
+
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="54dp"
+                android:fontFamily="@font/alfa_slab_one"
+                android:text="Номер"
+                android:textAlignment="center"
+                android:textSize="12sp"
+                android:textStyle="bold"
+               />
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="57dp"
+
+                android:fontFamily="@font/alfa_slab_one"
+                android:labelFor="@+id/edPassword"
+                android:lineSpacingExtra="10sp"
+                android:text="Тип"
+                android:textAlignment="center"
+
+                android:textColor="#3E2E2E"
+                android:textColorLink="#807B7B"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="51dp"
+
+                android:fontFamily="@font/alfa_slab_one"
+                android:labelFor="@+id/edPassword"
+                android:lineSpacingExtra="10sp"
+                android:text="Дата установки прибора"
+
+                android:textAlignment="center"
+                android:textColor="#3E2E2E"
+
+                android:textColorLink="#807B7B"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="54dp"
+                android:layout_marginRight="10dp"
+
+                android:fontFamily="@font/alfa_slab_one"
+
+                android:text="Дата поверки"
+
+
+                android:textAlignment="center"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+
+        </TableRow>
+
+
+
+    </TableLayout>
+    </HorizontalScrollView>
+
+
+
+
+</LinearLayout>
+
+    </ScrollView>
+
+
+
+
+
