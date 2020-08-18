@@ -158,8 +158,14 @@ public class HistoryMetersFragment extends Fragment {
 
                     ArrayList<SummaryHistoryItem> historyItems = new ArrayList<SummaryHistoryItem>(data.values());
                     SummaryHistoryItemAdapter adapter = new SummaryHistoryItemAdapter(historyItems);
-                    LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+                    LinearLayoutManager layoutManager = new LinearLayoutManager(getContext()) {
+                        @Override
+                        public boolean canScrollVertically() {
+                            return false;
+                        }
+                    };
                     RecyclerView historyItemsView = (RecyclerView) getView().findViewById(R.id.historyItems);
+                    historyItemsView.setNestedScrollingEnabled(false);
                     historyItemsView.setAdapter(adapter);
                     historyItemsView.setLayoutManager(layoutManager);
                 } catch (Exception e) {

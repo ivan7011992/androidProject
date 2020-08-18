@@ -1,2 +1,2 @@
-rootProject.name='Meters'
+rootProject.name='gorvodokanal_app'
 include ':app'

@@ -21,7 +21,6 @@
             android:layout_width="263dp"
             android:layout_height="193dp"
             android:layout_gravity="center"
-            android:layout_marginTop="60dp"
             app:srcCompat="@drawable/logo" />
 
 
@@ -201,19 +200,15 @@
 
                 />
         </LinearLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/generalItems"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             android:background="@drawable/dra6"
             android:padding="1dp"
-            android:scrollbars="vertical"
-            android:layout_marginBottom="70dp"
-            />
-
-
-
-
+            android:scrollbars="vertical" />
 
 
     </LinearLayout>
