@@ -10,7 +10,7 @@
     <fragment
         android:id="@+id/generalInfoFragment"
         android:name="com.gorvodokanal.meters.activity.GeneralInfoFragment"
-        android:label="fragment_general_info"
+        android:label="Общая информация"
         tools:layout="@layout/fragment_general_info" >
 
         <action
@@ -22,7 +22,7 @@
     <fragment
         android:id="@+id/historyMetersFragment"
         android:name="com.gorvodokanal.meters.activity.HistoryMetersFragment"
-        android:label="fragment_history_meters"
+        android:label="История оплат"
         tools:layout="@layout/fragment_history_meters" >
         <action
             android:id="@+id/action_historyMetersFragment_to_passMetrrsFragment"
@@ -31,7 +31,7 @@
     <fragment
         android:id="@+id/passMetersFragment"
         android:name="com.gorvodokanal.meters.activity.PassMetersFragment"
-        android:label="fragment_pass_metrrs"
+        android:label="Передача показаний"
         tools:layout="@layout/fragment_pass_meters" >
         <action
             android:id="@+id/action_passMetersFragment_to_paymentFragment2"
@@ -40,7 +40,7 @@
     <fragment
         android:id="@+id/paymentFragment"
         android:name="com.gorvodokanal.meters.activity.PaymentFragment"
-        android:label="PaymentFragment"
+        android:label="Оплата"
         tools:layout="@layout/fragment_payment"/>
 
 

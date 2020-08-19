@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         tools:context=".meters.activity.MainActivity"
         android:orientation="vertical"
-        android:layout_margin="8dp"
+
         android:id="@+id/con3"
 
 
@@ -21,7 +21,6 @@
             android:id="@+id/textView15"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:layout_marginTop="70dp"
             android:gravity="center"
             android:layout_marginBottom="20dp"
             android:text="Передача показаний"

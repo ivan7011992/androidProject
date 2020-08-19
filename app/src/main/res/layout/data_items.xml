@@ -32,8 +32,8 @@
             android:textSize="15sp"
             android:gravity="center"
             android:textStyle="bold"
-            android:textColor="#2196F3"
-            android:background="@drawable/dra11"
+            android:textColor="#000000"
+            android:background="@drawable/dra12"
             />
 
         <TextView

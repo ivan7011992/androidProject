@@ -158,6 +158,7 @@ public class HistoryMetersFragment extends Fragment {
 
                     ArrayList<SummaryHistoryItem> historyItems = new ArrayList<SummaryHistoryItem>(data.values());
                     SummaryHistoryItemAdapter adapter = new SummaryHistoryItemAdapter(historyItems);
+
                     LinearLayoutManager layoutManager = new LinearLayoutManager(getContext()) {
                         @Override
                         public boolean canScrollVertically() {

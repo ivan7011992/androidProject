@@ -130,7 +130,7 @@
             android:layout_below="@+id/pokaz"
             android:padding="2dp"
             android:gravity="center"
-            android:textSize="9sp"
+            android:textSize="14sp"
 
             android:layout_centerHorizontal="true"
             android:hint="Введите показания"
