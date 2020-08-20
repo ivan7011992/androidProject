@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nested"
+    android:fillViewport="true"
+    android:scrollbars="none"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<ScrollView
     android:id="@+id/scroll"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         tools:context=".meters.activity.MainActivity"
         android:orientation="vertical"
 
@@ -39,7 +47,6 @@
                 android:id="@+id/passMeters"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@android:color/darker_gray"
                 android:padding="1dp"
                 android:layout_marginBottom="20dp"
                 android:scrollbars="vertical" />
@@ -48,48 +55,30 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="138dp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
 
-            <Button
-                android:id="@+id/passDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/dra8"
-                android:onClick="datePassMeters"
-                android:text="Дата снятия показаний"
-                android:padding="8dp"
-                android:layout_toLeftOf="@+id/buttonPassMeters"
-                android:textSize="8sp"
-               android:layout_marginRight="12dp"
-               />
 
             <Button
                 android:id="@+id/buttonPassMeters"
-                android:layout_width="85dp"
-                android:layout_height="wrap_content"
+                android:layout_width="172dp"
+                android:layout_height="50dp"
                 android:background="@drawable/dra9"
                 android:onClick="passMetersData"
-                android:textColor="#F4EFEF"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="15dp"
-
                 android:text="Внести показания"
-                android:textSize="8sp" />
+
+                android:textColor="#F4EFEF"
+                android:textSize="12sp" />
 
 
         </RelativeLayout>
-        <TextView
-            android:id="@+id/date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="TextView" />
+
     </LinearLayout>
 
 </ScrollView>
 
-
+</androidx.core.widget.NestedScrollView>
 
 
 

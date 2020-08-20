@@ -58,13 +58,13 @@ public class PassMetersFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pass_meters, container, false);
-        datePassMetersValue = view.findViewById(R.id.passDate);
-        datePassMetersValue.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                datePassMeters();
-            }
-        });
+       // datePassMetersValue = view.findViewById(R.id.passDate);
+//        datePassMetersValue.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                datePassMeters();
+//            }
+//        });
 
 
 
@@ -93,9 +93,15 @@ public class PassMetersFragment extends Fragment {
 
 
                     final SummaryPassItemAdapter adapter = new SummaryPassItemAdapter(data);
-                    LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+                    LinearLayoutManager layoutManager = new LinearLayoutManager(getContext()){
+                        @Override
+                        public boolean canScrollVertically() {
+                            return false;
+                        }
+                    };
                     RecyclerView passMetersView = (RecyclerView) getView().findViewById(R.id.passMeters);
                     passMetersView.setAdapter(adapter);
+                    passMetersView.setNestedScrollingEnabled(false);
                     passMetersView.setLayoutManager(layoutManager);
 
                     getView().findViewById(R.id.buttonPassMeters).setOnClickListener(new View.OnClickListener() {

@@ -37,7 +37,7 @@ public class SummaryPassItemAdapter  extends RecyclerView.Adapter< SummaryPassIt
 
         public RecycleViewViewHolder(@NonNull View itemView) {//коструктор,  View itemView, этот параметор это отльный элемент RecelceView
             super(itemView);
-            node = itemView.findViewById(R.id.nomerUzel);
+            node = itemView.findViewById(R.id.nomerUzelValue);
             n_vodomer = itemView.findViewById(R.id.nameUzelValue);
             enter_date = itemView.findViewById(R.id.dataPassMetersValue);
             pokaz = itemView.findViewById(R.id.posledMetersValue);
