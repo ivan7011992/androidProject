@@ -1,21 +1,26 @@
 package com.gorvodokanal.meters.activity;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 import androidx.preference.PreferenceManager;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,29 +46,78 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     private String email;
     private String password;
     SharedPreferences sharedPreferences;
+   public EditText passwordUser;
+   public static  int flag = 1;
 
     private TextView email1;
     public Button buttom;
-
+    ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+       imageView = findViewById(R.id.image2);
+        passwordUser = findViewById(R.id.password);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         setIntervalFromSharedPrefarences(sharedPreferences);
         buttom = findViewById(R.id.button);
       //  buttom.getBackground().setAlpha(64);
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createAlertDialog("Код абоента", "Код абонента вводится в формате **-*******(пр.10-7777777)");
+            }
+        });
+
+        final ImageView imageView =  findViewById(R.id.image3);
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                if(flag == 1){ passwordUser.setTransformationMethod(new PasswordTransformationMethod());}
+                else passwordUser.setTransformationMethod(null);
+                passwordUser.setSelection(passwordUser.length());
+                flag = 0;
+            }
+
+        });
+
 
     }
-
-
+    private void createAlertDialog(String title, String content) {
+        // объект Builder для создания диалогового окна
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        // добавляем различные компоненты в диалоговое окно
+        builder.setTitle(title);
+        builder.setMessage(content);
+        // устанавливаем кнопку, которая отвечает за позитивный ответ
+        builder.setPositiveButton("OK",
+                // устанавливаем слушатель
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,
+                                        int which) {
+                        // по нажатию создаем всплывающее окно с типом нажатой конпки
+                        showMessage("Нажали ОК");
+                    }
+                });
+        // объект Builder создал диалоговое окно и оно готово появиться на экране
+        // вызываем этот метод, чтобы показать AlertDialog на экране пользователя
+        builder.show();
+    }
+    private void showMessage(String textInMessage) {
+        Toast.makeText(getApplicationContext(), textInMessage, Toast.LENGTH_LONG).show();
+    }
     public void formSubmit(View view) {
         EditText login = findViewById(R.id.login);
-        EditText password = findViewById(R.id.password);
+        final EditText password = findViewById(R.id.password);
+
+
+
 
         String loginValue = login.getText().toString();
         String passwordValue = password.getText().toString();
