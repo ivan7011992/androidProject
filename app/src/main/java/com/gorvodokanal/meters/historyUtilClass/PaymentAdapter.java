@@ -3,6 +3,7 @@ package com.gorvodokanal.meters.historyUtilClass;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -39,7 +40,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.RecycleV
             nachisPeriodValue = itemView.findViewById(R.id.nachisPeriodValue);
             oplataPeriodPaymentValue = itemView.findViewById(R.id.oplataPeriodPaymentValue);
             deptPeriodValue = itemView.findViewById(R.id.deptPeriodValue);
-            paymentValue = itemView.findViewById(R.id.paymentValue);
+            paymentValue = itemView.findViewById(R.id.payment);
             title = itemView.findViewById(R.id.Title);
         }
     }
@@ -55,17 +56,20 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.RecycleV
     @Override
     public void onBindViewHolder(@NonNull RecycleViewViewHolder recycleViewViewHolder, int i) {
         PaymentItem item;
-        if(i == 0) {
+        if (i == 0) {
             item = paymentData.getSummaryItem();
+            EditText entry = recycleViewViewHolder.paymentValue;
+            ((ViewManager) entry.getParent()).removeView(entry);
+
         } else {
             item = paymentData.getItem(i - 1);
         }
 
         recycleViewViewHolder.deptBeginPeriodValue.setText(String.valueOf(item.getSALDO_BEGIN()));
-       recycleViewViewHolder.nachisPeriodValue.setText(String.valueOf(item.getNACHISLENO()));
-       recycleViewViewHolder.oplataPeriodPaymentValue.setText(String.valueOf(item.getOPLATA()));
-       recycleViewViewHolder.deptPeriodValue.setText(String.valueOf(item.dept()));
-       recycleViewViewHolder.title.setText(String.valueOf(item.getNAME_USLUGI()));
+        recycleViewViewHolder.nachisPeriodValue.setText(String.valueOf(item.getNACHISLENO()));
+        recycleViewViewHolder.oplataPeriodPaymentValue.setText(String.valueOf(item.getOPLATA()));
+        recycleViewViewHolder.deptPeriodValue.setText(String.valueOf(item.dept()));
+        recycleViewViewHolder.title.setText(String.valueOf(item.getNAME_USLUGI()));
     }
 
     @Override

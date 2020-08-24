@@ -1,18 +1,16 @@
 package com.gorvodokanal.meters.historyUtilClass;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import android.app.Fragment;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gorvodokanal.R;
 import com.gorvodokanal.meters.activity.DetailHistoryDialog;
-import com.gorvodokanal.meters.activity.HistoryMetersFragment;
 import com.gorvodokanal.meters.model.SummaryHistoryItem;
 
 import java.util.ArrayList;
@@ -22,7 +20,7 @@ public class SummaryHistoryItemAdapter extends RecyclerView.Adapter<SummaryHisto
     private ArrayList<SummaryHistoryItem> historyItems;
     private Fragment historyMetersFragment;
 
-    public SummaryHistoryItemAdapter(ArrayList<SummaryHistoryItem> historyItems) {
+    public SummaryHistoryItemAdapter(ArrayList<SummaryHistoryItem> historyItems, Fragment historyMetersFragment) {
         this.historyItems = historyItems;
         this.historyMetersFragment = historyMetersFragment;
     }
@@ -61,7 +59,7 @@ public class SummaryHistoryItemAdapter extends RecyclerView.Adapter<SummaryHisto
 
     @Override
     public void onBindViewHolder(@NonNull final RecycleViewViewHolder recycleViewViewHolder, int i) {
-        final SummaryHistoryItem historyItem = historyItems.get(i);// при помощт i свящвваем каждый элемт из ArrayList с элметом RecycleVIew
+        final SummaryHistoryItem historyItem = historyItems.get(i);
         recycleViewViewHolder.date.setText(historyItem.getReadableDate());
         recycleViewViewHolder.saldoBeginValue.setText(String.valueOf(historyItem.saldoBegin()));
         recycleViewViewHolder.nachislenoValue.setText(String.valueOf(historyItem.nachisleno()));
@@ -73,7 +71,8 @@ public class SummaryHistoryItemAdapter extends RecyclerView.Adapter<SummaryHisto
             public void onClick(View v) {
                 DetailHistoryDialog dialog = new DetailHistoryDialog(historyItem);
                 dialog.setTargetFragment(historyMetersFragment, 1);
-                dialog.show(historyMetersFragment.getFragmentManager(), "MyCustomDialog");            }
+                dialog.show(historyMetersFragment.getFragmentManager(), "MyCustomDialog");
+            }
         });
     }
 

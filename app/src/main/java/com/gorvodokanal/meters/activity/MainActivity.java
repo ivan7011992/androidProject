@@ -3,9 +3,6 @@ package com.gorvodokanal.meters.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.fragment.NavHostFragment;
-import androidx.navigation.ui.NavigationUI;
 import androidx.preference.PreferenceManager;
 
 import android.content.DialogInterface;
@@ -14,18 +11,15 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
-import com.google.android.material.navigation.NavigationView;
 import com.gorvodokanal.meters.net.PostRequest;
 import com.gorvodokanal.R;
 import com.gorvodokanal.meters.net.RequestQueueSingleton;
@@ -46,8 +40,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     private String email;
     private String password;
     SharedPreferences sharedPreferences;
-   public EditText passwordUser;
-   public static  int flag = 1;
+    public EditText passwordUser;
+    public boolean showPassword = false;
 
     private TextView email1;
     public Button buttom;
@@ -58,12 +52,12 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-       imageView = findViewById(R.id.image2);
+        imageView = findViewById(R.id.image2);
         passwordUser = findViewById(R.id.password);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         setIntervalFromSharedPrefarences(sharedPreferences);
         buttom = findViewById(R.id.button);
-      //  buttom.getBackground().setAlpha(64);
+        //  buttom.getBackground().setAlpha(64);
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,23 +66,27 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             }
         });
 
-        final ImageView imageView =  findViewById(R.id.image3);
+        final ImageView imageView = findViewById(R.id.image3);
 
         imageView.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-
-                if(flag == 1){ passwordUser.setTransformationMethod(new PasswordTransformationMethod());}
-                else passwordUser.setTransformationMethod(null);
+                showPassword = !showPassword;
+                if (showPassword) {
+                    passwordUser.setTransformationMethod(null);
+                } else {
+                    passwordUser.setTransformationMethod(new PasswordTransformationMethod());
+                }
                 passwordUser.setSelection(passwordUser.length());
-                flag = 0;
+
             }
 
         });
 
 
     }
+
     private void createAlertDialog(String title, String content) {
         // объект Builder для создания диалогового окна
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
@@ -109,14 +107,14 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         // вызываем этот метод, чтобы показать AlertDialog на экране пользователя
         builder.show();
     }
+
     private void showMessage(String textInMessage) {
         Toast.makeText(getApplicationContext(), textInMessage, Toast.LENGTH_LONG).show();
     }
+
     public void formSubmit(View view) {
         EditText login = findViewById(R.id.login);
         final EditText password = findViewById(R.id.password);
-
-
 
 
         String loginValue = login.getText().toString();

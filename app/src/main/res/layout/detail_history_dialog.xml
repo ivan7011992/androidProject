@@ -24,9 +24,9 @@
             android:paddingBottom="17dp"
             android:paddingLeft="0dp"
             android:paddingRight="0dp"
-            android:textColor="#FFFCFC"
+
             android:textSize="18sp"
-            android:background="@drawable/dra3"
+
             android:gravity="center"
             />
 
