@@ -58,6 +58,8 @@ public class GeneralAdapter extends RecyclerView.Adapter<GeneralAdapter.RecycleV
         GeneralItem item;
         item = genetalData.getItem(i);
 
+
+
         //final SummaryGeneralItem generalItem = generalItems.get(i);// при помощт i свящвваем каждый элемт из ArrayList с элметом RecycleVIew
 
         recycleViewViewHolder.nomer_vodomer.setText(String.valueOf(item.getNomer_vodomer()));

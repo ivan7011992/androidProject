@@ -4,40 +4,43 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SummaryHistoryItem {
 
     private String startDate;
-    private ArrayList<HistoryItem> items = new ArrayList<>();
+    private HashMap<Integer,HistoryItem> items = new HashMap<>();
+
 
     public SummaryHistoryItem(String startDate) throws JSONException {
         this.startDate = startDate;
     }
 
     public void addItem(HistoryItem item) {
-        items.add(item);
+       items.put(item.getVidUslugi(),item);
     }
 
     public double saldoBegin() {
         double sum = 0.0;
-        for(HistoryItem item : items) {
-            sum += item.getSaldoBegin();
+        for(Map.Entry<Integer,HistoryItem> item : items.entrySet()) {
+            sum += item.getValue().getSaldoBegin();
         }
         return sum;
     }
 
     public double nachisleno() {
         double sum = 0.0;
-        for(HistoryItem item : items) {
-            sum += item.getNachisleno();
+        for(Map.Entry<Integer,HistoryItem> item : items.entrySet()) {
+            sum += item.getValue().getNachisleno();
         }
         return sum;
     }
 
     public double oplata() {
         double sum = 0.0;
-        for(HistoryItem item : items) {
-            sum += item.getOplata();
+        for(Map.Entry<Integer,HistoryItem>item : items.entrySet()) {
+            sum += item.getValue().getOplata();
         }
         return sum;
     }
@@ -54,7 +57,7 @@ public class SummaryHistoryItem {
         return DateConverter.convert(startDate);
     }
 
-    public ArrayList<HistoryItem> getItems() {
-        return items;
+    public HistoryItem getByVidUslugi(int vidUslugi) {
+        return items.get(vidUslugi);
     }
 }

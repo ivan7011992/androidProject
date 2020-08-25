@@ -10,6 +10,7 @@ public class GeneralItem {
     private String vid_uslgi;
     private String date_ust;
     private  String date_poverk;
+    private int IPU;
 
 
 
@@ -23,6 +24,7 @@ public class GeneralItem {
         vid_uslgi =  row.getString("VID");
         date_ust=  row.getString("DAT_UST");
         date_poverk = row.getString("DAT_POVER");
+        IPU = row.getInt("IPU");
     }
 
 
@@ -37,6 +39,13 @@ public class GeneralItem {
     public String getDate_poverk() {return date_poverk;}
 
 
+    public int getIPU() {
+        return IPU;
+    }
+
+    public void setIPU(int IPU) {
+        this.IPU = IPU;
+    }
 
     public void setNomer_vodomer(int nomer_vodomer) {
         this.nomer_vodomer = nomer_vodomer;
