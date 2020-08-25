@@ -17,6 +17,7 @@ public class HistoryItem {
         nachisleno =  row.getDouble("NACHISLENO");
         oplata =  row.getDouble("OPLATA");
 
+
     }
 
     public double getSaldoBegin() {
