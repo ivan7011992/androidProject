@@ -7,7 +7,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-
     >
 
 
@@ -16,7 +15,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="4dp"
         android:text="Месяц"
         android:paddingTop="17dp"
         android:paddingBottom="17dp"
@@ -24,6 +22,7 @@
         android:paddingRight="0dp"
         android:textSize="18sp"
         android:gravity="center"
+        android:background="@drawable/dra12"
 
         />
 
@@ -33,28 +32,28 @@
         android:layout_height="wrap_content"
         android:layout_margin="2dp"
         android:orientation="vertical"
-        android:padding="5dp"
-        >
+        android:padding="20dp">
 
 
         <TextView
             android:id="@+id/vodosnab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:fontFamily="@font/roboto_medium"
             android:paddingRight="3dp"
             android:text="Водоснабжение"
             android:textSize="22sp"
-            />
+
+            android:textColor="#000000"/>
 
         <TextView
             android:id="@+id/datePassMetersVodosnab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/vodosnab"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/roboto_medium"
-            android:layout_below="@+id/vodosnab"
             android:text="Долг на начало периода"
             android:textSize="12sp" />
 
@@ -63,13 +62,13 @@
             android:id="@+id/saldoBeginValueVodosnab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/vodosnab"
             android:layout_alignParentRight="true"
-            android:paddingRight="5dp"
-            android:text="Значение"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/roboto_medium"
+            android:paddingRight="5dp"
+            android:text="Значение"
             android:textSize="10sp"
-            android:layout_below="@+id/vodosnab"
             android:textStyle="bold" />
 
 
@@ -80,10 +79,9 @@
             android:layout_below="@+id/datePassMetersVodosnab"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/roboto_medium"
-            android:paddingRight="3dp"
+
             android:text="Начисление за период"
-            android:textSize="12sp"
-            />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/nachisPeriodValueVodosnab"
@@ -107,8 +105,7 @@
             android:layout_marginTop="10dp"
             android:fontFamily="@font/roboto_medium"
             android:text="Оплата за период"
-            android:textSize="12sp"
-            />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/oplataPeriodValueVodosnab"
@@ -117,8 +114,8 @@
             android:layout_below="@+id/nachisPeriodValueVodosnab"
             android:layout_alignParentRight="true"
             android:layout_marginTop="10dp"
-            android:paddingRight="5dp"
             android:fontFamily="@font/roboto_medium"
+            android:paddingRight="5dp"
             android:text="Значение"
             android:textSize="9sp"
 
@@ -132,8 +129,7 @@
             android:layout_marginTop="10dp"
             android:fontFamily="@font/roboto_medium"
             android:text="Долг на конец периода"
-            android:textSize="12sp"
-            />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/deptValueVodosnab"
@@ -153,21 +149,23 @@
             android:id="@+id/vodootv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/deptVodosnab"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/roboto_medium"
-            android:layout_below="@+id/deptVodosnab"
             android:paddingRight="3dp"
             android:text="Водоотведение"
             android:textSize="22sp"
-            />
+            android:textColor="#000000"
+          />
+
         <TextView
             android:id="@+id/datePassMetersVodootv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/vodootv"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/roboto_medium"
             android:paddingRight="5dp"
-            android:layout_below="@+id/vodootv"
             android:text="Долг на начало периода"
             android:textSize="12sp" />
 
@@ -176,12 +174,12 @@
             android:id="@+id/saldoBeginValueVodootv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/vodootv"
             android:layout_alignParentRight="true"
-            android:text="Значение"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/roboto_medium"
+            android:text="Значение"
             android:textSize="9sp"
-            android:layout_below="@+id/vodootv"
             android:textStyle="bold" />
 
 
@@ -194,8 +192,7 @@
             android:fontFamily="@font/roboto_medium"
             android:paddingRight="3dp"
             android:text="Начисление за период"
-            android:textSize="12sp"
-            />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/nachisPeriodValueVodootv"
@@ -219,8 +216,7 @@
             android:layout_marginTop="10dp"
             android:fontFamily="@font/roboto_medium"
             android:text="Оплата за период"
-            android:textSize="12sp"
-            />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/oplataPeriodValueVodootv"
@@ -229,8 +225,8 @@
             android:layout_below="@+id/nachisPeriodValueVodootv"
             android:layout_alignParentRight="true"
             android:layout_marginTop="10dp"
-            android:paddingRight="5dp"
             android:fontFamily="@font/roboto_medium"
+            android:paddingRight="5dp"
             android:text="Значение"
             android:textSize="9sp"
 
@@ -244,8 +240,7 @@
             android:layout_marginTop="10dp"
             android:fontFamily="@font/roboto_medium"
             android:text="Долг на конец периода"
-            android:textSize="12sp"
-            />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/deptValueVodootv"
@@ -264,21 +259,23 @@
             android:id="@+id/odn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/deptValueVodootv"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/roboto_medium"
-            android:layout_below="@+id/deptValueVodootv"
             android:paddingRight="3dp"
             android:text="ОДН"
             android:textSize="22sp"
-            />
+
+            android:textColor="#000000"/>
+
         <TextView
             android:id="@+id/datePassMetersOdn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/odn"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/roboto_medium"
             android:paddingRight="5dp"
-            android:layout_below="@+id/odn"
             android:text="Долг на начало периода"
             android:textSize="12sp" />
 
@@ -287,12 +284,13 @@
             android:id="@+id/saldoBeginValueOdn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/odn"
             android:layout_alignParentRight="true"
-            android:text="Значение"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/roboto_medium"
+            android:paddingRight="5dp"
+            android:text="Значение"
             android:textSize="9sp"
-            android:layout_below="@+id/odn"
             android:textStyle="bold" />
 
 
@@ -305,8 +303,7 @@
             android:fontFamily="@font/roboto_medium"
             android:paddingRight="5dp"
             android:text="Начисление за период"
-            android:textSize="12sp"
-            />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/nachisPeriodValueOdn"
@@ -330,8 +327,7 @@
             android:layout_marginTop="10dp"
             android:fontFamily="@font/roboto_medium"
             android:text="Оплата за период"
-            android:textSize="12sp"
-            />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/oplataPeriodValueOdn"
@@ -340,8 +336,8 @@
             android:layout_below="@+id/nachisPeriodValueOdn"
             android:layout_alignParentRight="true"
             android:layout_marginTop="10dp"
-            android:paddingRight="5dp"
             android:fontFamily="@font/roboto_medium"
+            android:paddingRight="5dp"
             android:text="Значение"
             android:textSize="9sp"
 
@@ -356,8 +352,7 @@
             android:fontFamily="@font/roboto_medium"
 
             android:text="Долг на конец периода"
-            android:textSize="12sp"
-            />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/deptValueOdn"
@@ -369,10 +364,21 @@
             android:fontFamily="@font/roboto_medium"
             android:paddingRight="5dp"
             android:text="Значение"
-            android:textSize="9sp"
-         />
-    </RelativeLayout>
+            android:textSize="9sp" />
+        <TextView
+            android:id="@+id/action_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/deptValueOdn"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"
+            android:text="OK"
 
+            android:layout_marginTop="30dp"
+            android:textColor="#1a90d0"
+            android:textSize="18sp"
+            android:layout_centerHorizontal="true"/>
+    </RelativeLayout>
 
 
 </LinearLayout>

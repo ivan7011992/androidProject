@@ -12,6 +12,7 @@ public class HistoryItem {
     private double nachisleno;
     private double oplata;
     private int vidUslugi;
+    private double dept;
 
 
     public HistoryItem(JSONObject row) throws JSONException {
@@ -36,4 +37,11 @@ public class HistoryItem {
     public int getVidUslugi() {
         return vidUslugi;
     }
+
+    public  double getDept(){
+
+        return getSaldoBegin() + getNachisleno() + getOplata();
+    }
+
+
 }
