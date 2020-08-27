@@ -10,6 +10,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -38,6 +40,7 @@ import org.json.JSONObject;
 
 public class GeneralInfoFragment extends Fragment {
     private static String address;
+   LinearLayout fieldParrent;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -50,7 +53,7 @@ public class GeneralInfoFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
 
         final RequestQueue mQueue = RequestQueueSingleton.getInstance(getActivity());
-
+        fieldParrent = (LinearLayout) view.findViewById(R.id.fieldParrent);
         GetRequest userInfoRequest = new GetRequest(mQueue);
         userInfoRequest.makeRequest(UrlCollection.GENERAL_INFO_URL, new VolleyJsonCallback() {
             @Override
@@ -75,6 +78,14 @@ public class GeneralInfoFragment extends Fragment {
                     if(IPU.equals("1")) {
                         ((TextView) getView().findViewById(R.id.field)).setText("Действуюшие тарифы");
                         ((TextView) getView().findViewById(R.id.field1)).setText("Холодное водоснабжение");
+                       LinearLayout field3 = getView().findViewById(R.id.fieldBlock3);
+                         fieldParrent.removeView(field3);
+                        LinearLayout field4 = getView().findViewById(R.id.fieldBlock4);
+                        fieldParrent.removeView(field4);
+                        TextView fieldValue = getView().findViewById(R.id.fieldValue);
+                       LinearLayout fieldParrent2 = getView().findViewById(R.id.fieldBlock);
+                        fieldParrent2.removeView(fieldValue);
+
                         ((TextView) getView().findViewById(R.id.field1Value)).setText(firstRow.getString("ZENWODA"));
                         ((TextView) getView().findViewById(R.id.field2)).setText("Водоотведение");
                         ((TextView) getView().findViewById(R.id.field2Value)).setText(firstRow.getString("ZENSTOK"));
@@ -85,6 +96,7 @@ public class GeneralInfoFragment extends Fragment {
                         ((TextView) getView().findViewById(R.id.fieldValue)).setText("Жилые помещения (в т. ч. общежития квартирного типа) с холодным и горячим водоснабжением, канализованием, оборудованные ваннами длиной 1500-1700 мм, душами, раковинами, кухонными мойками и унитазами");
                         ((TextView) getView().findViewById(R.id.field1)).setText("Нормативное потребление воды на 1 чел. в месяц:");
                         ((TextView) getView().findViewById(R.id.field1Value)).setText(firstRow.getString("WODA_KUB_MES"));
+
                         ((TextView) getView().findViewById(R.id.field3)).setText("Стоимость 1м воды:");
                         ((TextView) getView().findViewById(R.id.field3Value)).setText(firstRow.getString("ZENWODA"));
                         ((TextView) getView().findViewById(R.id.field2)).setText("Норматив по водоотведению на 1 чел. в месяц");
