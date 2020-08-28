@@ -53,7 +53,7 @@ public class GeneralInfoFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
 
         final RequestQueue mQueue = RequestQueueSingleton.getInstance(getActivity());
-        fieldParrent = (LinearLayout) view.findViewById(R.id.fieldParrent);
+        fieldParrent =  view.findViewById(R.id.fieldParrent);
         GetRequest userInfoRequest = new GetRequest(mQueue);
         userInfoRequest.makeRequest(UrlCollection.GENERAL_INFO_URL, new VolleyJsonCallback() {
             @Override
@@ -65,7 +65,7 @@ public class GeneralInfoFragment extends Fragment {
                         return;
                     }
                     JSONArray rows = response.getJSONArray("data");
-                    SummaryGeneralItem data = new SummaryGeneralItem(rows);
+
 
                     JSONObject firstRow = (JSONObject) rows.get(0);
                     String IPU =  firstRow.getString("IPU");
@@ -76,45 +76,67 @@ public class GeneralInfoFragment extends Fragment {
 
                     ((TextView)  getView().findViewById(R.id.address)).setText(address);
                     if(IPU.equals("1")) {
+                        SummaryGeneralItem data = new SummaryGeneralItem(rows);
                         ((TextView) getView().findViewById(R.id.field)).setText("Действуюшие тарифы");
                         ((TextView) getView().findViewById(R.id.field1)).setText("Холодное водоснабжение");
                        LinearLayout field3 = getView().findViewById(R.id.fieldBlock3);
                          fieldParrent.removeView(field3);
                         LinearLayout field4 = getView().findViewById(R.id.fieldBlock4);
                         fieldParrent.removeView(field4);
-                        TextView fieldValue = getView().findViewById(R.id.fieldValue);
-                       LinearLayout fieldParrent2 = getView().findViewById(R.id.fieldBlock);
-                        fieldParrent2.removeView(fieldValue);
+                        LinearLayout fieldValue = getView().findViewById(R.id.fieldBlockIPU0);
+                        fieldParrent.removeView(fieldValue);
+                        LinearLayout fieldBlockNormPotrebl = getView().findViewById(R.id.fieldBlockNormPotrebl);
+                        fieldParrent.removeView(fieldBlockNormPotrebl);
+
+                        LinearLayout fieldBlock1NormVodootv = getView().findViewById(R.id.fieldBlock1NormVodootv);
+                        fieldParrent.removeView(fieldBlock1NormVodootv);
+
 
                         ((TextView) getView().findViewById(R.id.field1Value)).setText(firstRow.getString("ZENWODA"));
                         ((TextView) getView().findViewById(R.id.field2)).setText("Водоотведение");
                         ((TextView) getView().findViewById(R.id.field2Value)).setText(firstRow.getString("ZENSTOK"));
 
-                        ((TextView) getView().findViewById(R.id.field2Value)).setText(firstRow.getString("ZENSTOK"));
-                    }else {
-                        ((TextView) getView().findViewById(R.id.field)).setText("Степень благоустройства:");
-                        ((TextView) getView().findViewById(R.id.fieldValue)).setText("Жилые помещения (в т. ч. общежития квартирного типа) с холодным и горячим водоснабжением, канализованием, оборудованные ваннами длиной 1500-1700 мм, душами, раковинами, кухонными мойками и унитазами");
-                        ((TextView) getView().findViewById(R.id.field1)).setText("Нормативное потребление воды на 1 чел. в месяц:");
-                        ((TextView) getView().findViewById(R.id.field1Value)).setText(firstRow.getString("WODA_KUB_MES"));
 
+
+
+                    }else {
+                        ((TextView) getView().findViewById(R.id.fieldIPU0)).setText("Степень благоустройства:");
+                        ((TextView) getView().findViewById(R.id.fieldValueIPU0)).setText("Жилые помещения (в т. ч. общежития квартирного типа) с холодным и горячим водоснабжением, канализованием, оборудованные ваннами длиной 1500-1700 мм, душами, раковинами, кухонными мойками и унитазами");
+
+
+                        LinearLayout  fieldBlock1 = getView().findViewById(R.id. fieldBlock1);
+                        fieldParrent.removeView(fieldBlock1);
+                       TextView field = getView().findViewById(R.id.field);
+                        fieldParrent.removeView(field);
+
+
+                        LinearLayout   fieldBlock2 = getView().findViewById(R.id.  fieldBlock2);
+                        fieldParrent.removeView(fieldBlock2);
                         ((TextView) getView().findViewById(R.id.field3)).setText("Стоимость 1м воды:");
                         ((TextView) getView().findViewById(R.id.field3Value)).setText(firstRow.getString("ZENWODA"));
-                        ((TextView) getView().findViewById(R.id.field2)).setText("Норматив по водоотведению на 1 чел. в месяц");
-                        ((TextView) getView().findViewById(R.id.field2Value)).setText(firstRow.getString("STOK_KUB_MES"));
-                        ((TextView) getView().findViewById(R.id.field4)).setText("Стоимость 1м стоков:");
+                        ((TextView) getView().findViewById(R.id.field1NormPotrebl)).setText("Нормативное потребление воды на одного чел/месяц");
+                        ((TextView) getView().findViewById(R.id.field1ValueNormPotrebl)).setText(firstRow.getString("STOK_KUB_MES"));
+
+
+                                ((TextView) getView().findViewById(R.id.field4)).setText("Стоимость 1м стоков:");
                         ((TextView) getView().findViewById(R.id.field4Value)).setText(firstRow.getString("ZENSTOK"));
+                        ((TextView) getView().findViewById(R.id.field1NormVodootv)).setText("Норматив по водоотведению на 1 чел. в месяц:");
+                        ((TextView) getView().findViewById(R.id.field1ValueNormVodootv)).setText(firstRow.getString("WODA_KUB_MES"));
+
+
                     }
 
 
 
                     if(IPU.equals("1")){
+                        SummaryGeneralItem data = new SummaryGeneralItem(rows);
                         final GeneralAdapter adapter = new GeneralAdapter(data);
                         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
                         RecyclerView generalView = (RecyclerView) getView().findViewById(R.id.generalItems);
                         generalView.setAdapter(adapter);
                         generalView.setLayoutManager(layoutManager);
                     }else{
-
+                        SummaryGeneralItem data = new SummaryGeneralItem(rows);
                         final GeneralAdapter adapter = new GeneralAdapter(data);
                         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
                         RecyclerView generalView = (RecyclerView) getView().findViewById(R.id.generalItems);

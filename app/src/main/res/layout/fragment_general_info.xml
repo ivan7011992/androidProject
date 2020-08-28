@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
 
@@ -16,6 +17,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+
         android:orientation="vertical"
          android:id="@+id/con3"
         android:padding="0dp"
@@ -78,7 +80,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="10-66666"
-                android:layout_alignParentRight="true"
+                android:layout_below="@id/kod_abonent"
+
                 android:layout_marginLeft="5dp"/>
 
 
@@ -88,7 +91,7 @@
                 android:layout_height="wrap_content"
                 android:text="Ф.И.О.абонента:"
                 android:layout_marginLeft="15dp"
-                android:layout_below="@id/kod_abonent"
+                android:layout_below="@id/kod"
                 android:textStyle="bold"
                 android:textColor="#0B0B0B"
                 />
@@ -97,8 +100,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ЖИЛЕЦ1"
-                android:layout_alignParentRight="true"
-                android:layout_below="@id/kod_abonent"
+
+                android:layout_below="@id/fio_abonent"
                 android:layout_marginLeft="5dp"/>
 
             <TextView
@@ -107,7 +110,7 @@
                 android:layout_height="wrap_content"
                 android:text="Адрес абонента: ул."
                 android:layout_marginLeft="15dp"
-                android:layout_below="@id/fio_abonent"
+                android:layout_below="@id/fio"
                 android:textStyle="bold"
                 android:textColor="#0B0B0B"
                 />
@@ -116,8 +119,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="РЕВОЛЮЦИИ, дом 5, кв. 1"
-                android:layout_alignParentRight="true"
-                android:layout_below="@id/fio_abonent"
+
+                android:layout_below="@id/address_abonent"
                 android:layout_marginLeft="5dp"/>
 
 
@@ -141,27 +144,74 @@
                 android:layout_marginBottom="8dp"
                                             >
             <TextView
-                android:id="@+id/field"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:text="Действующие тарифы"
+            android:id="@+id/field"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="Действующие тарифы"
 
-                android:textColor="#0B0B0B"
-                android:textSize="13sp"
-                android:textStyle="bold" />
+            android:textColor="#0B0B0B"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/fieldBlockIPU0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="8dp"
+                >
+                <TextView
+                    android:id="@+id/fieldIPU0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="Приусадебное"
+
+                    android:textColor="#0B0B0B"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
 
                 <TextView
-                android:id="@+id/fieldValue"
+                    android:id="@+id/fieldValueIPU0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="тарифы"
+                    android:textColor="#0B0B0B"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/fieldBlockNormPotrebl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="6dp"
+                >
+            <TextView
+                android:id="@+id/field1NormPotrebl"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="тарифы"
-                    android:gravity="right"
-                    android:paddingRight="20dip"
-                    android:textColor="#0B0B0B"
-                android:textSize="13sp"
-                android:textStyle="bold" />
+                android:text="Нормативное потребление воды на одного чел/месяц"
+                android:layout_marginLeft="15dp"
+                android:layout_below="@id/field"
+                android:textStyle="bold"
+                android:textColor="#0B0B0B"
+                />
+            <TextView
+                android:id="@+id/field1ValueNormPotrebl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="Значение"
+                android:paddingRight="20dip"
+                android:layout_alignParentRight="true"
+
+                android:layout_marginLeft="5dp"/>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/fieldBlock1"
@@ -170,28 +220,30 @@
                 android:orientation="horizontal"
                 android:layout_marginBottom="6dp"
                 >
-            <TextView
-                android:id="@+id/field1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Холодное водоснабжение:"
-                android:layout_marginLeft="15dp"
-                android:layout_below="@id/field"
-                android:textStyle="bold"
-                android:textColor="#0B0B0B"
-                />
-            <TextView
-                android:id="@+id/field1Value"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="18.56 руб./м"
-                android:layout_weight="1"
-                android:gravity="right"
-                android:paddingRight="20dip"
-                android:layout_alignParentRight="true"
-                android:layout_below="@id/fieldValue"
-                android:layout_marginLeft="5dp"/>
+                <TextView
+                    android:id="@+id/field1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Холодное водоснабжение:"
+                    android:layout_marginLeft="15dp"
+                    android:layout_below="@id/field"
+                    android:textStyle="bold"
+                    android:textColor="#0B0B0B"
+                    />
+                <TextView
+                    android:id="@+id/field1Value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="18.56 руб./м"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:paddingRight="20dip"
+                    android:layout_alignParentRight="true"
+
+                    android:layout_marginLeft="5dp"/>
             </LinearLayout>
+
+
             <LinearLayout
                 android:id="@+id/fieldBlock3"
                 android:layout_width="match_parent"
@@ -199,28 +251,26 @@
                 android:orientation="horizontal"
                 android:layout_marginBottom="6dp"
                 >
-            <TextView
-                android:id="@+id/field3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="ЗЗЗЗ"
-                android:layout_marginLeft="15dp"
-                android:textStyle="bold"
 
-                android:textColor="#0B0B0B"
-                />
+                <TextView
+                    android:id="@+id/field3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="Стоимость водоснабжения"
+                    android:textColor="#0B0B0B"
+
+                    android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/field3Value"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/field1Value"
-                android:layout_alignParentRight="true"
+               android:id="@+id/field3Value"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Значение"
+               android:layout_marginLeft="15dp"
                 android:layout_weight="1"
                 android:gravity="right"
-                android:text="ЗЗЗЗ"
                 android:paddingRight="20dip"
-                android:layout_marginLeft="5dp"
                />
             </LinearLayout>
             <LinearLayout
@@ -246,11 +296,41 @@
                 android:layout_height="wrap_content"
                 android:text="14.24 руб./м"
                 android:layout_alignParentRight="true"
-                android:layout_below="@id/field3Value"
+
                 android:layout_marginLeft="5dp"
                 android:layout_weight="1"
                 android:gravity="right"
                 android:paddingRight="20dip"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/fieldBlock1NormVodootv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="6dp"
+                >
+                <TextView
+                    android:id="@+id/field1NormVodootv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Нормативное по водоотведению на чел/месяц"
+                    android:layout_marginLeft="15dp"
+                    android:layout_below="@id/field"
+                    android:textStyle="bold"
+                    android:textColor="#0B0B0B"
+                    />
+                <TextView
+                    android:id="@+id/field1ValueNormVodootv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Значение"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:paddingRight="20dip"
+                    android:layout_alignParentRight="true"
+
+                    android:layout_marginLeft="5dp"/>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/fieldBlock4"
@@ -263,7 +343,7 @@
                 android:id="@+id/field4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Во"
+                android:text="Стоимсоть водоотведения"
                 android:layout_marginLeft="15dp"
                 android:layout_below="@id/field2"
                 android:textStyle="bold"
@@ -273,7 +353,7 @@
                 android:id="@+id/field4Value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Во"
+                android:text="Значение"
                 android:layout_weight="1"
                 android:gravity="right"
                 android:paddingRight="20dip"
@@ -289,10 +369,12 @@
 
 
         <LinearLayout
+            android:id="@+id/PriborBlock"
             android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="@drawable/dra12"
+
             >
             <TextView
                 android:id="@+id/Probor"
