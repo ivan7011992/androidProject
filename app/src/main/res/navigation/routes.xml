@@ -41,7 +41,19 @@
         android:id="@+id/paymentFragment"
         android:name="com.gorvodokanal.meters.activity.PaymentFragment"
         android:label="Оплата"
-        tools:layout="@layout/fragment_payment"/>
+        tools:layout="@layout/fragment_payment">
 
+        <action
+            android:id="@+id/action_passMetersFragment_to_paymentViewFragment2"
+            app:destination="@id/paymentViewFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/paymentViewFragment"
+        android:name="com.gorvodokanal.meters.activity.PaymentViewFragment"
+        android:label="Action"
+        tools:layout="@layout/fragment_payment_view" >
+
+    </fragment>
 
 </navigation>

@@ -1,10 +1,13 @@
 package com.gorvodokanal.meters.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -69,13 +73,22 @@ public class PaymentFragment extends Fragment {
                     RecyclerView paymentMetersView = (RecyclerView) getView().findViewById(R.id.paymentMeters);
                     paymentMetersView.setAdapter(adapter);
                     paymentMetersView.setLayoutManager(layoutManager);
-
-
+                    Button paymentValue = getView().findViewById(R.id.paymentValue);
+                    paymentValue.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            final NavController navController = NavHostFragment.findNavController(PaymentFragment.this);
+                            navController.navigate(R.id.paymentViewFragment);
+                        }
+                    });
                 } catch (Exception e) {
                     Log.e("valley", "Error", e);
                 }
+
+
             }
         });
+
 
     }
 }
