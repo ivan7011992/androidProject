@@ -9,6 +9,7 @@
     <string name="btn_date_text2">Конец переода</string>
     <string name="login">Логин</string>
     <string name="password">Пароль</string>
+    <string name="kod_abon">Код абонента</string>
 
 
 </resources>

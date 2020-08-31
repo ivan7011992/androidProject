@@ -46,12 +46,13 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     private TextView email1;
     public Button buttom;
     ImageView imageView;
-
+header header;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+ header = new header();
+// header.showKod();
         imageView = findViewById(R.id.image2);
         passwordUser = findViewById(R.id.password);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);

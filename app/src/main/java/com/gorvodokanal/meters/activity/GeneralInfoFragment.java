@@ -41,6 +41,7 @@ import org.json.JSONObject;
 public class GeneralInfoFragment extends Fragment {
     private static String address;
    LinearLayout fieldParrent;
+    LinearLayout fieldParrent2;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -54,6 +55,7 @@ public class GeneralInfoFragment extends Fragment {
 
         final RequestQueue mQueue = RequestQueueSingleton.getInstance(getActivity());
         fieldParrent =  view.findViewById(R.id.fieldParrent);
+        fieldParrent2 =  view.findViewById(R.id.con3);
         GetRequest userInfoRequest = new GetRequest(mQueue);
         userInfoRequest.makeRequest(UrlCollection.GENERAL_INFO_URL, new VolleyJsonCallback() {
             @Override
@@ -69,7 +71,8 @@ public class GeneralInfoFragment extends Fragment {
 
                     JSONObject firstRow = (JSONObject) rows.get(0);
                     String IPU =  firstRow.getString("IPU");
-                    ((TextView) getView().findViewById(R.id.kod)).setText(firstRow.getString("KOD"));
+                  String kod = firstRow.getString("KOD");
+                    UrlCollection.KOD = kod;
                     ((TextView) getView().findViewById(R.id.fio)).setText(firstRow.getString("FIO"));
                  address = firstRow.getString("NAIMUL") + " " +  firstRow.getString("DOM") + " " + "КВ" + " "
                  + firstRow.getString("KVARTIRA");
@@ -77,25 +80,13 @@ public class GeneralInfoFragment extends Fragment {
                     ((TextView)  getView().findViewById(R.id.address)).setText(address);
                     if(IPU.equals("1")) {
                         SummaryGeneralItem data = new SummaryGeneralItem(rows);
-                        ((TextView) getView().findViewById(R.id.field)).setText("Действуюшие тарифы");
-                        ((TextView) getView().findViewById(R.id.field1)).setText("Холодное водоснабжение");
-                       LinearLayout field3 = getView().findViewById(R.id.fieldBlock3);
-                         fieldParrent.removeView(field3);
-                        LinearLayout field4 = getView().findViewById(R.id.fieldBlock4);
-                        fieldParrent.removeView(field4);
-                        LinearLayout fieldValue = getView().findViewById(R.id.fieldBlockIPU0);
-                        fieldParrent.removeView(fieldValue);
-                        LinearLayout fieldBlockNormPotrebl = getView().findViewById(R.id.fieldBlockNormPotrebl);
-                        fieldParrent.removeView(fieldBlockNormPotrebl);
 
-                        LinearLayout fieldBlock1NormVodootv = getView().findViewById(R.id.fieldBlock1NormVodootv);
-                        fieldParrent.removeView(fieldBlock1NormVodootv);
-
-
-                        ((TextView) getView().findViewById(R.id.field1Value)).setText(firstRow.getString("ZENWODA"));
-                        ((TextView) getView().findViewById(R.id.field2)).setText("Водоотведение");
-                        ((TextView) getView().findViewById(R.id.field2Value)).setText(firstRow.getString("ZENSTOK"));
-
+                        ((TextView) getView().findViewById(R.id.cool)).setText("Холодное водоснабжение");
+                        ((TextView) getView().findViewById(R.id.cool_data)).setText(firstRow.getString("ZENWODA"));
+                        ((TextView) getView().findViewById(R.id.voootv)).setText("Водоотведение");
+                        ((TextView) getView().findViewById(R.id.vootv_data)).setText(firstRow.getString("ZENSTOK"));
+                        LinearLayout  fieldBlock2 = getView().findViewById(R.id. fieldBlockIPU0);
+                        fieldParrent.removeView(fieldBlock2);
 
 
 
@@ -104,25 +95,18 @@ public class GeneralInfoFragment extends Fragment {
                         ((TextView) getView().findViewById(R.id.fieldValueIPU0)).setText("Жилые помещения (в т. ч. общежития квартирного типа) с холодным и горячим водоснабжением, канализованием, оборудованные ваннами длиной 1500-1700 мм, душами, раковинами, кухонными мойками и унитазами");
 
 
-                        LinearLayout  fieldBlock1 = getView().findViewById(R.id. fieldBlock1);
-                        fieldParrent.removeView(fieldBlock1);
-                       TextView field = getView().findViewById(R.id.field);
-                        fieldParrent.removeView(field);
-
-
-                        LinearLayout   fieldBlock2 = getView().findViewById(R.id.  fieldBlock2);
-                        fieldParrent.removeView(fieldBlock2);
                         ((TextView) getView().findViewById(R.id.field3)).setText("Стоимость 1м воды:");
                         ((TextView) getView().findViewById(R.id.field3Value)).setText(firstRow.getString("ZENWODA"));
-                        ((TextView) getView().findViewById(R.id.field1NormPotrebl)).setText("Нормативное потребление воды на одного чел/месяц");
+                        ((TextView) getView().findViewById(R.id.field1NormPotrebl)).setText("Нормативное потребление воды \n на одного чел/месяц");
                         ((TextView) getView().findViewById(R.id.field1ValueNormPotrebl)).setText(firstRow.getString("STOK_KUB_MES"));
-
-
-                                ((TextView) getView().findViewById(R.id.field4)).setText("Стоимость 1м стоков:");
+                        ((TextView) getView().findViewById(R.id.field4)).setText("Стоимость 1м стоков:");
                         ((TextView) getView().findViewById(R.id.field4Value)).setText(firstRow.getString("ZENSTOK"));
-                        ((TextView) getView().findViewById(R.id.field1NormVodootv)).setText("Норматив по водоотведению на 1 чел. в месяц:");
+                        ((TextView) getView().findViewById(R.id.field1NormVodootv)).setText("Норматив по водоотведению \n на 1 чел. в месяц:");
                         ((TextView) getView().findViewById(R.id.field1ValueNormVodootv)).setText(firstRow.getString("WODA_KUB_MES"));
-
+                        LinearLayout  fieldBlock1 = getView().findViewById(R.id. fieldBlockIPU1);
+                        fieldParrent.removeView(fieldBlock1);
+                        LinearLayout  fieldBlock2 = getView().findViewById(R.id.PriborBlock);
+                        fieldParrent.removeView(fieldBlock2);
 
                     }
 
