@@ -38,7 +38,7 @@ import com.gorvodokanal.meters.settings.Setting;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class GeneralInfoFragment extends Fragment {
+public class GeneralInfoFragment extends Fragment  {
     private static String address;
    LinearLayout fieldParrent;
     LinearLayout fieldParrent2;

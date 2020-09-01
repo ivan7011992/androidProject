@@ -35,6 +35,7 @@ public class SummaryHistoryItemAdapter extends RecyclerView.Adapter<SummaryHisto
         public TextView informationButton;
 
 
+
         public RecycleViewViewHolder(@NonNull View itemView) {//коструктор,  View itemView, этот параметор это отльный элемент RecelceView
             super(itemView);
             date = itemView.findViewById(R.id.dateHistory);
@@ -44,6 +45,7 @@ public class SummaryHistoryItemAdapter extends RecyclerView.Adapter<SummaryHisto
             dept = itemView.findViewById(R.id.deptValue);
 
             informationButton = itemView.findViewById(R.id.information);
+
 
         }
     }

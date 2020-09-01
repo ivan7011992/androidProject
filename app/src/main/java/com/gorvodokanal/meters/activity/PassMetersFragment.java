@@ -53,7 +53,7 @@ public class PassMetersFragment extends Fragment {
     Button datePassMetersValue;
     private final static Pattern metersDataPattern = Pattern.compile("/^[0-9]{1,20}[.]?[0-9]{0,3}$/");
     TextView date111;
-
+    ArrayList<VodomerItem> data;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -89,27 +89,12 @@ public class PassMetersFragment extends Fragment {
                         return;
                     }
                     JSONArray rows = response.getJSONArray("data");
-                    ArrayList<VodomerItem> data = buildData(rows);
+                  data = buildData(rows);
 
 
-                    final SummaryPassItemAdapter adapter = new SummaryPassItemAdapter(data);
-                    LinearLayoutManager layoutManager = new LinearLayoutManager(getContext()){
-                        @Override
-                        public boolean canScrollVertically() {
-                            return false;
-                        }
-                    };
-                    RecyclerView passMetersView = (RecyclerView) getView().findViewById(R.id.passMeters);
-                    passMetersView.setAdapter(adapter);
-                    passMetersView.setNestedScrollingEnabled(false);
-                    passMetersView.setLayoutManager(layoutManager);
+                    passMetrsView(data);
 
-                    getView().findViewById(R.id.buttonPassMeters).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            passMetersData(adapter.getUserData());
-                        }
-                    });
+
 
 
                 } catch (Exception e) {
@@ -120,6 +105,30 @@ public class PassMetersFragment extends Fragment {
 
 
     }
+   private void passMetrsView(  ArrayList<VodomerItem> data){
+       RecyclerView passMetersView = (RecyclerView) getView().findViewById(R.id.passMeters);
+       final SummaryPassItemAdapter adapter = new SummaryPassItemAdapter(data);
+       LinearLayoutManager layoutManager = new LinearLayoutManager(getContext()){
+           @Override
+           public boolean canScrollVertically() {
+               return false;
+           }
+       };
+       passMetersView.setAdapter(adapter);
+       passMetersView.setNestedScrollingEnabled(false);
+       passMetersView.setLayoutManager(layoutManager);
+
+
+       getView().findViewById(R.id.buttonPassMeters).setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               passMetersData(adapter.getUserData());
+           }
+       });
+
+
+   }
+
 
     private ArrayList<VodomerItem> buildData(JSONArray rows) throws JSONException {
         ArrayList<VodomerItem> data = new ArrayList<>();
@@ -136,7 +145,7 @@ public class PassMetersFragment extends Fragment {
         // if (!validData) {
         //   return;
         //}
-
+        passMetrsView(data);
         final RequestQueue mQueue = RequestQueueSingleton.getInstance(getContext());
         HashMap<String, Object> requestData = new HashMap<String, Object>();
 

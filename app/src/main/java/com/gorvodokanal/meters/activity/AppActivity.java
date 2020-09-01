@@ -36,5 +36,9 @@ public class AppActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(toolBar, navController, appBarConfiguration);
 
 
+
+
+
+
     }
 }

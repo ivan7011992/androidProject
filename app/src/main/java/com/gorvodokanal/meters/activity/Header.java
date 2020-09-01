@@ -6,7 +6,7 @@ import android.widget.TextView;
 import com.gorvodokanal.R;
 import com.gorvodokanal.meters.net.UrlCollection;
 
-public class header extends AppActivity{
+public class Header extends AppActivity{
  TextView kod;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +18,6 @@ public class header extends AppActivity{
     }
 
     public void showKod(){
-        kod.setText(UrlCollection.KOD);
+        kod.setText("10-666666");
     }
 }

@@ -35,6 +35,7 @@ public class SummaryPassItemAdapter  extends RecyclerView.Adapter< SummaryPassIt
         public TextView pokaz;
         public EditText userDataInput;
 
+
         public RecycleViewViewHolder(@NonNull View itemView) {//коструктор,  View itemView, этот параметор это отльный элемент RecelceView
             super(itemView);
             node = itemView.findViewById(R.id.nomerUzelValue);
@@ -45,6 +46,7 @@ public class SummaryPassItemAdapter  extends RecyclerView.Adapter< SummaryPassIt
             userDataInput.setMaxLines(1);
             userDataInput.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
             userDataInput.setKeyListener(DigitsKeyListener.getInstance(true, true));
+
         }
     }
 
@@ -67,7 +69,6 @@ public class SummaryPassItemAdapter  extends RecyclerView.Adapter< SummaryPassIt
         recycleViewViewHolder.n_vodomer.setText(String.valueOf(vodomerItem.getNomerVodomer()));
         recycleViewViewHolder.enter_date.setText(String.valueOf(vodomerItem.getEnterDate()));
         recycleViewViewHolder.pokaz.setText(String.valueOf(vodomerItem.getPokaz()));
-
         recycleViewViewHolder.userDataInput.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

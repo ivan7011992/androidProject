@@ -30,7 +30,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.RecycleV
         public TextView oplataPeriodPaymentValue;
         public TextView deptPeriodValue;
         public EditText paymentValue;
-
+        public TextView paymentSum;
         public TextView title;
 
 
@@ -42,6 +42,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.RecycleV
             deptPeriodValue = itemView.findViewById(R.id.deptPeriodValue);
             paymentValue = itemView.findViewById(R.id.payment);
             title = itemView.findViewById(R.id.Title);
+            paymentSum = itemView.findViewById(R.id.paymentSum);
         }
     }
 
@@ -59,10 +60,20 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.RecycleV
         if (i == 0) {
             item = paymentData.getSummaryItem();
             EditText entry = recycleViewViewHolder.paymentValue;
+            TextView  paymentSum = recycleViewViewHolder.paymentSum;
+             paymentSum.setText(String.valueOf(item.getOPLATA()));
             ((ViewManager) entry.getParent()).removeView(entry);
+            TextView   title = recycleViewViewHolder.title;
+            title.setBackgroundResource(0);
+            title.setTextSize(18);
+
+
 
         } else {
             item = paymentData.getItem(i - 1);
+            TextView  paymentSum = recycleViewViewHolder.paymentSum;
+            ((ViewManager)  paymentSum.getParent()).removeView(paymentSum);
+
         }
 
         recycleViewViewHolder.deptBeginPeriodValue.setText(String.valueOf(item.getSALDO_BEGIN()));
@@ -70,6 +81,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.RecycleV
         recycleViewViewHolder.oplataPeriodPaymentValue.setText(String.valueOf(item.getOPLATA()));
         recycleViewViewHolder.deptPeriodValue.setText(String.valueOf(item.dept()));
         recycleViewViewHolder.title.setText(String.valueOf(item.getNAME_USLUGI()));
+
     }
 
     @Override
