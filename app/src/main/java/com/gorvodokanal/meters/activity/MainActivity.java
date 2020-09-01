@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.android.volley.Header;
 import com.android.volley.RequestQueue;
+import com.gorvodokanal.meters.model.UserModel;
 import com.gorvodokanal.meters.net.PostRequest;
 import com.gorvodokanal.R;
 import com.gorvodokanal.meters.net.RequestQueueSingleton;
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        imageView = findViewById(R.id.image2);
+        imageView = this.findViewById(R.id.image2);
         passwordUser = findViewById(R.id.password);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         setIntervalFromSharedPrefarences(sharedPreferences);
@@ -119,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         final EditText password = findViewById(R.id.password);
 
 
-        String loginValue = login.getText().toString();
+        final String loginValue = login.getText().toString();
         String passwordValue = password.getText().toString();
 
         Map<String, Object> requestData = new HashMap<>();
@@ -146,6 +147,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                         Toast.makeText(MainActivity.this, "Неправильный логин или пароль", Toast.LENGTH_LONG).show();
                         return;
                     }
+                    UserModel.createInstance(loginValue);
 
                     Intent intent = new Intent(MainActivity.this, AppActivity.class);
                     startActivity(intent);

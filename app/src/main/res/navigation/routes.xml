@@ -54,6 +54,10 @@
         android:label="Action"
         tools:layout="@layout/fragment_payment_view" >
 
+        <argument
+            android:name="paymentUrl"
+            app:argType="string" />
+
     </fragment>
 
 </navigation>

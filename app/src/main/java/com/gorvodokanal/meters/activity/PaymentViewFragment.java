@@ -50,7 +50,7 @@ public class PaymentViewFragment extends Fragment {
                 return false; // then it is not handled by default action
             }
         });
-        webView.loadUrl("https://www.gorvodokanal.com/mobile_app/test_redirect.php");
+        webView.loadUrl(getArguments().getString("paymentUrl"));
 
     }
 }

@@ -1,5 +1,7 @@
 package com.gorvodokanal.meters.historyUtilClass;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +17,10 @@ import com.gorvodokanal.meters.model.PaymentItem;
 import com.gorvodokanal.meters.model.SummaryHistoryItem;
 import com.gorvodokanal.meters.model.SummaryPaymentData;
 
-public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.RecycleViewViewHolder> {
+import java.util.HashMap;
 
+public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.RecycleViewViewHolder> {
+    private HashMap<Integer, String> userInputData = new HashMap<>();
 
     private SummaryPaymentData paymentData;
 
@@ -56,24 +60,37 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.RecycleV
 
     @Override
     public void onBindViewHolder(@NonNull RecycleViewViewHolder recycleViewViewHolder, int i) {
-        PaymentItem item;
+        final PaymentItem item;
         if (i == 0) {
             item = paymentData.getSummaryItem();
             EditText entry = recycleViewViewHolder.paymentValue;
-            TextView  paymentSum = recycleViewViewHolder.paymentSum;
-             paymentSum.setText(String.valueOf(item.getOPLATA()));
+            TextView paymentSum = recycleViewViewHolder.paymentSum;
+            paymentSum.setText(String.valueOf(item.getOPLATA()));
             ((ViewManager) entry.getParent()).removeView(entry);
-            TextView   title = recycleViewViewHolder.title;
+            TextView title = recycleViewViewHolder.title;
             title.setBackgroundResource(0);
             title.setTextSize(18);
-
-
-
         } else {
             item = paymentData.getItem(i - 1);
-            TextView  paymentSum = recycleViewViewHolder.paymentSum;
-            ((ViewManager)  paymentSum.getParent()).removeView(paymentSum);
+            TextView paymentSum = recycleViewViewHolder.paymentSum;
+            ((ViewManager) paymentSum.getParent()).removeView(paymentSum);
 
+            recycleViewViewHolder.paymentValue.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    PaymentAdapter.this.userInputData.put(item.getVID_USLUGI(), s.toString());
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
         }
 
         recycleViewViewHolder.deptBeginPeriodValue.setText(String.valueOf(item.getSALDO_BEGIN()));
@@ -82,6 +99,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.RecycleV
         recycleViewViewHolder.deptPeriodValue.setText(String.valueOf(item.dept()));
         recycleViewViewHolder.title.setText(String.valueOf(item.getNAME_USLUGI()));
 
+
     }
 
     @Override
@@ -89,7 +107,9 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.RecycleV
         return paymentData.size() + 1;
     }
 
-
+    public HashMap<Integer, String> getUserInputData() {
+        return userInputData;
+    }
 }
 
 

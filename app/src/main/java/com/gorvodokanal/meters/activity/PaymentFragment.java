@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -33,10 +34,13 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class PaymentFragment extends Fragment {
-
+    EditText value1;
+    EditText value2;
+    EditText value3;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,6 +50,8 @@ public class PaymentFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_payment, container, false);
+
+
     }
 
     @Override
@@ -77,8 +83,13 @@ public class PaymentFragment extends Fragment {
                     paymentValue.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            HashMap<Integer, String> userInputData = adapter.getUserInputData();
+
                             final NavController navController = NavHostFragment.findNavController(PaymentFragment.this);
-                            navController.navigate(R.id.paymentViewFragment);
+
+                            Bundle bundle = new Bundle();
+                            bundle.putString("paymentUrl", "https://www.gorvodokanal.com/mobile_app/test_redirect.php");
+                            navController.navigate(R.id.paymentViewFragment, bundle);
                         }
                     });
                 } catch (Exception e) {

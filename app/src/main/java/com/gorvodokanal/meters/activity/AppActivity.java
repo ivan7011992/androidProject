@@ -1,6 +1,8 @@
 package com.gorvodokanal.meters.activity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,13 +15,16 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
 import com.gorvodokanal.R;
+import com.gorvodokanal.meters.model.UserModel;
 
 
 public class AppActivity extends AppCompatActivity {
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app);
+
 
         NavHostFragment host = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.navFragment);
         NavController navController = host.getNavController();
@@ -36,9 +41,8 @@ public class AppActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(toolBar, navController, appBarConfiguration);
 
 
-
-
-
+        View header = sideBar.getHeaderView(0);
+        ((TextView) header.findViewById(R.id.text)).setText(UserModel.getInstance().getLogin());
 
     }
 }
