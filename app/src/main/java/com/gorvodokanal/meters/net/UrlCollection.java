@@ -11,6 +11,7 @@ public final class UrlCollection {
     public static final String PASS_METERS = BASE_URL + "pass_meters.php";
     public static final String SET_METERS =  BASE_URL + "set_meters.php";
     public static final String PAYMENT_METERS =  BASE_URL + "payment_meters.php";
+    public static final String PAYMENT_GENERATE_URL =  BASE_URL + "payment_url_generation.php";
 
 
 }

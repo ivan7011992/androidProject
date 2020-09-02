@@ -40,6 +40,8 @@ public class PaymentViewFragment extends Fragment {
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
 
+
+
         webView.setWebViewClient(new WebViewClient() {
             public boolean shouldOverrideUrlLoading(WebView view, String url){
                 if(url.equals("http://www.w3schools.com")) {

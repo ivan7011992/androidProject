@@ -24,8 +24,10 @@ import com.gorvodokanal.R;
 import com.gorvodokanal.meters.historyUtilClass.PaymentAdapter;
 import com.gorvodokanal.meters.historyUtilClass.SummaryPassItemAdapter;
 import com.gorvodokanal.meters.model.SummaryPaymentData;
+import com.gorvodokanal.meters.model.UserModel;
 import com.gorvodokanal.meters.model.VodomerItem;
 import com.gorvodokanal.meters.net.GetRequest;
+import com.gorvodokanal.meters.net.PostRequest;
 import com.gorvodokanal.meters.net.RequestQueueSingleton;
 import com.gorvodokanal.meters.net.UrlCollection;
 import com.gorvodokanal.meters.net.VolleyJsonCallback;
@@ -35,6 +37,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 
 public class PaymentFragment extends Fragment {
@@ -84,6 +87,44 @@ public class PaymentFragment extends Fragment {
                         @Override
                         public void onClick(View v) {
                             HashMap<Integer, String> userInputData = adapter.getUserInputData();
+
+                         String Val1 =  String.valueOf(userInputData.get(1));
+                         String Val3 =  String.valueOf(userInputData.get(3));
+                         String Val4 =  String.valueOf(userInputData.get(4));
+
+                            Map<String, Object> requestData = new HashMap<>();
+                            requestData.put("value1",Val1);
+                            requestData.put("value3",Val3);
+                            requestData.put("value4",Val4);
+                            final RequestQueue mQueue = RequestQueueSingleton.getInstance(getContext());
+
+                            PostRequest request = new PostRequest(mQueue);
+                            request.makeRequest(UrlCollection.PAYMENT_GENERATE_URL, requestData, new VolleyJsonCallback() {
+                                @Override
+                                public void onSuccess(JSONObject response) {
+                                    try {
+                                        if (!response.has("success")) {
+                                            Log.e("server", String.format("Error response from url %s: %s", UrlCollection.AUTH_URL, response.toString()));
+                                            Toast.makeText(getContext(), "Неизвестная ошибка, попробуйте еще раз", Toast.LENGTH_LONG).show();
+                                            return;
+                                        }
+                                        final boolean isSuccess = response.getBoolean("success");
+
+                                        if (!isSuccess) {
+                                            Toast.makeText(getContext(), "Неправильный логин или пароль", Toast.LENGTH_LONG).show();
+                                            return;
+                                        }
+
+
+                                        Intent intent = new Intent(getContext(), AppActivity.class);
+                                        startActivity(intent);
+
+                                    } catch (Exception e) {
+                                        Log.e("valley", "error", e);
+                                    }
+                                }
+                            });
+
 
                             final NavController navController = NavHostFragment.findNavController(PaymentFragment.this);
 
