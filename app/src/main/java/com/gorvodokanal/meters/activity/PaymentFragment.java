@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -111,13 +112,16 @@ public class PaymentFragment extends Fragment {
                                         final boolean isSuccess = response.getBoolean("success");
 
                                         if (!isSuccess) {
-                                            Toast.makeText(getContext(), "Неправильный логин или пароль", Toast.LENGTH_LONG).show();
+                                            Toast.makeText(getContext(), "Неизвестная ошибка, попробуйте еще раз", Toast.LENGTH_LONG).show();
                                             return;
                                         }
 
 
-                                        Intent intent = new Intent(getContext(), AppActivity.class);
-                                        startActivity(intent);
+                                        JSONArray rows = response.getJSONArray("url");
+                                        String url =  rows.getString(1);
+                                        WebView webView = getView().findViewById(R.id.webView);
+                                        webView.loadUrl(url);
+
 
                                     } catch (Exception e) {
                                         Log.e("valley", "error", e);
