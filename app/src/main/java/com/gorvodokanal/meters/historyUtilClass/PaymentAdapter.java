@@ -57,7 +57,6 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.RecycleV
         RecycleViewViewHolder recycleViewViewHolder = new RecycleViewViewHolder(view);
         return recycleViewViewHolder;
     }
-
     @Override
     public void onBindViewHolder(@NonNull RecycleViewViewHolder recycleViewViewHolder, int i) {
         final PaymentItem item;
@@ -72,9 +71,11 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.RecycleV
             title.setTextSize(18);
         } else {
             item = paymentData.getItem(i - 1);
+            recycleViewViewHolder.paymentValue.setText(String.valueOf(item.dept()));
+            userInputData.put(item.getVID_USLUGI(),String.valueOf(item.dept()));
+
             TextView paymentSum = recycleViewViewHolder.paymentSum;
             ((ViewManager) paymentSum.getParent()).removeView(paymentSum);
-
             recycleViewViewHolder.paymentValue.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {

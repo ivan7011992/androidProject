@@ -1,10 +1,13 @@
 package com.gorvodokanal.meters.activity;
 
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +15,7 @@ import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 import com.gorvodokanal.R;
 
@@ -44,8 +48,19 @@ public class PaymentViewFragment extends Fragment {
 
         webView.setWebViewClient(new WebViewClient() {
             public boolean shouldOverrideUrlLoading(WebView view, String url){
-                if(url.equals("http://www.w3schools.com")) {
+                if(url.startsWith("https://www.gorvodokanal.com/personal/payment/bad.php")) {
+                    Uri uri = Uri.parse(url);
+                    String errorMessage = uri.getQueryParameter("error");
+                    if(errorMessage == null || errorMessage.isEmpty()){
+                        errorMessage = ("Отмена операции");
+                    }
 
+                    Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_LONG).show();
+
+                    final NavController navController = NavHostFragment.findNavController(PaymentViewFragment.this);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("errorMessage", errorMessage);
+                    navController.navigate(R.id.generalInfoFragment, bundle);
                     return true;
                 }
                 view.loadUrl(url);

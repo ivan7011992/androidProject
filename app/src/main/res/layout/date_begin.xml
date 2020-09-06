@@ -10,35 +10,56 @@
     android:id="@+id/con3">
 
 <TextView
-android:id="@+id/textView2"
+android:id="@+id/Period"
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
-android:text="Вебети начальный период "
-
+android:text="Выборерите переод"
+android:layout_marginTop="120dp"
 android:layout_gravity="center"
 android:textColor="#150101"
 android:textSize="18sp"
 android:textStyle="bold" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+      android:gravity="center"
+        android:padding="8dp">
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
 
+   >
     <TextView
-        android:id="@+id/month"
+        android:id="@+id/periodSelectBegin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Вебети месяц"
-        android:layout_marginTop="150dp"
-        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:text="C"
         android:textColor="#150101"
         android:textSize="22sp"
         android:textStyle="bold" />
-<Spinner
-android:id="@+id/spinner"
-android:layout_width="210dp"
+    <TextView
+        android:id="@+id/monthBegin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+
+        android:text="Месяц"
+        android:textColor="#150101"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <Spinner
+android:id="@+id/spinnerMonthBegin"
+android:layout_width="100dp"
 android:layout_height="40dp"
-android:layout_gravity="center"
-    />
+        />
 
     <TextView
-        android:id="@+id/year"
+        android:id="@+id/yearBegin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Вебети год"
@@ -48,9 +69,60 @@ android:layout_gravity="center"
         android:textSize="22sp"
         android:textStyle="bold" />
     <Spinner
-        android:id="@+id/spinner2"
-        android:layout_width="210dp"
+        android:id="@+id/spinnerYearBegin"
+        android:layout_width="100dp"
         android:layout_height="40dp"
         android:layout_gravity="center"
         />
+</LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginLeft="30dp"
+            >
+            <TextView
+                android:id="@+id/periodSelectEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="По"
+                android:textColor="#150101"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/monthEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Месяц"
+
+                android:layout_marginTop="5dp"
+                android:textColor="#150101"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+            <Spinner
+                android:id="@+id/spinnerEnd"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                />
+
+            <TextView
+                android:id="@+id/yearEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Вебети год"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"
+                android:textColor="#150101"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+            <Spinner
+                android:id="@+id/spinnerYearEnd"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                />
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

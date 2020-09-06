@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.fragment.app.FragmentTransaction;
+
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -45,24 +46,36 @@ public class HistoryMetersFragment extends Fragment {
     private static String beginDate = "1.1.2020";
     private static String endDate = "1.7.2020";
     Button startDateButton;
-    Button  endDateButon;
+    Button endDateButon;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_history_meters, container, false);
-       startDateButton = view.findViewById(R.id.dateButton);
-        startDateButton.setText("" + beginDate );
+        setHasOptionsMenu(true);
+
+        startDateButton = view.findViewById(R.id.dateButton);
+        startDateButton.setText("" + beginDate);
 
         startDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                beginDate();
+               DateDialog dialog = new DateDialog(new DateDialog.PeriodProcessor() {
+                   @Override
+                   public void process(int startMonth, int startYear, int endMonth, int endYear) {
+                       beginDate = String.format("%d.%d.%d", 1, startMonth, startYear);
+                       endDate = String.format("%d.%d.%d", 1, endMonth, endYear);
+                       showData(beginDate, endDate);
+                   }
+               });
+                dialog.setTargetFragment(HistoryMetersFragment.this, 1);
+                dialog.show(HistoryMetersFragment.this.getFragmentManager(), "MyCustomDialog");
             }
         });
         endDateButon = view.findViewById(R.id.endDateButton);
 
         Button endDateButton = view.findViewById(R.id.endDateButton);
-        endDateButton.setText("" +  endDate);
+        endDateButton.setText("" + endDate);
         endDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,8 +136,6 @@ public class HistoryMetersFragment extends Fragment {
                         String editTextDateParam = dayOfMonth + "." + (monthOfYear + 1) + "." + year;
                         endDate = editTextDateParam;
                         endDateButon.setText("" + endDate);
-
-
 
 
                     }
@@ -196,30 +207,30 @@ public class HistoryMetersFragment extends Fragment {
     }
 
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);//Make sure you have this line of code.
     }
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 
         super.onCreateOptionsMenu(menu, inflater);
         //MenuInflater menuInflater = getMenuInflater();
         //menuInflater.inflate(R.menu.drawer_menu, menu);
-        inflater.inflate(R.menu.settings_menu, menu) ;
+        inflater.inflate(R.menu.settings_menu, menu);
 
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {//этот метод вызввает когда происходит нажатие на каком-то из эдлементов меню
         int id = item.getItemId();// получаем элемнт которые был выбран в меню
-        if (id == R.id.action_setting) {
-
-            Intent openSetting = new Intent(HistoryMetersFragment.this.getActivity(), Setting.class);
-            startActivity(openSetting);
-            return true;
+        switch (id) {
+            case R.id.action_setting:
+                Intent openSetting = new Intent(HistoryMetersFragment.this.getActivity(), Setting.class);
+                startActivity(openSetting);
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }

@@ -166,7 +166,7 @@
                     android:layout_marginTop="10dp"
                     android:gravity="center"
                     android:paddingRight="3dp"
-                    android:text="Введите сумму"
+                    android:hint="Сумма"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 

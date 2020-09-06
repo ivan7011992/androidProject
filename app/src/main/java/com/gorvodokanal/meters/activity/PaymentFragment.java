@@ -61,6 +61,10 @@ public class PaymentFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        if(getArguments() != null && getArguments().containsKey("errorMessage")) {
+            Toast.makeText(getActivity(), getArguments().getString("errorMessage"), Toast.LENGTH_LONG).show();
+        }
         final RequestQueue mQueue = RequestQueueSingleton.getInstance(getContext());
 
 
@@ -89,14 +93,11 @@ public class PaymentFragment extends Fragment {
                         public void onClick(View v) {
                             HashMap<Integer, String> userInputData = adapter.getUserInputData();
 
-                         String Val1 =  String.valueOf(userInputData.get(1));
-                         String Val3 =  String.valueOf(userInputData.get(3));
-                         String Val4 =  String.valueOf(userInputData.get(4));
-
                             Map<String, Object> requestData = new HashMap<>();
-                            requestData.put("value1",Val1);
-                            requestData.put("value3",Val3);
-                            requestData.put("value4",Val4);
+                            for(Map.Entry<Integer, String> userInputItem : userInputData.entrySet()) {
+                                requestData.put(String.valueOf(userInputItem.getKey()), userInputItem.getValue());
+                            }
+
                             final RequestQueue mQueue = RequestQueueSingleton.getInstance(getContext());
 
                             PostRequest request = new PostRequest(mQueue);
@@ -116,11 +117,12 @@ public class PaymentFragment extends Fragment {
                                             return;
                                         }
 
+                                        Bundle bundle = new Bundle();
+                                        String url = response.getString("url");
+                                        bundle.putString("paymentUrl", url);
+                                        final NavController navController = NavHostFragment.findNavController(PaymentFragment.this);
+                                        navController.navigate(R.id.paymentViewFragment, bundle);
 
-                                        JSONArray rows = response.getJSONArray("url");
-                                        String url =  rows.getString(1);
-                                        WebView webView = getView().findViewById(R.id.webView);
-                                        webView.loadUrl(url);
 
 
                                     } catch (Exception e) {
@@ -130,11 +132,9 @@ public class PaymentFragment extends Fragment {
                             });
 
 
-                            final NavController navController = NavHostFragment.findNavController(PaymentFragment.this);
 
-                            Bundle bundle = new Bundle();
-                            bundle.putString("paymentUrl", "https://www.gorvodokanal.com/mobile_app/test_redirect.php");
-                            navController.navigate(R.id.paymentViewFragment, bundle);
+
+
                         }
                     });
                 } catch (Exception e) {
