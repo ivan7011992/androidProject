@@ -36,6 +36,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -46,7 +48,7 @@ public class HistoryMetersFragment extends Fragment {
     private static String beginDate = "1.1.2020";
     private static String endDate = "1.7.2020";
     Button startDateButton;
-    Button endDateButon;
+
 
 
     @Override
@@ -55,7 +57,7 @@ public class HistoryMetersFragment extends Fragment {
         setHasOptionsMenu(true);
 
         startDateButton = view.findViewById(R.id.dateButton);
-        startDateButton.setText("" + beginDate);
+        startDateButton.setText(beginDate + "-" + endDate );
 
         startDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,23 +67,31 @@ public class HistoryMetersFragment extends Fragment {
                    public void process(int startMonth, int startYear, int endMonth, int endYear) {
                        beginDate = String.format("%d.%d.%d", 1, startMonth, startYear);
                        endDate = String.format("%d.%d.%d", 1, endMonth, endYear);
+                       SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YY");
+                       try {
+                           sdf.parse( beginDate).getTime();
+                       } catch (ParseException e) {
+                           e.printStackTrace();
+                       }
+
                        showData(beginDate, endDate);
+                       startDateButton.setText(beginDate + "-" + endDate );
                    }
                });
                 dialog.setTargetFragment(HistoryMetersFragment.this, 1);
                 dialog.show(HistoryMetersFragment.this.getFragmentManager(), "MyCustomDialog");
             }
         });
-        endDateButon = view.findViewById(R.id.endDateButton);
-
-        Button endDateButton = view.findViewById(R.id.endDateButton);
-        endDateButton.setText("" + endDate);
-        endDateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                endDate();
-            }
-        });
+//        endDateButon = view.findViewById(R.id.endDateButton);
+//
+//        Button endDateButton = view.findViewById(R.id.endDateButton);
+//        endDateButton.setText("" + endDate);
+//        endDateButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                endDate();
+//            }
+//        });
 
         Button applyPeriodButton = view.findViewById(R.id.applyPeriodButton);
         applyPeriodButton.setOnClickListener(new View.OnClickListener() {
@@ -135,7 +145,7 @@ public class HistoryMetersFragment extends Fragment {
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                         String editTextDateParam = dayOfMonth + "." + (monthOfYear + 1) + "." + year;
                         endDate = editTextDateParam;
-                        endDateButon.setText("" + endDate);
+                      //  endDateButon.setText("" + endDate);
 
 
                     }

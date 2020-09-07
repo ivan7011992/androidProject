@@ -43,11 +43,9 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp">
 
                 <Button
                     android:id="@+id/dateButton"
@@ -56,20 +54,12 @@
                     android:layout_marginLeft="90dp"
                     android:layout_marginTop="0dp"
                     android:background="@drawable/dra"
+
                     android:text="01.01.2020"
                     android:textSize="20sp" />
 
 
-                <Button
-                    android:id="@+id/endDateButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_toRightOf="@id/dateButton"
-                    android:background="@drawable/dra"
-                    android:onClick="endDate"
-                    android:text="08.08.2020"
-                    android:textSize="20sp" />
+
 
                 <Button
                     android:id="@+id/applyPeriodButton"
@@ -77,12 +67,12 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="62dp"
                     android:layout_marginRight="10dp"
-                    android:layout_toRightOf="@+id/endDateButton"
+
 
                     android:onClick="showData"
 
                     android:text="+" />
-            </RelativeLayout>
+
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView

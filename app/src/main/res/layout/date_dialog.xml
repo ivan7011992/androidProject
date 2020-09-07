@@ -21,7 +21,7 @@
             android:id="@+id/Period"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Выборерите переод"
+            android:text="Выберите период"
             android:layout_marginTop="10dp"
             android:layout_gravity="center"
             android:textColor="#150101"
@@ -39,7 +39,7 @@
                 android:orientation="vertical"
                 android:gravity="center"
                 android:layout_marginRight="55dp"
-
+                android:padding="8dp"
 
                 >
                 <TextView
@@ -51,16 +51,7 @@
                     android:textColor="#150101"
                     android:textSize="22sp"
                     android:textStyle="bold" />
-                <TextView
-                    android:id="@+id/monthBegin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
 
-                    android:text="Месяц"
-                    android:textColor="#150101"
-                    android:textSize="22sp"
-                    android:textStyle="bold" />
 
                 <Spinner
                     android:id="@+id/spinnerMonthBegin"
@@ -68,20 +59,11 @@
                     android:layout_height="40dp"
                     />
 
-                <TextView
-                    android:id="@+id/yearBegin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Вебети год"
-                    android:layout_marginTop="10dp"
-                    android:layout_gravity="center"
-                    android:textColor="#150101"
-                    android:textSize="22sp"
-                    android:textStyle="bold" />
                 <Spinner
                     android:id="@+id/spinnerYearBegin"
                     android:layout_width="110dp"
                     android:layout_height="40dp"
+                    android:layout_marginTop="30dp"
                     android:layout_gravity="center"
                     />
             </LinearLayout>
@@ -90,6 +72,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:gravity="center"
+
                 android:padding="8dp"
                 android:layout_marginLeft="30dp"
                 >
@@ -102,37 +85,20 @@
                     android:textColor="#150101"
                     android:textSize="22sp"
                     android:textStyle="bold" />
-                <TextView
-                    android:id="@+id/monthEnd"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Месяц"
 
-                    android:layout_marginTop="5dp"
-                    android:textColor="#150101"
-                    android:textSize="22sp"
-                    android:textStyle="bold" />
                 <Spinner
                     android:id="@+id/spinnerMonthEnd"
                     android:layout_width="120dp"
                     android:layout_height="40dp"
                     />
 
-                <TextView
-                    android:id="@+id/yearEnd"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Вебети год"
-                    android:layout_marginTop="10dp"
-                    android:layout_gravity="center"
-                    android:textColor="#150101"
-                    android:textSize="22sp"
-                    android:textStyle="bold" />
+
                 <Spinner
                     android:id="@+id/spinnerYearEnd"
                     android:layout_width="110dp"
                     android:layout_height="40dp"
                     android:layout_gravity="center"
+                    android:layout_marginTop="30dp"
                     />
             </LinearLayout>
 
@@ -142,6 +108,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
           android:layout_gravity="center"
+            android:padding="10dp"
 
             android:text="OK"
 

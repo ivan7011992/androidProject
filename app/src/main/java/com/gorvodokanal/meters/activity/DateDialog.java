@@ -63,7 +63,7 @@ public class DateDialog extends DialogFragment {
     }
 
 
-    private void setSpinnerHandler(Spinner spinner, final SpinnerSelectedItemHandler handler) {
+    private void setSpinnerHandler(final Spinner spinner, final SpinnerSelectedItemHandler handler) {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -129,8 +129,8 @@ public class DateDialog extends DialogFragment {
     private void initYearSpinner(Spinner spinner) {
         ArrayList<String> data = new ArrayList();
         int year = Calendar.getInstance().get(Calendar.YEAR);
-        for (int i = year - 5; i < year + 2; i++) {
-            data.add(String.valueOf(year));
+        for (int i = year; i >= year-5; i--) {
+            data.add(String.valueOf(i));
         }
 
 
