@@ -11,5 +11,13 @@
     <string name="password">Пароль</string>
     <string name="kod_abon">Код абонента</string>
 
+    <string name="kod">Код абонента</string>
+    <string name="street">Введите улицу</string>
+    <string name="house">Дом</string>
+    <string name="flat">Квартира</string>
+    <string name="fio">ФИО</string>
+    <string name="passwordReg">Пароль</string>
+    <string name="passwordConfirm">Подтверждение пароля</string>
+    <string name="email">email</string>
 
 </resources>

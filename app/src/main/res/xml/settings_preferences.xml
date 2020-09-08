@@ -8,6 +8,7 @@
 
         />
     <EditTextPreference
+
         android:title="Изменить пароль"
         android:key="Change password"
         android:defaultValue="30"

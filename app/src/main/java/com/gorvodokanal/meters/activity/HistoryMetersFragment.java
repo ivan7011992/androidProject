@@ -36,16 +36,18 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 public class HistoryMetersFragment extends Fragment {
 
-    private static String beginDate = "1.1.2020";
+    private static String beginDate =  "1.1.2020";
     private static String endDate = "1.7.2020";
     Button startDateButton;
 
@@ -67,15 +69,33 @@ public class HistoryMetersFragment extends Fragment {
                    public void process(int startMonth, int startYear, int endMonth, int endYear) {
                        beginDate = String.format("%d.%d.%d", 1, startMonth, startYear);
                        endDate = String.format("%d.%d.%d", 1, endMonth, endYear);
-                       SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YY");
+                       SimpleDateFormat dateFormat = new SimpleDateFormat("d.M.y");
+                       SimpleDateFormat dateFormat1 = new SimpleDateFormat("d.M.y");
+                       String result = "Пусто";
                        try {
-                           sdf.parse( beginDate).getTime();
+                           Date dateBegin = dateFormat.parse(beginDate);
+                           Date dateEnd  = dateFormat1.parse(endDate);
+
+
+                           if (dateBegin.compareTo(dateEnd) > 0) {
+
+                               Toast.makeText(getContext(), "Дата начала периода не может быть больше даты конца периода", Toast.LENGTH_LONG).show();
+
+
+                              }
+                           if (dateBegin.compareTo(dateEnd) < 0) {
+                               showData(beginDate, endDate);
+                               startDateButton.setText(beginDate + "-" + endDate);
+                               Toast.makeText(getContext(), "Отчёт построен", Toast.LENGTH_LONG).show();
+
+                           }
+
+
                        } catch (ParseException e) {
                            e.printStackTrace();
                        }
 
-                       showData(beginDate, endDate);
-                       startDateButton.setText(beginDate + "-" + endDate );
+
                    }
                });
                 dialog.setTargetFragment(HistoryMetersFragment.this, 1);

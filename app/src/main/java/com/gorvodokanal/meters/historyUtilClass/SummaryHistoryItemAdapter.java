@@ -63,10 +63,10 @@ public class SummaryHistoryItemAdapter extends RecyclerView.Adapter<SummaryHisto
     public void onBindViewHolder(@NonNull final RecycleViewViewHolder recycleViewViewHolder, int i) {
         final SummaryHistoryItem historyItem = historyItems.get(i);
         recycleViewViewHolder.date.setText(historyItem.getReadableDate());
-        recycleViewViewHolder.saldoBeginValue.setText(String.valueOf(historyItem.saldoBegin()));
-        recycleViewViewHolder.nachislenoValue.setText(String.valueOf(historyItem.nachisleno()));
-        recycleViewViewHolder.oplataValue.setText(String.valueOf(historyItem.oplata()));
-        recycleViewViewHolder.dept.setText(String.valueOf(historyItem.debt()));
+        recycleViewViewHolder.saldoBeginValue.setText(String.format("%.2f",historyItem.saldoBegin()));
+        recycleViewViewHolder.nachislenoValue.setText(String.format("%.2f",historyItem.nachisleno()));
+        recycleViewViewHolder.oplataValue.setText(String.format("%.2f",historyItem.oplata()));
+        recycleViewViewHolder.dept.setText(String.format("%.2f",historyItem.debt()));
 
         recycleViewViewHolder.informationButton.setOnClickListener(new View.OnClickListener() {
             @Override

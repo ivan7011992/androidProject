@@ -13,6 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
@@ -32,6 +35,7 @@ import com.gorvodokanal.meters.net.PostRequest;
 import com.gorvodokanal.meters.net.RequestQueueSingleton;
 import com.gorvodokanal.meters.net.UrlCollection;
 import com.gorvodokanal.meters.net.VolleyJsonCallback;
+import com.gorvodokanal.meters.settings.Setting;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -49,6 +53,7 @@ public class PaymentFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -146,5 +151,28 @@ public class PaymentFragment extends Fragment {
         });
 
 
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+
+        super.onCreateOptionsMenu(menu, inflater);
+        //MenuInflater menuInflater = getMenuInflater();
+        //menuInflater.inflate(R.menu.drawer_menu, menu);
+        inflater.inflate(R.menu.settings_menu, menu) ;
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {//этот метод вызввает когда происходит нажатие на каком-то из эдлементов меню
+        int id = item.getItemId();// получаем элемнт которые был выбран в меню
+        if (id == R.id.action_setting) {
+
+            Intent openSetting = new Intent(PaymentFragment.this.getActivity(), Setting.class);
+            startActivity(openSetting);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

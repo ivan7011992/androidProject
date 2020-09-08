@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     SharedPreferences sharedPreferences;
     public EditText passwordUser;
     public boolean showPassword = false;
+    public Button button2;
 
     private TextView email1;
     public Button buttom;
@@ -61,6 +62,15 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         buttom = findViewById(R.id.button);
         //  buttom.getBackground().setAlpha(64);
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+
+        button2 = findViewById(R.id.button2);
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, Registration.class);
+                startActivity(intent);
+            }
+        });
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

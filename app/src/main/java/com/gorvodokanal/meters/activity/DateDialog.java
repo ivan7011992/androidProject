@@ -20,6 +20,7 @@ import com.gorvodokanal.meters.model.HistoryItem;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class DateDialog extends DialogFragment {
     interface SpinnerSelectedItemHandler {
@@ -33,7 +34,7 @@ public class DateDialog extends DialogFragment {
                             int endYear);
     }
 
-    private static final HashMap<String, Integer> month = new HashMap<>();
+    private static final LinkedHashMap<String, Integer> month = new LinkedHashMap<>();
 
     static {
         month.put("Январь", 1);

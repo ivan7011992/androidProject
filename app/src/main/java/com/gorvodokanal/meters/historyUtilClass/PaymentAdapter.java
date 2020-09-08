@@ -71,7 +71,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.RecycleV
             title.setTextSize(18);
         } else {
             item = paymentData.getItem(i - 1);
-            recycleViewViewHolder.paymentValue.setText(String.valueOf(item.dept()));
+            recycleViewViewHolder.paymentValue.setText(String.format("%.2f",item.dept()));
             userInputData.put(item.getVID_USLUGI(),String.valueOf(item.dept()));
 
             TextView paymentSum = recycleViewViewHolder.paymentSum;
@@ -94,10 +94,10 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.RecycleV
             });
         }
 
-        recycleViewViewHolder.deptBeginPeriodValue.setText(String.valueOf(item.getSALDO_BEGIN()));
-        recycleViewViewHolder.nachisPeriodValue.setText(String.valueOf(item.getNACHISLENO()));
-        recycleViewViewHolder.oplataPeriodPaymentValue.setText(String.valueOf(item.getOPLATA()));
-        recycleViewViewHolder.deptPeriodValue.setText(String.valueOf(item.dept()));
+        recycleViewViewHolder.deptBeginPeriodValue.setText(String.format("%.2f",item.getSALDO_BEGIN()));
+        recycleViewViewHolder.nachisPeriodValue.setText(String.format("%.2f",item.getNACHISLENO()));
+        recycleViewViewHolder.oplataPeriodPaymentValue.setText(String.format("%.2f",item.getOPLATA()));
+        recycleViewViewHolder.deptPeriodValue.setText(String.format("%.2f",item.dept()));
         recycleViewViewHolder.title.setText(String.valueOf(item.getNAME_USLUGI()));
 
 

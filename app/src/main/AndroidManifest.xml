@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-
     package="com.gorvodokanal">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -13,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".meters.activity.Registration"></activity>
         <activity
             android:name=".meters.settings.Setting"
             android:label="Settings"
@@ -31,10 +31,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".meters.activity.AppActivity" />
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-
     </application>
 
 </manifest>
