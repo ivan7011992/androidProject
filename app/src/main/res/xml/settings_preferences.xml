@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <EditTextPreference
-        android:title="Изменить email"
-        android:key="Change email"
-        android:defaultValue="30"
-
-        />
-    <EditTextPreference
-
-        android:title="Изменить пароль"
-        android:key="Change password"
-        android:defaultValue="30"
-        />
+    <Preference
+        android:key="change_email"
+        android:title="Изменить email" />
+    <Preference
+        android:key="change_password"
+        android:title="Изменить пароль" />
 </PreferenceScreen>

@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     private void setIntervalFromSharedPrefarences(SharedPreferences sharedPrefarences) {
 
         try {
-            email = sharedPrefarences.getString("Change email", "30");
+            email = sharedPrefarences.getString("Change email", "null");
 
         } catch (NumberFormatException nef) {//ксли exception то влю бом слкчае м выведится торока ниже
             Toast.makeText(this, "Number format exceprion", Toast.LENGTH_LONG).show();

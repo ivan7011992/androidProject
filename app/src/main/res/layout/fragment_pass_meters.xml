@@ -65,7 +65,7 @@
                 android:layout_width="172dp"
                 android:layout_height="50dp"
                 android:background="@drawable/dra9"
-                android:onClick="passMetersData"
+
                 android:text="Внести показания"
 
                 android:textColor="#F4EFEF"

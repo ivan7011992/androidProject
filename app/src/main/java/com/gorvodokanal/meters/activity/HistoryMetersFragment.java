@@ -71,7 +71,7 @@ public class HistoryMetersFragment extends Fragment {
                        endDate = String.format("%d.%d.%d", 1, endMonth, endYear);
                        SimpleDateFormat dateFormat = new SimpleDateFormat("d.M.y");
                        SimpleDateFormat dateFormat1 = new SimpleDateFormat("d.M.y");
-                       String result = "Пусто";
+
                        try {
                            Date dateBegin = dateFormat.parse(beginDate);
                            Date dateEnd  = dateFormat1.parse(endDate);

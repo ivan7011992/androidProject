@@ -105,7 +105,6 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
             android:background="@drawable/dra"
-            android:onClick="formSubmit"
             android:text="Регистрация"
 
             android:textColor="#FFFFFF"

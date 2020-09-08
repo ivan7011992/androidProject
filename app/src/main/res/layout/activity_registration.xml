@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nested"
+    android:fillViewport="true"
+    android:scrollbars="none"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 <LinearLayout
     android:id="@+id/RelativeLayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -7,6 +20,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/fon15"
     >
 
     <RelativeLayout
@@ -19,9 +33,9 @@
             android:layout_width="wrap_content"
             android:layout_height="70dp"
             android:layout_centerHorizontal="true"
-            android:text="Смена пароля"
+            android:text="Регистрация"
             android:fontFamily="@font/roboto_medium"
-            android:textColor="#000000"
+            android:textColor="#FFFFFF"
             android:layout_marginTop="5dp"
             android:gravity="center"
             android:textSize="20sp"
@@ -37,7 +51,7 @@
             android:layout_centerHorizontal="true"
             android:textSize="17sp"
             android:background="@drawable/dra4"
-            android:textColorHint="#000000"
+            android:textColorHint="#FFFFFF"
             android:gravity="center"
             android:ems="10"
             android:textColor="#FFFFFF"
@@ -190,3 +204,5 @@
     </RelativeLayout>
 
 </LinearLayout>
+    </ScrollView>
+</androidx.core.widget.NestedScrollView>

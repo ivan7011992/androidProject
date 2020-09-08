@@ -12,9 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,12 +41,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class PassMetersFragment extends Fragment {
 
-    private  static String datePassMeters;
+    private static String datePassMeters;
     Button datePassMetersValue;
     private final static Pattern metersDataPattern = Pattern.compile("/^[0-9]{1,20}[.]?[0-9]{0,3}$/");
     TextView date111;
@@ -58,7 +54,7 @@ public class PassMetersFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pass_meters, container, false);
-       // datePassMetersValue = view.findViewById(R.id.passDate);
+        // datePassMetersValue = view.findViewById(R.id.passDate);
 //        datePassMetersValue.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -67,17 +63,17 @@ public class PassMetersFragment extends Fragment {
 //        });
 
 
-
-      return  view;
+        return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        fetchAndDisplayData();
+    }
 
+    public void fetchAndDisplayData() {
         final RequestQueue mQueue = RequestQueueSingleton.getInstance(getContext());
-
-
         GetRequest userInfoRequest = new GetRequest(mQueue);
         userInfoRequest.makeRequest(UrlCollection.PASS_METERS, new VolleyJsonCallback() {
             @Override
@@ -89,45 +85,45 @@ public class PassMetersFragment extends Fragment {
                         return;
                     }
                     JSONArray rows = response.getJSONArray("data");
-                  data = buildData(rows);
-
-
+                    data = buildData(rows);
                     passMetrsView(data);
-
-
-
-
                 } catch (Exception e) {
                     Log.e("valley", "Error", e);
                 }
             }
         });
+    }
+
+    private void passMetrsView(ArrayList<VodomerItem> data) {
+
+        RecyclerView passMetersView = (RecyclerView) getView().findViewById(R.id.passMeters);
+     passMetersView.setAdapter(null);
+        final SummaryPassItemAdapter adapter = new SummaryPassItemAdapter(data);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext()) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        passMetersView.setAdapter(adapter);
+        passMetersView.setNestedScrollingEnabled(false);
+        passMetersView.setLayoutManager(layoutManager);
+
+
+
+        getView().findViewById(R.id.buttonPassMeters).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                passMetersData(adapter.getUserData());
+            }
+        });
+
+
 
 
     }
-   private void passMetrsView(  ArrayList<VodomerItem> data){
-       RecyclerView passMetersView = (RecyclerView) getView().findViewById(R.id.passMeters);
-       final SummaryPassItemAdapter adapter = new SummaryPassItemAdapter(data);
-       LinearLayoutManager layoutManager = new LinearLayoutManager(getContext()){
-           @Override
-           public boolean canScrollVertically() {
-               return false;
-           }
-       };
-       passMetersView.setAdapter(adapter);
-       passMetersView.setNestedScrollingEnabled(false);
-       passMetersView.setLayoutManager(layoutManager);
 
 
-       getView().findViewById(R.id.buttonPassMeters).setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               passMetersData(adapter.getUserData());
-           }
-       });
-
-
-   }
 
 
     private ArrayList<VodomerItem> buildData(JSONArray rows) throws JSONException {
@@ -150,7 +146,7 @@ public class PassMetersFragment extends Fragment {
         HashMap<String, Object> requestData = new HashMap<String, Object>();
 
         if (datePassMeters == null) {
-            requestData.put("dateIndicators",  new SimpleDateFormat("dd.MM.yyyy").format(new Date()));
+            requestData.put("dateIndicators", new SimpleDateFormat("dd.MM.yyyy").format(new Date()));
         } else {
             requestData.put("dateIndicators", datePassMeters);
         }
@@ -169,11 +165,8 @@ public class PassMetersFragment extends Fragment {
                     }
                     final boolean isSuccess = response.getBoolean("success");
 
-                    if (!isSuccess) {
-                        Toast.makeText(getContext(), response.getString("message"), Toast.LENGTH_LONG).show();
-                        return;
-                    }
                     Toast.makeText(getContext(), response.getString("message"), Toast.LENGTH_LONG).show();
+                    fetchAndDisplayData();
 
 
                 } catch (Exception e) {
@@ -183,7 +176,7 @@ public class PassMetersFragment extends Fragment {
         });
     }
 
-//    private boolean validateMeters() {
+    //    private boolean validateMeters() {
 //        for (EditText input : inputs) {
 //            String userInput = input.getText().toString();
 //            Matcher matcher = metersDataPattern.matcher(userInput);
@@ -195,11 +188,11 @@ public class PassMetersFragment extends Fragment {
 //        }
 //        return true;
 //    }
-@Override
-public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setHasOptionsMenu(true);//Make sure you have this line of code.
-}
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);//Make sure you have this line of code.
+    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
