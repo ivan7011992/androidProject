@@ -134,10 +134,25 @@
             android:hint="@string/fio"
             />
         <EditText
-            android:id="@+id/passwordReg"
+            android:id="@+id/phone"
             android:layout_width="250dp"
             android:layout_height="40dp"
             android:layout_below="@+id/fio"
+            android:layout_marginTop="25dp"
+            android:layout_centerHorizontal="true"
+            android:textSize="17sp"
+            android:background="@drawable/dra4"
+            android:textColorHint="#fff"
+            android:gravity="center"
+            android:ems="10"
+            android:textColor="#FFFFFF"
+            android:hint="@string/fio"
+            />
+        <EditText
+            android:id="@+id/passwordReg"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_below="@+id/phone"
             android:layout_marginTop="25dp"
             android:layout_centerHorizontal="true"
             android:textSize="17sp"
