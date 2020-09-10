@@ -2,6 +2,7 @@ package com.gorvodokanal.meters.activity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -37,20 +39,24 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class PassMetersFragment extends Fragment {
-
+    private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/yyyy");
     private static String datePassMeters;
     Button datePassMetersValue;
     private final static Pattern metersDataPattern = Pattern.compile("/^[0-9]{1,20}[.]?[0-9]{0,3}$/");
     TextView date111;
     ArrayList<VodomerItem> data;
-
+    String currentDateNew;
+    LocalDateTime currentDate;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pass_meters, container, false);
@@ -70,6 +76,14 @@ public class PassMetersFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         fetchAndDisplayData();
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+         currentDate = LocalDateTime.now();
+
+        }
+
+        String currentDateNew = DateTimeFormatter.ofPattern("MMMM yyyy").format(currentDate);
+        ((TextView) getView().findViewById(R.id.headerPassMeters)).setText(currentDateNew);
     }
 
     public void fetchAndDisplayData() {

@@ -1,5 +1,7 @@
 package com.gorvodokanal.meters.activity;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,6 +37,7 @@ public class AppActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(sideBar, navController);
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
+
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph())
                 .setDrawerLayout(drawerLayout)
                 .build();
@@ -42,6 +45,9 @@ public class AppActivity extends AppCompatActivity {
         setSupportActionBar(toolBar); // для верхнего меню
         NavigationUI.setupWithNavController(toolBar, navController, appBarConfiguration);
 
+
+       // toolBar.setTitleTextColor(Color.WHITE);
+     //  toolBar.setSubtitleTextColor(Color.WHITE);
 
         View header = sideBar.getHeaderView(0);
         ((TextView) header.findViewById(R.id.text)).setText(UserModel.getInstance().getLogin());

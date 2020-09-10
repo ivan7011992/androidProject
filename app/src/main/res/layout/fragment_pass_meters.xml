@@ -26,7 +26,7 @@
 
 
         <TextView
-            android:id="@+id/textView15"
+            android:id="@+id/headerPassMeters"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:gravity="center"
@@ -40,7 +40,20 @@
 
            />
 
+        <TextView
+            android:id="@+id/noMeters"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:gravity="center"
+            android:layout_marginBottom="20dp"
+            android:text="По вашему лицевому счёту не установлены приборы учёта"
+            android:background="@drawable/dra7"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textColor="#FF0000"
+            android:textStyle="bold"
 
+            />
 
 
             <androidx.recyclerview.widget.RecyclerView

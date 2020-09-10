@@ -18,6 +18,6 @@
     <string name="fio">ФИО</string>
     <string name="passwordReg">Пароль</string>
     <string name="passwordConfirm">Подтверждение пароля</string>
-    <string name="email">email</string>
+    <string name="email">Email</string>
 
 </resources>

@@ -28,7 +28,6 @@ public class DetailHistoryDialog extends DialogFragment {
 
     }
 
-
     @Nullable
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {

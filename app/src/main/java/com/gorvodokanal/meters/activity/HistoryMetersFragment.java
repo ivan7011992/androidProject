@@ -2,6 +2,7 @@ package com.gorvodokanal.meters.activity;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,6 +10,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -39,6 +41,8 @@ import org.json.JSONObject;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -51,12 +55,37 @@ public class HistoryMetersFragment extends Fragment {
     private static String endDate = "1.7.2020";
     Button startDateButton;
 
+    int Date;
 
 
+
+
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_history_meters, container, false);
         setHasOptionsMenu(true);
+
+        Calendar calendar = Calendar.getInstance();
+        YearMonth month = YearMonth.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.MM.y");
+        String firstDay = String.format(month.atDay(1).format(formatter).toString());
+                String   endDay = month.atEndOfMonth().toString();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("d.MM.y");
+        Calendar c = Calendar.getInstance();
+        try {
+            c.setTime(sdf.parse(firstDay));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+       endDate = sdf.format(c.getTime());
+
+
+        c.add(Calendar.DAY_OF_WEEK,0);
+        c.add(Calendar.MONTH, -6);  // number of days to add
+        beginDate = sdf.format(c.getTime());  // dt is now the new date
 
         startDateButton = view.findViewById(R.id.dateButton);
         startDateButton.setText(beginDate + "-" + endDate );
@@ -69,8 +98,8 @@ public class HistoryMetersFragment extends Fragment {
                    public void process(int startMonth, int startYear, int endMonth, int endYear) {
                        beginDate = String.format("%d.%d.%d", 1, startMonth, startYear);
                        endDate = String.format("%d.%d.%d", 1, endMonth, endYear);
-                       SimpleDateFormat dateFormat = new SimpleDateFormat("d.M.y");
-                       SimpleDateFormat dateFormat1 = new SimpleDateFormat("d.M.y");
+                       SimpleDateFormat dateFormat = new SimpleDateFormat("dd.M.y");
+                       SimpleDateFormat dateFormat1 = new SimpleDateFormat("dd.M.y");
 
                        try {
                            Date dateBegin = dateFormat.parse(beginDate);

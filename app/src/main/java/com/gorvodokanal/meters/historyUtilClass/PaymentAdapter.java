@@ -1,7 +1,9 @@
 package com.gorvodokanal.meters.historyUtilClass;
 
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
+import android.text.method.DigitsKeyListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +47,11 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.RecycleV
             oplataPeriodPaymentValue = itemView.findViewById(R.id.oplataPeriodPaymentValue);
             deptPeriodValue = itemView.findViewById(R.id.deptPeriodValue);
             paymentValue = itemView.findViewById(R.id.payment);
+            paymentValue.setMaxLines(1);
+            paymentValue.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+            paymentValue.setKeyListener(DigitsKeyListener.getInstance(true, true));
             title = itemView.findViewById(R.id.Title);
+
             paymentSum = itemView.findViewById(R.id.paymentSum);
         }
     }
@@ -66,6 +72,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.RecycleV
             TextView paymentSum = recycleViewViewHolder.paymentSum;
             paymentSum.setText(String.valueOf(item.getOPLATA()));
             ((ViewManager) entry.getParent()).removeView(entry);
+
             TextView title = recycleViewViewHolder.title;
             title.setBackgroundResource(0);
             title.setTextSize(18);

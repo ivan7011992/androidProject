@@ -191,11 +191,9 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
-            android:background="@drawable/dra"
+            android:background="@drawable/dra5"
             android:onClick="formSubmit"
-            android:text="Зарегестрироваться"
-
-            android:textColor="#FFFFFF"
+            android:text="Зарегистрироваться"
             android:textSize="14sp"
             />
 
