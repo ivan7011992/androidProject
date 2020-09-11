@@ -27,7 +27,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
        >
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:background="@color/WhiteColor"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="15dp"
 
+            />
         <TextView
             android:id="@+id/headerRegistr"
             android:layout_width="wrap_content"
@@ -39,6 +48,7 @@
             android:layout_marginTop="5dp"
             android:gravity="center"
             android:textSize="20sp"
+            android:maxLines="1"
             />
 
 
@@ -56,6 +66,7 @@
             android:ems="10"
             android:textColor="#FFFFFF"
             android:hint="@string/kod"
+            android:maxLines="1"
             />
         <ImageView
             android:id="@+id/image2"
@@ -85,6 +96,7 @@
             android:ems="10"
             android:textColor="#FFFFFF"
             android:hint="@string/street"
+            android:maxLines="1"
             />
 
 
@@ -102,6 +114,7 @@
             android:ems="10"
             android:textColor="#FFFFFF"
             android:hint="@string/house"
+            android:maxLines="1"
             />
         <EditText
             android:id="@+id/flat"
@@ -135,6 +148,7 @@
             />
         <EditText
             android:id="@+id/phone"
+            android:inputType="phone"
             android:layout_width="250dp"
             android:layout_height="40dp"
             android:layout_below="@+id/fio"
@@ -146,7 +160,7 @@
             android:gravity="center"
             android:ems="10"
             android:textColor="#FFFFFF"
-            android:hint="@string/fio"
+            android:hint="@string/phone"
             />
         <EditText
             android:id="@+id/passwordReg"
@@ -158,6 +172,7 @@
             android:textSize="17sp"
             android:background="@drawable/dra4"
             android:textColorHint="#fff"
+            android:inputType="textPassword"
             android:gravity="center"
             android:ems="10"
             android:textColor="#FFFFFF"
@@ -173,6 +188,7 @@
             android:textSize="17sp"
             android:background="@drawable/dra4"
             android:textColorHint="#fff"
+            android:inputType="textPassword"
             android:gravity="center"
             android:ems="10"
             android:textColor="#FFFFFF"
@@ -191,6 +207,7 @@
             android:textSize="17sp"
             android:gravity="center"
             android:textColorHint="#fff"
+            android:inputType="textEmailAddress"
 
             />
 

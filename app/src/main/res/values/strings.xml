@@ -19,5 +19,6 @@
     <string name="passwordReg">Пароль</string>
     <string name="passwordConfirm">Подтверждение пароля</string>
     <string name="email">Email</string>
+    <string name="phone">Телефон</string>
 
 </resources>
