@@ -55,7 +55,7 @@ public class GeneralInfoFragment extends Fragment  {
 
         final RequestQueue mQueue = RequestQueueSingleton.getInstance(getActivity());
         fieldParrent =  view.findViewById(R.id.fieldParrent);
-        fieldParrent2 =  view.findViewById(R.id.con3);
+        fieldParrent2 =  view.findViewById(R.id.PriborBlock);
         GetRequest userInfoRequest = new GetRequest(mQueue);
         userInfoRequest.makeRequest(UrlCollection.GENERAL_INFO_URL, new VolleyJsonCallback() {
             @Override
@@ -105,8 +105,9 @@ public class GeneralInfoFragment extends Fragment  {
                         ((TextView) getView().findViewById(R.id.field1ValueNormVodootv)).setText(firstRow.getString("WODA_KUB_MES"));
                         LinearLayout  fieldBlock1 = getView().findViewById(R.id. fieldBlockIPU1);
                         fieldParrent.removeView(fieldBlock1);
-                        LinearLayout  fieldBlock2 = getView().findViewById(R.id.PriborBlock);
-                        fieldParrent.removeView(fieldBlock2);
+                        TextView  fieldBlock2 = getView().findViewById(R.id.Probor);
+                        fieldParrent2.removeView(fieldBlock2);
+
 
                     }
 

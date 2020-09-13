@@ -1,14 +1,19 @@
 package com.gorvodokanal.meters.activity;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.gorvodokanal.R;
 import com.gorvodokanal.meters.net.PostRequest;
 import com.gorvodokanal.meters.net.RequestQueueSingleton;
@@ -54,7 +59,56 @@ public class Registration extends AppCompatActivity {
         ConfirmPassword= ConfirmPassword.trim();
         phone = phone.trim();
         email = email.trim();
+        View image2 = findViewById(R.id.image2);
+        image2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createAlertDialog("Код абоента", "Код абонента вводится в формате **-*******(пр.10-7777777)");
+            }
+        });
 
+
+        FloatingActionButton myFab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+        myFab.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(Registration.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        registrationSubmitData(kod, street,house,flat,fio,passwordReg,ConfirmPassword ,phone,email);
+
+
+
+
+    }
+    private void createAlertDialog(String title, String content) {
+        // объект Builder для создания диалогового окна
+        AlertDialog.Builder builder = new AlertDialog.Builder(Registration.this);
+        // добавляем различные компоненты в диалоговое окно
+        builder.setTitle(title);
+        builder.setMessage(content);
+        // устанавливаем кнопку, которая отвечает за позитивный ответ
+        builder.setPositiveButton("OK",
+                // устанавливаем слушатель
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,
+                                        int which) {
+                        // по нажатию создаем всплывающее окно с типом нажатой конпки
+                        showMessage("Нажали ОК");
+                    }
+                });
+        // объект Builder создал диалоговое окно и оно готово появиться на экране
+        // вызываем этот метод, чтобы показать AlertDialog на экране пользователя
+        builder.show();
+    }
+    private void showMessage(String textInMessage) {
+        Toast.makeText(getApplicationContext(), textInMessage, Toast.LENGTH_LONG).show();
+    }
+
+    private void  registrationSubmitData(String kod, String  street, String house,String flat,String fio,String passwordReg,String ConfirmPassword ,String phone,String email) {
+        final RequestQueue mQueue = RequestQueueSingleton.getInstance(this);
 
         if(kod.isEmpty()) {
             displayError("Введите код");
@@ -93,20 +147,13 @@ public class Registration extends AppCompatActivity {
             return;
         }
 
-
-    }
-
-    private void changePasswordOnServer(String kod, String  street, String house,String flat,String fio,String password,String ConfirmPassword ,String phone,String email) {
-        final RequestQueue mQueue = RequestQueueSingleton.getInstance(this);
-
-
         Map<String, Object> requestData = new HashMap<>();
         requestData.put("kod", kod);
         requestData.put("street", street);
         requestData.put("house", house);
         requestData.put("kflat", flat);
         requestData.put("fio", fio);
-        requestData.put("password", password);
+        requestData.put("password", passwordReg);
         requestData.put("ConfirmPassword", ConfirmPassword);
         requestData.put("phone", phone);
         requestData.put("email", email);
@@ -125,7 +172,7 @@ public class Registration extends AppCompatActivity {
                     final boolean isSuccess = response.getBoolean("success");
 
                     if (!isSuccess) {
-                        Toast.makeText(Registration.this, "Неправильный логин или пароль", Toast.LENGTH_LONG).show();
+                        Toast.makeText(Registration.this, "Регистрация не удалась", Toast.LENGTH_LONG).show();
                         return;
                     }
 

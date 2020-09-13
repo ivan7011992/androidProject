@@ -19,7 +19,7 @@
         tools:context=".meters.activity.MainActivity"
         android:orientation="vertical"
 
-        android:id="@+id/con3"
+        android:id="@+id/parentPassMeters"
 
 
         >
@@ -30,29 +30,25 @@
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:gravity="center"
-            android:layout_marginBottom="20dp"
             android:text="Передача показаний"
             android:background="@drawable/dra3"
             android:textAlignment="center"
             android:textSize="20sp"
             android:textColor="#000000"
 
-
            />
 
         <TextView
             android:id="@+id/noMeters"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="250dp"
             android:gravity="center"
+          android:layout_margin="30dp"
             android:layout_marginBottom="20dp"
-            android:text="По вашему лицевому счёту не установлены приборы учёта"
-            android:background="@drawable/dra7"
             android:textAlignment="center"
             android:textSize="18sp"
-            android:textColor="#FF0000"
+            android:textColor="#ff424f"
             android:textStyle="bold"
-
             />
 
 
@@ -61,12 +57,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="1dp"
+
                 android:layout_marginBottom="20dp"
                 android:scrollbars="vertical" />
 
       
 
         <RelativeLayout
+            android:id="@+id/passButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -75,7 +73,7 @@
 
             <Button
                 android:id="@+id/buttonPassMeters"
-                android:layout_width="172dp"
+                android:layout_width="190dp"
                 android:layout_height="50dp"
                 android:background="@drawable/dra9"
 

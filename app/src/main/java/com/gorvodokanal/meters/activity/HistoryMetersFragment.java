@@ -48,6 +48,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Locale;
 
 public class HistoryMetersFragment extends Fragment {
 
@@ -68,6 +69,9 @@ public class HistoryMetersFragment extends Fragment {
         setHasOptionsMenu(true);
 
         Calendar calendar = Calendar.getInstance();
+
+
+
         YearMonth month = YearMonth.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.y");
         String firstDay = String.format(month.atDay(1).format(formatter).toString());

@@ -5,9 +5,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
 
 public class SummaryPaymentData {
     private ArrayList<PaymentItem> paymentItems = new ArrayList<>();
+    Calendar calendar = Calendar.getInstance();
+    String[] monthNames = { "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь" };
+    String month = monthNames[calendar.get(Calendar.MONTH)];
+  int year = calendar.get(Calendar.YEAR);
 
 
     public SummaryPaymentData(JSONArray data) throws JSONException {
@@ -23,7 +29,7 @@ public class SummaryPaymentData {
         summaryItem.setSALDO_BEGIN(saldoBegin());
         summaryItem.setNACHISLENO(nachisleno());
         summaryItem.setOPLATA(oplata());
-        summaryItem.setNAME_USLUGI("Август");
+        summaryItem.setNAME_USLUGI(month + " " + year);
         return summaryItem;
     }
 

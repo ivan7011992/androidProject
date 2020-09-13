@@ -22,12 +22,10 @@ public class Exit extends Fragment {
 
         Bundle bundle = new Bundle();
 
-        getActivity().isDestroyed();
+        getActivity().finish();
 
 
 
-        final NavController navController = NavHostFragment.findNavController(Exit.this);
-        navController.navigate(R.id.paymentViewFragment, bundle);
         return inflater.inflate(R.layout.fragment_exit, container, false);
 
     }

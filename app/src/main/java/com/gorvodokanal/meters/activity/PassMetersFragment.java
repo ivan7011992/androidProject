@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,7 +57,7 @@ public class PassMetersFragment extends Fragment {
     TextView date111;
     ArrayList<VodomerItem> data;
     String currentDateNew;
-    LocalDateTime currentDate;
+     TextView currentDate;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pass_meters, container, false);
@@ -77,13 +78,14 @@ public class PassMetersFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         fetchAndDisplayData();
 
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-         currentDate = LocalDateTime.now();
+        Calendar calendar = Calendar.getInstance();
+        String[] monthNames = { "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь" };
+        String month = monthNames[calendar.get(Calendar.MONTH)];
+        int year = calendar.get(Calendar.YEAR);
+        String currentDate =  month + " " + year;
 
-        }
 
-        String currentDateNew = DateTimeFormatter.ofPattern("MMMM yyyy").format(currentDate);
-        ((TextView) getView().findViewById(R.id.headerPassMeters)).setText(currentDateNew);
+        ((TextView) getView().findViewById(R.id.headerPassMeters)).setText(currentDate);
     }
 
     public void fetchAndDisplayData() {
@@ -100,7 +102,9 @@ public class PassMetersFragment extends Fragment {
                     }
                     JSONArray rows = response.getJSONArray("data");
                     data = buildData(rows);
+                    dataType(data);
                     passMetrsView(data);
+
                 } catch (Exception e) {
                     Log.e("valley", "Error", e);
                 }
@@ -108,6 +112,22 @@ public class PassMetersFragment extends Fragment {
         });
     }
 
+    public void dataType(ArrayList<VodomerItem> data){
+
+        if(data.size()>0){
+            LinearLayout parentPassMeters = getView().findViewById(R.id.parentPassMeters);
+            TextView noMeters = getView().findViewById(R.id.noMeters);
+            parentPassMeters.removeView(noMeters);
+        }
+        if(data.size()==0)
+        {
+            Button button = getView().findViewById(R.id.buttonPassMeters);
+            button.setText("Передача показаний недоступна");
+            TextView noMeters = getView().findViewById(R.id.noMeters);
+            noMeters.setText("По вашему лицевому счёту не установлены приборы учёта");
+
+        }
+    }
     private void passMetrsView(ArrayList<VodomerItem> data) {
 
         RecyclerView passMetersView = (RecyclerView) getView().findViewById(R.id.passMeters);

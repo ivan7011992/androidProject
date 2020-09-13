@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="55dp"
             android:background="@color/WhiteColor"
             android:clickable="true"
             app:srcCompat="@drawable/ic_baseline_arrow_back_24"
@@ -225,7 +225,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
             android:background="@drawable/dra5"
-            android:onClick="formSubmit"
+            android:onClick="registrationSubmitData"
             android:text="Зарегистрироваться"
             android:textSize="14sp"
             />

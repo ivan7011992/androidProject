@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <Preference
+
         android:key="change_email"
+
         android:title="Изменить email" />
     <Preference
         android:key="change_password"

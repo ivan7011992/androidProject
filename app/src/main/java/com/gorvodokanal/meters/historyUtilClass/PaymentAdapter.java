@@ -50,7 +50,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.RecycleV
             paymentValue.setMaxLines(1);
             paymentValue.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
             paymentValue.setKeyListener(DigitsKeyListener.getInstance(true, true));
-            title = itemView.findViewById(R.id.Title);
+            title = itemView.findViewById(R.id.TitlePayment);
 
             paymentSum = itemView.findViewById(R.id.paymentSum);
         }
@@ -74,6 +74,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.RecycleV
             ((ViewManager) entry.getParent()).removeView(entry);
 
             TextView title = recycleViewViewHolder.title;
+            title.setText("Сентябрь");
             title.setBackgroundResource(0);
             title.setTextSize(18);
         } else {
