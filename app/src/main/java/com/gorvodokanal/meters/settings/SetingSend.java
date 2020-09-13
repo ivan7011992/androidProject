@@ -36,7 +36,7 @@ public class SetingSend extends AppCompatActivity {
         requestData.put("login", email);
         requestData.put("password", password);
         PostRequest request = new PostRequest(mQueue);
-        request.makeRequest(UrlCollection.SETTING_URL, requestData, new VolleyJsonCallback() {
+        request.makeRequest(UrlCollection.CHANGE_PASSWORD_URL, requestData, new VolleyJsonCallback() {
             @Override
             public void onSuccess(JSONObject response) {
                 try {

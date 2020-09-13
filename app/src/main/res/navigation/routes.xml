@@ -57,7 +57,24 @@
         <argument
             android:name="paymentUrl"
             app:argType="string" />
+        <action
+            android:id="@+id/action_paymentViewFragment_to_supportFragment2"
+            app:destination="@id/supportFragment" />
 
     </fragment>
+    <fragment
+        android:id="@+id/supportFragment"
+        android:name="com.gorvodokanal.meters.activity.SupportFragment"
+        android:label="Поддержка"
+        tools:layout="@layout/fragment_support" >
+        <action
+            android:id="@+id/action_supportFragment_to_exit2"
+            app:destination="@id/exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/exit"
+        android:name="com.gorvodokanal.meters.activity.Exit"
+        android:label="fragment_exit"
+        tools:layout="@layout/fragment_exit" />
 
 </navigation>

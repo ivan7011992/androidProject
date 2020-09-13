@@ -1,16 +1,20 @@
 package com.gorvodokanal.meters.activity;
 
+import android.content.ClipData;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
@@ -22,7 +26,7 @@ import com.gorvodokanal.R;
 import com.gorvodokanal.meters.model.UserModel;
 
 
-public class AppActivity extends AppCompatActivity {
+public class AppActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,6 +41,7 @@ public class AppActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(sideBar, navController);
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
+       // sideBar.setNavigationItemSelectedListener(this);
 
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph())
                 .setDrawerLayout(drawerLayout)
@@ -46,12 +51,36 @@ public class AppActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(toolBar, navController, appBarConfiguration);
 
 
-       // toolBar.setTitleTextColor(Color.WHITE);
-     //  toolBar.setSubtitleTextColor(Color.WHITE);
+        // toolBar.setTitleTextColor(Color.WHITE);
+        //  toolBar.setSubtitleTextColor(Color.WHITE);
 
         View header = sideBar.getHeaderView(0);
         ((TextView) header.findViewById(R.id.text)).setText(UserModel.getInstance().getLogin());
-
+        View exit = sideBar.findViewById(R.id.exit);
+//        exit.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(AppActivity.this, MainActivity.class);
+//                startActivity(intent);
+//            }
+//        });
     }
 
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.exit) {
+            Toast.makeText(this, "5435", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(AppActivity.this, MainActivity.class);
+            startActivity(intent);
+
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
 }

@@ -14,29 +14,30 @@
         android:layout_height="match_parent">
 <LinearLayout
     android:id="@+id/RelativeLayout"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/fon15"
+
     >
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
        >
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingActionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:clickable="true"
-            android:background="@color/WhiteColor"
-            android:layout_marginTop="30dp"
             android:layout_marginLeft="15dp"
+            android:layout_marginTop="30dp"
+            android:background="@color/WhiteColor"
+            android:clickable="true"
+            app:srcCompat="@drawable/ic_baseline_arrow_back_24"
 
-            />
+
+            app:backgroundTint="#FFFFFF" />
         <TextView
             android:id="@+id/headerRegistr"
             android:layout_width="wrap_content"

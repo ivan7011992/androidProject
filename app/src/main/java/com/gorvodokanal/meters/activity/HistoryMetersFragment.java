@@ -69,11 +69,11 @@ public class HistoryMetersFragment extends Fragment {
 
         Calendar calendar = Calendar.getInstance();
         YearMonth month = YearMonth.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.MM.y");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.y");
         String firstDay = String.format(month.atDay(1).format(formatter).toString());
                 String   endDay = month.atEndOfMonth().toString();
 
-        SimpleDateFormat sdf = new SimpleDateFormat("d.MM.y");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.y");
         Calendar c = Calendar.getInstance();
         try {
             c.setTime(sdf.parse(firstDay));
@@ -96,8 +96,8 @@ public class HistoryMetersFragment extends Fragment {
                DateDialog dialog = new DateDialog(new DateDialog.PeriodProcessor() {
                    @Override
                    public void process(int startMonth, int startYear, int endMonth, int endYear) {
-                       beginDate = String.format("%d.%d.%d", 1, startMonth, startYear);
-                       endDate = String.format("%d.%d.%d", 1, endMonth, endYear);
+                       beginDate = String.format("%s.%d.%d", "01", startMonth, startYear);
+                       endDate = String.format("%s.%d.%d", "01", endMonth, endYear);
                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.M.y");
                        SimpleDateFormat dateFormat1 = new SimpleDateFormat("dd.M.y");
 

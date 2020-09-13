@@ -111,6 +111,19 @@
             android:textSize="14sp"
             />
 
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="240dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/button2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/dra15"
+            android:text="Восстановление пароля"
+
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+            />
 
 
     </RelativeLayout>

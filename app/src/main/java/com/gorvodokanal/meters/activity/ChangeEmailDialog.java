@@ -23,50 +23,45 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ChangePasswordDialog extends DialogFragment {
+public class ChangeEmailDialog extends DialogFragment {
 
 
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.change_password_dialog, container, false);
-        View changePasswordButton = view.findViewById(R.id.changePawwordButton);
+        View view = inflater.inflate(R.layout.change_email_dialog, container, false);
+        View changePasswordButton = view.findViewById(R.id.changeemailButton);
         changePasswordButton.setOnClickListener(v -> processUserData());
         return view;
 
     }
 
     private void processUserData() {
-        String oldPassword = ((EditText) getView().findViewById(R.id.oldPassword)).getText().toString();
-        String newPassword = ((EditText) getView().findViewById(R.id.newPassword)).getText().toString();
-        String confirmationPassword = ((EditText) getView().findViewById(R.id.confirmationPassword)).getText().toString();
+        String email = ((EditText) getView().findViewById(R.id.emailDialog)).getText().toString();
 
-        oldPassword = oldPassword.trim();
-        newPassword = newPassword.trim();
-        confirmationPassword = confirmationPassword.trim();
 
-        if (oldPassword.isEmpty()) {
-            displayError("Нужно ввести старый пароль");
-            return;
-        }
-        if (!newPassword.equals(confirmationPassword)) {
-            displayError("Пароли не совпадают");
+        email = email.trim();
+
+
+        if (email.isEmpty()) {
+            displayError("Введите почту");
             return;
         }
 
-        changePasswordOnServer(oldPassword, newPassword, confirmationPassword);
+
+        changeEmailOnServer(email);
 
 
     }
 
-    private void changePasswordOnServer(String oldPassword, String newPassword, String confirmationPassword) {
+    private void changeEmailOnServer(String email) {
         final RequestQueue mQueue = RequestQueueSingleton.getInstance(getView().getContext());
 
 
         Map<String, Object> requestData = new HashMap<>();
-        requestData.put("oldPassword", oldPassword);
-        requestData.put("newPassword", newPassword);
+        requestData.put("email", email);
+
 
         PostRequest request = new PostRequest(mQueue);
-        request.makeRequest(UrlCollection.CHANGE_PASSWORD_URL, requestData, new VolleyJsonCallback() {
+        request.makeRequest(UrlCollection.CHANGE_EMAIL_URL, requestData, new VolleyJsonCallback() {
             @Override
             public void onSuccess(JSONObject response) {
                 try {
@@ -78,15 +73,12 @@ public class ChangePasswordDialog extends DialogFragment {
                     final boolean isSuccess = response.getBoolean("success");
 
                     if (!isSuccess) {
-
-                        Toast.makeText(getContext(), response.has("message") ? response.getString("message") : "Неизвестная ошибка", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(),  response.has("message") ? response.getString("message") : "Неизвестная ошибка", Toast.LENGTH_LONG).show();
                         return;
-                    } else {
+                    }else {
                         getDialog().dismiss();
-                        Toast.makeText(getContext(), response.has("message") ? response.getString("message") : "Пароль изменен", Toast.LENGTH_LONG).show();
-
+                        Toast.makeText(getContext(), response.has("message") ? response.getString("message") : "Email изменен", Toast.LENGTH_LONG).show();
                     }
-
 
                 } catch (Exception e) {
                     Log.e("valley", "error", e);

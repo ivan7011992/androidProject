@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.android.volley.Header;
 import com.android.volley.RequestQueue;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.gorvodokanal.meters.model.UserModel;
 import com.gorvodokanal.meters.net.PostRequest;
 import com.gorvodokanal.R;
@@ -45,6 +46,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     public EditText passwordUser;
     public boolean showPassword = false;
     public Button button2;
+    public Button button3;
+
 
     private TextView email1;
     public Button buttom;
@@ -71,6 +74,17 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                 startActivity(intent);
             }
         });
+        button3 = findViewById(R.id.button3);
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, RecoveryPassword.class);
+                startActivity(intent);
+            }
+        });
+
+
+
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

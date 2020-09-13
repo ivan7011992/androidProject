@@ -28,9 +28,16 @@
         android:id="@+id/paymentFragment"
         android:icon="@drawable/ic_baseline_payment_24"
         android:title="Оплата"/>
+    
+       <item
+           android:id="@+id/supportFragment"
+           android:icon="@drawable/ic_baseline_supervised_user_circle_24"
+           android:title="Поддержка"
+    />
+                                       
 
     <item
-        android:id="@+id/action_setting"
+        android:id="@+id/exit"
         android:title="Выход"
         android:orderInCategory="100"
         app:showAsAction="always"

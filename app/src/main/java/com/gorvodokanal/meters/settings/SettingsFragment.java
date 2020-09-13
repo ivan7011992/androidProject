@@ -15,6 +15,7 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceScreen;
 
 import com.gorvodokanal.R;
+import com.gorvodokanal.meters.activity.ChangeEmailDialog;
 import com.gorvodokanal.meters.activity.ChangePasswordDialog;
 import com.gorvodokanal.meters.activity.HistoryMetersFragment;
 
@@ -25,10 +26,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         addPreferencesFromResource(R.xml.settings_preferences);
 
       findPreference("change_password").setOnPreferenceClickListener(preference -> showChangePasswordFragment());
+        findPreference("change_email").setOnPreferenceClickListener(preference -> showChangeEmailFragment());
     }
 
+
     private boolean showChangePasswordFragment() {
-        Toast.makeText(getContext(), "Неправильный логин или пароль", Toast.LENGTH_LONG).show();
+
         ChangePasswordDialog dialog = new ChangePasswordDialog();
         dialog.setTargetFragment(this, 1);
         dialog.show(this.getFragmentManager(), "MyCustomDialog");
@@ -36,5 +39,13 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
     }
 
+    private boolean showChangeEmailFragment() {
+        Toast.makeText(getContext(), "Почта  изменена", Toast.LENGTH_LONG).show();
+        ChangeEmailDialog dialog = new ChangeEmailDialog();
+        dialog.setTargetFragment(this, 1);
+        dialog.show(this.getFragmentManager(), "MyCustomDialog");
+        return true;
+
+    }
 
 }
