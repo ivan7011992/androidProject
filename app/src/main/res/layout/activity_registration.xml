@@ -37,7 +37,8 @@
             app:srcCompat="@drawable/ic_baseline_arrow_back_24"
 
 
-            app:backgroundTint="#FFFFFF" />
+            app:backgroundTint="#FFFFFF"
+            tools:ignore="VectorDrawableCompat" />
         <TextView
             android:id="@+id/headerRegistr"
             android:layout_width="wrap_content"
@@ -81,7 +82,7 @@
             app:srcCompat="@drawable/ic_baseline_contact_support_24"
             tools:layout_editor_absoluteX="146dp"
             tools:layout_editor_absoluteY="218dp"
-            />
+            tools:ignore="VectorDrawableCompat" />
 
         <EditText
             android:id="@+id/street"

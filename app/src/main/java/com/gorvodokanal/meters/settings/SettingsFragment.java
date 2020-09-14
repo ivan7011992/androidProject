@@ -40,7 +40,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     }
 
     private boolean showChangeEmailFragment() {
-        Toast.makeText(getContext(), "Почта  изменена", Toast.LENGTH_LONG).show();
+
         ChangeEmailDialog dialog = new ChangeEmailDialog();
         dialog.setTargetFragment(this, 1);
         dialog.show(this.getFragmentManager(), "MyCustomDialog");

@@ -122,7 +122,7 @@
             android:text="Восстановление пароля"
 
             android:textColor="#FFFFFF"
-            android:textSize="12sp"
+            android:textSize="14sp"
             />
 
 
