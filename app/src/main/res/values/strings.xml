@@ -10,7 +10,6 @@
     <string name="login">Логин</string>
     <string name="password">Пароль</string>
     <string name="kod_abon">Код абонента</string>
-
     <string name="kod">Код абонента</string>
     <string name="street">Введите улицу</string>
     <string name="house">Дом</string>

@@ -1,5 +1,7 @@
 package com.gorvodokanal.meters.activity;
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -42,6 +44,7 @@ public class GeneralInfoFragment extends Fragment  {
     private static String address;
    LinearLayout fieldParrent;
     LinearLayout fieldParrent2;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -56,12 +59,15 @@ public class GeneralInfoFragment extends Fragment  {
         final RequestQueue mQueue = RequestQueueSingleton.getInstance(getActivity());
         fieldParrent =  view.findViewById(R.id.fieldParrent);
         fieldParrent2 =  view.findViewById(R.id.PriborBlock);
+        ProgressDialog mDialog = new ProgressDialog(getContext());
         GetRequest userInfoRequest = new GetRequest(mQueue);
         userInfoRequest.makeRequest(UrlCollection.GENERAL_INFO_URL, new VolleyJsonCallback() {
             @Override
             public void onSuccess(JSONObject response) {
                 try {
                     if (!response.has("success")) {
+
+
                         Log.e("server", String.format("Error response from url %s: %s", UrlCollection.AUTH_URL, response.toString()));
                         Toast.makeText(getActivity(), "Неизвестная ошибка, попробуйте еще раз", Toast.LENGTH_LONG).show();
                         return;
@@ -140,6 +146,11 @@ public class GeneralInfoFragment extends Fragment  {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);//Make sure you have this line of code.
+        ProgressDialog mDialog = new ProgressDialog(getContext());
+        mDialog.setMessage("Loading...");
+        mDialog.setCancelable(false);
+        mDialog.show();
+        mDialog.dismiss();
     }
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
