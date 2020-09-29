@@ -59,7 +59,7 @@ public class DateDialog extends DialogFragment {
     private int startYear;
     private int endMonth;
     private int endYear;
-
+    public Spinner spinnerDateBeginMonth;
     private PeriodProcessor periodProcessor;
 
     public DateDialog(PeriodProcessor periodProcessor) {
@@ -107,7 +107,7 @@ public class DateDialog extends DialogFragment {
         });
 
 
-        Spinner spinnerDateBeginMonth = (Spinner) view.findViewById(R.id.spinnerMonthBegin);
+        spinnerDateBeginMonth = (Spinner) view.findViewById(R.id.spinnerMonthBegin);
         Spinner spinnerDateBeginYear = (Spinner) view.findViewById(R.id.spinnerYearBegin);
         Spinner spinnerDateEndMonth = (Spinner) view.findViewById(R.id.spinnerMonthEnd);
         Spinner spinnerDateEndYear = (Spinner) view.findViewById(R.id.spinnerYearEnd);
@@ -122,6 +122,10 @@ public class DateDialog extends DialogFragment {
         initYearSpinner(spinnerDateBeginYear);
         initYearSpinner(spinnerDateEndYear);
 
+        if (savedInstanceState != null) {
+            spinnerDateBeginMonth.setSelection(savedInstanceState.getInt("spinnerDateBeginMonth", 0));
+            // do this for each of your text views
+        }
         return view;
     }
 
@@ -137,15 +141,25 @@ public class DateDialog extends DialogFragment {
     private void initYearSpinner(Spinner spinner) {
         ArrayList<String> data = new ArrayList();
         int year = Calendar.getInstance().get(Calendar.YEAR);
-        for (int i = year; i >= year-5; i--) {
+        for (int i = year; i >= year - 5; i--) {
             data.add(String.valueOf(i));
         }
-
 
 
         ArrayAdapter adapter2 = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item, data);
 
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);// устанавливаем выпадающий список для спиннера
-          spinner.setAdapter(adapter2);
+        spinner.setAdapter(adapter2);
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("spinnerDateBeginMonth", spinnerDateBeginMonth.getSelectedItemPosition());
+        // do this for each or your Spinner
+        // You might consider using Bundle.putStringArray() instead
+    }
+
+
+
 }

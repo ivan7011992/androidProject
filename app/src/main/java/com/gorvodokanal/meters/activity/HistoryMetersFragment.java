@@ -102,8 +102,10 @@ public class HistoryMetersFragment extends Fragment {
                    public void process(int startMonth, int startYear, int endMonth, int endYear) {
                        beginDate = String.format("%s.%d.%d", "01", startMonth, startYear);
                        endDate = String.format("%s.%d.%d", "01", endMonth, endYear);
-                       SimpleDateFormat dateFormat = new SimpleDateFormat("dd.M.y");
-                       SimpleDateFormat dateFormat1 = new SimpleDateFormat("dd.M.y");
+
+                       SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.y");
+                       SimpleDateFormat dateFormat1 = new SimpleDateFormat("dd.MM.y");
+
 
                        try {
                            Date dateBegin = dateFormat.parse(beginDate);
@@ -117,7 +119,9 @@ public class HistoryMetersFragment extends Fragment {
 
                               }
                            if (dateBegin.compareTo(dateEnd) < 0) {
+
                                showData(beginDate, endDate);
+
                                startDateButton.setText(beginDate + "-" + endDate);
                                Toast.makeText(getContext(), "Отчёт построен", Toast.LENGTH_LONG).show();
 
