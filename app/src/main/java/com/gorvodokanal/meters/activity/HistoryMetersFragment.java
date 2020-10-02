@@ -105,8 +105,20 @@ public class HistoryMetersFragment extends Fragment {
 
                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.y");
                        SimpleDateFormat dateFormat1 = new SimpleDateFormat("dd.MM.y");
-
-
+                       Calendar cal = Calendar.getInstance();
+                       try {
+                           cal.setTime(sdf.parse(beginDate));
+                       } catch (ParseException e) {
+                           e.printStackTrace();
+                       }
+                       beginDate= dateFormat.format(cal.getTime());
+                       Calendar cal1 = Calendar.getInstance();
+                       try {
+                           cal1.setTime(sdf.parse(endDate));
+                       } catch (ParseException e) {
+                           e.printStackTrace();
+                       }
+                       endDate= dateFormat1.format(cal1.getTime());
                        try {
                            Date dateBegin = dateFormat.parse(beginDate);
                            Date dateEnd  = dateFormat1.parse(endDate);

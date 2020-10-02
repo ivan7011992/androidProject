@@ -26,6 +26,8 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 public class DateDialog extends DialogFragment {
+    private String number;
+
     interface SpinnerSelectedItemHandler {
         public void onSelect(String value);
     }
@@ -59,7 +61,7 @@ public class DateDialog extends DialogFragment {
     private int startYear;
     private int endMonth;
     private int endYear;
-    public Spinner spinnerDateBeginMonth;
+
     private PeriodProcessor periodProcessor;
 
     public DateDialog(PeriodProcessor periodProcessor) {
@@ -107,7 +109,9 @@ public class DateDialog extends DialogFragment {
         });
 
 
-        spinnerDateBeginMonth = (Spinner) view.findViewById(R.id.spinnerMonthBegin);
+        Spinner spinnerDateBeginMonth = (Spinner) view.findViewById(R.id.spinnerMonthBegin);
+
+
         Spinner spinnerDateBeginYear = (Spinner) view.findViewById(R.id.spinnerYearBegin);
         Spinner spinnerDateEndMonth = (Spinner) view.findViewById(R.id.spinnerMonthEnd);
         Spinner spinnerDateEndYear = (Spinner) view.findViewById(R.id.spinnerYearEnd);
@@ -122,10 +126,7 @@ public class DateDialog extends DialogFragment {
         initYearSpinner(spinnerDateBeginYear);
         initYearSpinner(spinnerDateEndYear);
 
-        if (savedInstanceState != null) {
-            spinnerDateBeginMonth.setSelection(savedInstanceState.getInt("spinnerDateBeginMonth", 0));
-            // do this for each of your text views
-        }
+
         return view;
     }
 
@@ -136,7 +137,33 @@ public class DateDialog extends DialogFragment {
         ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item, data);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);// устанавливаем выпадающий список для спиннера
         spinner.setAdapter(adapter);
-    }
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            public void onItemSelected(AdapterView<?> parentView,
+                                       View view, int position, long id) {
+                // Object item = parentView.getItemAtPosition(position);
+
+                number = spinner.getSelectedItem().toString();
+                Log.d ("number", "" + number );
+
+            }
+
+            public void onNothingSelected(AdapterView<?> arg0) {// do nothing
+            }
+
+        });
+        String compareValue = "" + number ;
+        Log.d ("compareValue", "" + number );
+
+
+        if (compareValue != null) {
+            int spinnerPosition = adapter.getPosition(compareValue);
+            spinner.setSelection(2);
+        }
+
+
+
+}
 
     private void initYearSpinner(Spinner spinner) {
         ArrayList<String> data = new ArrayList();
@@ -150,15 +177,32 @@ public class DateDialog extends DialogFragment {
 
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);// устанавливаем выпадающий список для спиннера
         spinner.setAdapter(adapter2);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            public void onItemSelected(AdapterView<?> parentView,
+                                       View view, int position, long id) {
+                // Object item = parentView.getItemAtPosition(position);
+
+                  number = spinner.getSelectedItem().toString();
+                Log.d ("number", "" + number );
+
+            }
+
+            public void onNothingSelected(AdapterView<?> arg0) {// do nothing
+            }
+
+        });
+
+        String compareValue = "" + number ;
+        Log.d ("compareValue", "" + number );
+
+
+        if (compareValue != null) {
+            int spinnerPosition = adapter2.getPosition(compareValue);
+            spinner.setSelection(2);
+        }
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putInt("spinnerDateBeginMonth", spinnerDateBeginMonth.getSelectedItemPosition());
-        // do this for each or your Spinner
-        // You might consider using Bundle.putStringArray() instead
-    }
 
 
 
