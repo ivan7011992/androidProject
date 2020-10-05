@@ -54,6 +54,10 @@ public class HistoryMetersFragment extends Fragment {
 
     private static String beginDate =  "1.1.2020";
     private static String endDate = "1.7.2020";
+    public static String beginMonthValue;
+    public static String endMonthValue;
+    public static String beginYearValue;
+    public static String endYearValue;
     Button startDateButton;
 
     int Date;
@@ -103,6 +107,10 @@ public class HistoryMetersFragment extends Fragment {
                        beginDate = String.format("%s.%d.%d", "01", startMonth, startYear);
                        endDate = String.format("%s.%d.%d", "01", endMonth, endYear);
 
+                       beginMonthValue =  beginDate.substring(0,2);
+                       endMonthValue =String.valueOf(endMonth);
+                        beginYearValue=String.valueOf(startYear);
+                       endYearValue=String.valueOf(endYear);
                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.y");
                        SimpleDateFormat dateFormat1 = new SimpleDateFormat("dd.MM.y");
                        Calendar cal = Calendar.getInstance();
@@ -130,7 +138,7 @@ public class HistoryMetersFragment extends Fragment {
 
 
                               }
-                           if (dateBegin.compareTo(dateEnd) < 0) {
+                           if (dateBegin.compareTo(dateEnd) <= 0) {
 
                                showData(beginDate, endDate);
 

@@ -137,29 +137,29 @@ public class DateDialog extends DialogFragment {
         ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item, data);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);// устанавливаем выпадающий список для спиннера
         spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            public void onItemSelected(AdapterView<?> parentView,
-                                       View view, int position, long id) {
-                // Object item = parentView.getItemAtPosition(position);
-
-                number = spinner.getSelectedItem().toString();
-                Log.d ("number", "" + number );
-
-            }
-
-            public void onNothingSelected(AdapterView<?> arg0) {// do nothing
-            }
-
-        });
-        String compareValue = "" + number ;
-        Log.d ("compareValue", "" + number );
-
-
-        if (compareValue != null) {
-            int spinnerPosition = adapter.getPosition(compareValue);
-            spinner.setSelection(2);
-        }
+//        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//
+//            public void onItemSelected(AdapterView<?> parentView,
+//                                       View view, int position, long id) {
+//                // Object item = parentView.getItemAtPosition(position);
+//
+//                number = spinner.getSelectedItem().toString();
+//                Log.d ("number", "" + number );
+//
+//            }
+//
+//            public void onNothingSelected(AdapterView<?> arg0) {// do nothing
+//            }
+//
+//        });
+//        String compareValue = "" + number ;
+//        Log.d ("compareValue", "" + number );
+//
+//
+//        if (compareValue != null) {
+//            int spinnerPosition = adapter.getPosition(compareValue);
+//            spinner.setSelection(2);
+//        }
 
 
 
@@ -177,31 +177,31 @@ public class DateDialog extends DialogFragment {
 
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);// устанавливаем выпадающий список для спиннера
         spinner.setAdapter(adapter2);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            public void onItemSelected(AdapterView<?> parentView,
-                                       View view, int position, long id) {
-                // Object item = parentView.getItemAtPosition(position);
-
-                  number = spinner.getSelectedItem().toString();
-                Log.d ("number", "" + number );
-
-            }
-
-            public void onNothingSelected(AdapterView<?> arg0) {// do nothing
-            }
-
-        });
-
-        String compareValue = "" + number ;
-        Log.d ("compareValue", "" + number );
-
-
-        if (compareValue != null) {
-            int spinnerPosition = adapter2.getPosition(compareValue);
-            spinner.setSelection(2);
-        }
-    }
+//        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//
+//            public void onItemSelected(AdapterView<?> parentView,
+//                                       View view, int position, long id) {
+//                // Object item = parentView.getItemAtPosition(position);
+//
+//                  number = spinner.getSelectedItem().toString();
+//                Log.d ("number", "" + number );
+//
+//            }
+//
+//            public void onNothingSelected(AdapterView<?> arg0) {// do nothing
+//            }
+//
+//        });
+//
+//        String compareValue = "" + number ;
+//        Log.d ("compareValue", "" + number );
+//
+//
+//        if (compareValue != null) {
+//            int spinnerPosition = adapter2.getPosition(compareValue);
+//            spinner.setSelection(2);
+//        }
+  }
 
 
 

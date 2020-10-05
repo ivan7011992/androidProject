@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.telephony.PhoneNumberUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -24,7 +26,13 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
+
+import ru.tinkoff.decoro.Mask;
+import ru.tinkoff.decoro.MaskImpl;
+import ru.tinkoff.decoro.parser.PhoneNumberUnderscoreSlotsParser;
+import ru.tinkoff.decoro.slots.Slot;
 
 public class Registration extends AppCompatActivity {
 
@@ -48,7 +56,16 @@ public class Registration extends AppCompatActivity {
        EditText passwordReg1 = (EditText) findViewById(R.id.passwordReg);
     //    passwordReg1.addTextChangedListener(new PatternedTextWatcher("###-###-####"));
         String ConfirmPassword = ((EditText) findViewById(R.id.ConfirmPassword)).getText().toString();
+
+
         String phone = ((EditText) findViewById(R.id.phone)).getText().toString();
+
+        Slot[] slots = new PhoneNumberUnderscoreSlotsParser().parseSlots("+86 (1__) ___-____");
+        Mask inputMask = MaskImpl.createTerminated(slots);
+        inputMask.insertFront(phone);
+
+        Log.d("Phone number", inputMask.toString()); // Phone number: +86 (199) 111-2345
+        Log.d("RAW phone", inputMask.toUnformattedString()); // RAW phone: +861991112345
         String email = ((EditText) findViewById(R.id.email)).getText().toString();
         kod= kod.trim();
         street = street.trim();

@@ -44,6 +44,7 @@ public class GeneralInfoFragment extends Fragment  {
     private static String address;
    LinearLayout fieldParrent;
     LinearLayout fieldParrent2;
+    public static int confirm = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -72,6 +73,12 @@ public class GeneralInfoFragment extends Fragment  {
                         Toast.makeText(getActivity(), "Неизвестная ошибка, попробуйте еще раз", Toast.LENGTH_LONG).show();
                         return;
                     }
+                   confirm =  response.getInt("conf");
+
+                    if(confirm!=1){
+                       ConfirmDialog dialog = new ConfirmDialog();
+                    }
+
                     JSONArray rows = response.getJSONArray("data");
 
 
