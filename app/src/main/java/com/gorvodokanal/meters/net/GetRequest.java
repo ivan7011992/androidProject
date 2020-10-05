@@ -19,18 +19,24 @@ public class GetRequest {
         this.mQueue = mQueue;
     }
 
-    public void makeRequest(String url,final VolleyJsonCallback callback) {
+    public void makeRequest(String url, final VolleyJsonSuccessCallback successCallback) {
+        makeRequest(url, successCallback, null);
+    }
+
+    public void makeRequest(String url, final VolleyJsonSuccessCallback successCallback, VolleyJsonErrorCallback errorCallback) {
 
         try {
             JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {//здесь будем распозновать наш json объект
-                    callback.onSuccess(response);
+                    successCallback.onSuccess(response);
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    error.printStackTrace();//метод для стекка ошибок
+                    if (errorCallback != null) {
+                        errorCallback.onError(error);
+                    }
                 }
             });
             mQueue.add(request);

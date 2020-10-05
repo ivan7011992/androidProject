@@ -18,7 +18,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -26,21 +25,17 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.gorvodokanal.R;
 import com.gorvodokanal.meters.historyUtilClass.PaymentAdapter;
-import com.gorvodokanal.meters.historyUtilClass.SummaryPassItemAdapter;
 import com.gorvodokanal.meters.model.SummaryPaymentData;
-import com.gorvodokanal.meters.model.UserModel;
-import com.gorvodokanal.meters.model.VodomerItem;
 import com.gorvodokanal.meters.net.GetRequest;
 import com.gorvodokanal.meters.net.PostRequest;
 import com.gorvodokanal.meters.net.RequestQueueSingleton;
 import com.gorvodokanal.meters.net.UrlCollection;
-import com.gorvodokanal.meters.net.VolleyJsonCallback;
+import com.gorvodokanal.meters.net.VolleyJsonSuccessCallback;
 import com.gorvodokanal.meters.settings.Setting;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -74,7 +69,7 @@ public class PaymentFragment extends Fragment {
 
 
         GetRequest userInfoRequest = new GetRequest(mQueue);
-        userInfoRequest.makeRequest(UrlCollection.PAYMENT_METERS, new VolleyJsonCallback() {
+        userInfoRequest.makeRequest(UrlCollection.PAYMENT_METERS, new VolleyJsonSuccessCallback() {
             @Override
             public void onSuccess(JSONObject response) {
                 try {
@@ -106,7 +101,7 @@ public class PaymentFragment extends Fragment {
                             final RequestQueue mQueue = RequestQueueSingleton.getInstance(getContext());
 
                             PostRequest request = new PostRequest(mQueue);
-                            request.makeRequest(UrlCollection.PAYMENT_GENERATE_URL, requestData, new VolleyJsonCallback() {
+                            request.makeRequest(UrlCollection.PAYMENT_GENERATE_URL, requestData, new VolleyJsonSuccessCallback() {
                                 @Override
                                 public void onSuccess(JSONObject response) {
                                     try {

@@ -24,7 +24,7 @@ public class PostRequest {
 
     }
 
-    public void makeRequest(String url, Map<String, Object> params, final VolleyJsonCallback callback) {
+    public void makeRequest(String url, Map<String, Object> params, final VolleyJsonSuccessCallback callback) {
 
         try {
             JSONObject jsonData = convertToJson(params);

@@ -19,15 +19,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Header;
 import com.android.volley.RequestQueue;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.gorvodokanal.meters.model.UserModel;
 import com.gorvodokanal.meters.net.PostRequest;
 import com.gorvodokanal.R;
 import com.gorvodokanal.meters.net.RequestQueueSingleton;
 import com.gorvodokanal.meters.net.UrlCollection;
-import com.gorvodokanal.meters.net.VolleyJsonCallback;
+import com.gorvodokanal.meters.net.VolleyJsonSuccessCallback;
 import com.gorvodokanal.meters.settings.Setting;
 import com.gorvodokanal.meters.settings.SettingVariable;
 
@@ -156,7 +154,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         final RequestQueue mQueue = RequestQueueSingleton.getInstance(this);
 
         PostRequest request = new PostRequest(mQueue);
-        request.makeRequest(UrlCollection.AUTH_URL, requestData, new VolleyJsonCallback() {
+        request.makeRequest(UrlCollection.AUTH_URL, requestData, new VolleyJsonSuccessCallback() {
             @Override
             public void onSuccess(JSONObject response) {
                 try {

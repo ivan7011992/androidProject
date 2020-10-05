@@ -32,7 +32,7 @@ import com.gorvodokanal.meters.net.GetRequest;
 import com.gorvodokanal.meters.net.PostRequest;
 import com.gorvodokanal.meters.net.RequestQueueSingleton;
 import com.gorvodokanal.meters.net.UrlCollection;
-import com.gorvodokanal.meters.net.VolleyJsonCallback;
+import com.gorvodokanal.meters.net.VolleyJsonSuccessCallback;
 import com.gorvodokanal.meters.settings.Setting;
 
 import org.json.JSONArray;
@@ -40,7 +40,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -50,7 +49,6 @@ import java.util.regex.Pattern;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class PassMetersFragment extends Fragment {
-    private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/yyyy");
     private static String datePassMeters;
     Button datePassMetersValue;
     private final static Pattern metersDataPattern = Pattern.compile("/^[0-9]{1,20}[.]?[0-9]{0,3}$/");
@@ -91,7 +89,7 @@ public class PassMetersFragment extends Fragment {
     public void fetchAndDisplayData() {
         final RequestQueue mQueue = RequestQueueSingleton.getInstance(getContext());
         GetRequest userInfoRequest = new GetRequest(mQueue);
-        userInfoRequest.makeRequest(UrlCollection.PASS_METERS, new VolleyJsonCallback() {
+        userInfoRequest.makeRequest(UrlCollection.PASS_METERS, new VolleyJsonSuccessCallback() {
             @Override
             public void onSuccess(JSONObject response) {
                 try {
@@ -188,7 +186,7 @@ public class PassMetersFragment extends Fragment {
         requestData.put("meters", userData);
 
         PostRequest request = new PostRequest(mQueue);
-        request.makeRequest(UrlCollection.SET_METERS, requestData, new VolleyJsonCallback() {
+        request.makeRequest(UrlCollection.SET_METERS, requestData, new VolleyJsonSuccessCallback() {
             @Override
             public void onSuccess(JSONObject response) {
                 try {

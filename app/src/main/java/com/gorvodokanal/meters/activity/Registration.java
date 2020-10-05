@@ -5,13 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.telephony.PhoneNumberUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -20,62 +17,42 @@ import com.gorvodokanal.R;
 import com.gorvodokanal.meters.net.PostRequest;
 import com.gorvodokanal.meters.net.RequestQueueSingleton;
 import com.gorvodokanal.meters.net.UrlCollection;
-import com.gorvodokanal.meters.net.VolleyJsonCallback;
+import com.gorvodokanal.meters.net.VolleyJsonSuccessCallback;
 
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
-
-import ru.tinkoff.decoro.Mask;
-import ru.tinkoff.decoro.MaskImpl;
-import ru.tinkoff.decoro.parser.PhoneNumberUnderscoreSlotsParser;
-import ru.tinkoff.decoro.slots.Slot;
 
 public class Registration extends AppCompatActivity {
 
 
     private static HashMap<String, EditText> dataRegistr = new HashMap<>();
 
+    private static final HashMap<String, Integer> inputNames = new HashMap<>();
+    static {
+        inputNames.put("kod", R.id.kod);
+        inputNames.put("phone", R.id.phone);
+        inputNames.put("street", R.id.street);
+        inputNames.put("house", R.id.house);
+        inputNames.put("flat", R.id.flat);
+        inputNames.put("passwordReg", R.id.passwordReg);
+        inputNames.put("confirmPassword", R.id.ConfirmPassword);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
+        RegistrationData data = new RegistrationData();
+        for(Map.Entry<String, Integer> inputNameEntry : inputNames.entrySet()) {
+            data.add(inputNameEntry.getKey(),findViewById(inputNameEntry.getValue()) );
+        }
 
-        String kod = ((EditText) findViewById(R.id.kod)).getText().toString();
-        String street= ((EditText) findViewById(R.id.street)).getText().toString();
-        String house = ((EditText) findViewById(R.id.house)).getText().toString();
-        String flat = ((EditText) findViewById(R.id.flat)).getText().toString();
-        String fio = ((EditText) findViewById(R.id.fio)).getText().toString();
-        String passwordReg = ((EditText) findViewById(R.id.passwordReg)).getText().toString();
+        data.setViewMask("phone", "(___) ___-__-__");
+        data.setViewMask("kod", "__-_______");
 
-       EditText passwordReg1 = (EditText) findViewById(R.id.passwordReg);
-    //    passwordReg1.addTextChangedListener(new PatternedTextWatcher("###-###-####"));
-        String ConfirmPassword = ((EditText) findViewById(R.id.ConfirmPassword)).getText().toString();
-
-
-        String phone = ((EditText) findViewById(R.id.phone)).getText().toString();
-
-        Slot[] slots = new PhoneNumberUnderscoreSlotsParser().parseSlots("+86 (1__) ___-____");
-        Mask inputMask = MaskImpl.createTerminated(slots);
-        inputMask.insertFront(phone);
-
-        Log.d("Phone number", inputMask.toString()); // Phone number: +86 (199) 111-2345
-        Log.d("RAW phone", inputMask.toUnformattedString()); // RAW phone: +861991112345
-        String email = ((EditText) findViewById(R.id.email)).getText().toString();
-        kod= kod.trim();
-        street = street.trim();
-        house =  house.trim();
-        flat = flat.trim();
-        fio= fio.trim();
-        passwordReg = passwordReg.trim();
-        ConfirmPassword= ConfirmPassword.trim();
-        phone = phone.trim();
-        email = email.trim();
         View image2 = findViewById(R.id.image2);
         image2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,13 +70,17 @@ public class Registration extends AppCompatActivity {
             }
         });
 
-
-        registrationSubmitData(kod, street,house,flat,fio,passwordReg,ConfirmPassword ,phone,email);
-
+        findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                registrationSubmitData(data.getData());
+            }
+        });
 
 
 
     }
+
     private void createAlertDialog(String title, String content) {
         // объект Builder для создания диалогового окна
         AlertDialog.Builder builder = new AlertDialog.Builder(Registration.this);
@@ -120,64 +101,42 @@ public class Registration extends AppCompatActivity {
         // вызываем этот метод, чтобы показать AlertDialog на экране пользователя
         builder.show();
     }
+
     private void showMessage(String textInMessage) {
         Toast.makeText(getApplicationContext(), textInMessage, Toast.LENGTH_LONG).show();
     }
 
-    private void  registrationSubmitData(String kod, String  street, String house,String flat,String fio,String passwordReg,String ConfirmPassword ,String phone,String email) {
+    private void registrationSubmitData(HashMap<String, String> data) {
         final RequestQueue mQueue = RequestQueueSingleton.getInstance(this);
 
-        if(kod.isEmpty()) {
-            displayError("Введите код");
-            return;
+        HashMap<String, String> emptyErrorMessages = new HashMap<>();
+        emptyErrorMessages.put("kod", "Введите код");
+        emptyErrorMessages.put("street", "Введите улицу");
+        emptyErrorMessages.put("house", "Введите дом");
+        emptyErrorMessages.put("flat", "Введите Введите квартиру");
+        emptyErrorMessages.put("fio", "Введите инициалы");
+        emptyErrorMessages.put("password", "Введите пароль");
+        emptyErrorMessages.put("confirmPassword", "Подтвердите пароль");
+        emptyErrorMessages.put("phone", "Введите телефон");
+        emptyErrorMessages.put("email", "Введете email");
+
+        for(Map.Entry<String, String> errorEntry : emptyErrorMessages.entrySet()) {
+            String value = data.get(errorEntry.getKey());
+            if(value.isEmpty()) {
+                displayError(errorEntry.getValue());
+                return;
+            }
         }
-        if(street .isEmpty()) {
-            displayError("Введите улицу");
-            return;
-        }
-        if(house.isEmpty()) {
-            displayError("Введите дом");
-            return;
-        }
-        if(flat.isEmpty()) {
-            displayError("Введите квартиру");
-            return;
-        }
-        if(fio.isEmpty()) {
-            displayError("Введите фамилию");
-            return;
-        }
-        if(passwordReg.isEmpty()) {
-            displayError("Введите пароль");
-            return;
-        }
-        if(ConfirmPassword.isEmpty()) {
-            displayError("Подтвердите пароль");
-            return;
-        }
-        if(phone.isEmpty()) {
-            displayError("Введите телефон");
-            return;
-        }
-        if(email.isEmpty()) {
-            displayError("Введете email");
-            return;
-        }
+
+
 
         Map<String, Object> requestData = new HashMap<>();
-        requestData.put("kod", kod);
-        requestData.put("street", street);
-        requestData.put("house", house);
-        requestData.put("kflat", flat);
-        requestData.put("fio", fio);
-        requestData.put("password", passwordReg);
-        requestData.put("ConfirmPassword", ConfirmPassword);
-        requestData.put("phone", phone);
-        requestData.put("email", email);
-
+        for (Map.Entry<String, String> entry : data.entrySet()) {
+            requestData.put(entry.getKey(), entry.getValue());
+        }
 
         PostRequest request = new PostRequest(mQueue);
-        request.makeRequest(UrlCollection.CHANGE_PASSWORD_URL, requestData, new VolleyJsonCallback() {
+        request.makeRequest(UrlCollection.REGISTRATION_URL, requestData, new VolleyJsonSuccessCallback() {
             @Override
             public void onSuccess(JSONObject response) {
                 try {
@@ -199,6 +158,7 @@ public class Registration extends AppCompatActivity {
             }
         });
     }
+
     private void displayError(String errorMessage) {
         Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show();
     }

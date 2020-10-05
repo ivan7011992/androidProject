@@ -6,7 +6,6 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -31,14 +30,13 @@ import com.gorvodokanal.meters.model.SummaryHistoryItem;
 import com.gorvodokanal.meters.net.GetRequest;
 import com.gorvodokanal.meters.net.RequestQueueSingleton;
 import com.gorvodokanal.meters.net.UrlCollection;
-import com.gorvodokanal.meters.net.VolleyJsonCallback;
+import com.gorvodokanal.meters.net.VolleyJsonSuccessCallback;
 import com.gorvodokanal.meters.settings.Setting;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.YearMonth;
@@ -46,9 +44,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.Locale;
 
 public class HistoryMetersFragment extends Fragment {
 
@@ -235,7 +231,7 @@ public class HistoryMetersFragment extends Fragment {
         final RequestQueue mQueue = RequestQueueSingleton.getInstance(getContext());
         GetRequest request = new GetRequest(mQueue);
         String requestUrl = UrlCollection.HISTORY_METERS + "?beginDate=" + beginDate + "&endDate=" + endDate;
-        request.makeRequest(requestUrl, new VolleyJsonCallback() {
+        request.makeRequest(requestUrl, new VolleyJsonSuccessCallback() {
             @Override
             public void onSuccess(JSONObject response) {
                 try {

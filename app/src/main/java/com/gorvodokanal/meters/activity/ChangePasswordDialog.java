@@ -16,7 +16,7 @@ import com.gorvodokanal.R;
 import com.gorvodokanal.meters.net.PostRequest;
 import com.gorvodokanal.meters.net.RequestQueueSingleton;
 import com.gorvodokanal.meters.net.UrlCollection;
-import com.gorvodokanal.meters.net.VolleyJsonCallback;
+import com.gorvodokanal.meters.net.VolleyJsonSuccessCallback;
 
 import org.json.JSONObject;
 
@@ -66,7 +66,7 @@ public class ChangePasswordDialog extends DialogFragment {
         requestData.put("newPassword", newPassword);
 
         PostRequest request = new PostRequest(mQueue);
-        request.makeRequest(UrlCollection.CHANGE_PASSWORD_URL, requestData, new VolleyJsonCallback() {
+        request.makeRequest(UrlCollection.CHANGE_PASSWORD_URL, requestData, new VolleyJsonSuccessCallback() {
             @Override
             public void onSuccess(JSONObject response) {
                 try {
