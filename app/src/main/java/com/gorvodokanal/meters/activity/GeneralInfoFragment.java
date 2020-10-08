@@ -72,11 +72,11 @@ public class GeneralInfoFragment extends Fragment  {
                                 return;
                             }
 
-                            confirm = response.getInt("conf");
-
-                            if (confirm != 1) {
-                                ConfirmDialog dialog = new ConfirmDialog();
-                            }
+//                            confirm = response.getInt("conf");
+//
+//                            if (confirm != 1) {
+//                                ConfirmDialog dialog = new ConfirmDialog();
+//                            }
 
                             JSONArray rows = response.getJSONArray("data");
 

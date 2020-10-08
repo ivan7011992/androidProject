@@ -66,23 +66,23 @@ public class DetailHistoryDialog extends DialogFragment {
 
 
 
-        saldoBeginValueVodosnab.setText(String.valueOf((int) voda.getSaldoBegin()));
-        nachisPeriodValueVodosnab.setText(String.valueOf(voda.getNachisleno()));
-        oplataPeriodValueVodosnab.setText(String.valueOf(voda.getOplata()));
+        saldoBeginValueVodosnab.setText(String.format("%.2f",voda.getSaldoBegin()));
+        nachisPeriodValueVodosnab.setText(String.format("%.2f",voda.getNachisleno()));
+        oplataPeriodValueVodosnab.setText(String.format("%.2f",voda.getOplata()));
         double deptVodosnab = voda.getDept();
-        deptValueVodosnab.setText(String.valueOf(deptVodosnab));
+        deptValueVodosnab.setText(String.format("%.2f",deptVodosnab));
 
-        saldoBeginValueVodootv.setText(String.valueOf((int) stoki.getSaldoBegin()));
-        nachisPeriodValueVodootv.setText(String.valueOf(stoki.getNachisleno()));
-        oplataPeriodValueVodootv.setText(String.valueOf(stoki.getOplata()));
+        saldoBeginValueVodootv.setText(String.format("%.2f",stoki.getSaldoBegin()));
+        nachisPeriodValueVodootv.setText(String.format("%.2f",stoki.getNachisleno()));
+        oplataPeriodValueVodootv.setText(String.format("%.2f",stoki.getOplata()));
         double deptVootv = stoki.getDept();
-        deptValueVodootv.setText(String.valueOf(deptVootv));
+        deptValueVodootv.setText(String.format("%.2f",deptVootv));
 
-        saldoBeginValueOdn.setText(String.valueOf((int) odn.getSaldoBegin()));
-        nachisPeriodValueOdn.setText(String.valueOf(odn.getNachisleno()));
-        oplataPeriodValueOdn.setText(String.valueOf(odn.getOplata()));
+        saldoBeginValueOdn.setText(String.format("%.2f", odn.getSaldoBegin()));
+        nachisPeriodValueOdn.setText(String.format("%.2f",odn.getNachisleno()));
+        oplataPeriodValueOdn.setText(String.format("%.2f",odn.getOplata()));
         double deptOdn = odn.getDept();
-        deptValueVodoOdn.setText(String.valueOf(deptOdn));
+        deptValueVodoOdn.setText(String.format("%.2f",deptOdn));
 
         //nachisPeriodValueVodosnab.setText(String.valueOf(stoki.getSaldoBegin()));
         //oplataPeriodValueVodosnab.setText(String.valueOf());

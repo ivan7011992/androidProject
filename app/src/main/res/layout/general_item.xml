@@ -5,8 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="140dp"
-    android:layout_margin="4dp"
-    app:cardCornerRadius="4dp"
+    android:layout_margin="1dp"
+    app:cardCornerRadius="0dp"
     >
 
 
@@ -47,6 +47,7 @@
                 android:text="Значение"
                 android:textSize="14sp"
                 android:textStyle="bold"
+                android:layout_marginTop="5dp"
                 android:layout_alignParentRight="true"
 
                 />

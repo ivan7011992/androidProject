@@ -5,9 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="208dp"
-
     android:fontFamily="@font/roboto_medium"
-
     >
 
     <LinearLayout
@@ -16,11 +14,6 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
         android:orientation="vertical"
-
-
-
-
-
         tools:context=".meters.activity.MainActivity">
 
 
@@ -43,15 +36,11 @@
         android:layout_margin="2dp"
         android:orientation="vertical"
         android:padding="5dp"
-
-
-
         tools:context=".meters.activity.MainActivity">
         <TextView
             android:id="@+id/datePassMeters"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/dateHistory"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/roboto_medium"
             android:paddingRight="3dp"
@@ -63,8 +52,6 @@
             android:id="@+id/saldoBeginValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/dateHistory"
-
             android:layout_alignParentRight="true"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/roboto_medium"

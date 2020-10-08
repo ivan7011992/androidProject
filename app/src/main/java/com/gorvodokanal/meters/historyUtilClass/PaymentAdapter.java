@@ -51,7 +51,6 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.RecycleV
             paymentValue.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
             paymentValue.setKeyListener(DigitsKeyListener.getInstance(true, true));
             title = itemView.findViewById(R.id.TitlePayment);
-
             paymentSum = itemView.findViewById(R.id.paymentSum);
         }
     }

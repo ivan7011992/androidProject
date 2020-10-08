@@ -38,6 +38,7 @@ public class Registration extends AppCompatActivity {
         inputNames.put("flat", R.id.flat);
         inputNames.put("passwordReg", R.id.passwordReg);
         inputNames.put("confirmPassword", R.id.ConfirmPassword);
+        inputNames.put("emailReg", R.id.emailReg);
     }
 
     @Override
@@ -70,7 +71,7 @@ public class Registration extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.buttonReg).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 registrationSubmitData(data.getData());
@@ -115,18 +116,19 @@ public class Registration extends AppCompatActivity {
         emptyErrorMessages.put("house", "Введите дом");
         emptyErrorMessages.put("flat", "Введите Введите квартиру");
         emptyErrorMessages.put("fio", "Введите инициалы");
-        emptyErrorMessages.put("password", "Введите пароль");
+        emptyErrorMessages.put("passwordReg", "Введите пароль");
         emptyErrorMessages.put("confirmPassword", "Подтвердите пароль");
         emptyErrorMessages.put("phone", "Введите телефон");
-        emptyErrorMessages.put("email", "Введете email");
+        emptyErrorMessages.put("emailReg", "Введете почту");
 
-        for(Map.Entry<String, String> errorEntry : emptyErrorMessages.entrySet()) {
-            String value = data.get(errorEntry.getKey());
-            if(value.isEmpty()) {
-                displayError(errorEntry.getValue());
-                return;
-            }
-        }
+//        for(Map.Entry<String, String> errorEntry : emptyErrorMessages.entrySet()) {
+//            String value = data.get(errorEntry.getKey());
+//            if(value.isEmpty()) {
+//                displayError(errorEntry.getValue());
+//                return;
+//            }
+//
+//        }
 
 
 
@@ -155,6 +157,9 @@ public class Registration extends AppCompatActivity {
                 } catch (Exception e) {
                     Log.e("valley", "error", e);
                 }
+
+
+
             }
         });
     }

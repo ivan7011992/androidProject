@@ -9,6 +9,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.InputType;
+import android.text.method.DigitsKeyListener;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.MenuItem;
@@ -37,6 +39,12 @@ import java.net.CookieManager;
 import java.util.HashMap;
 import java.util.Map;
 
+import ru.tinkoff.decoro.MaskImpl;
+import ru.tinkoff.decoro.parser.UnderscoreDigitSlotsParser;
+import ru.tinkoff.decoro.slots.Slot;
+import ru.tinkoff.decoro.watchers.FormatWatcher;
+import ru.tinkoff.decoro.watchers.MaskFormatWatcher;
+
 public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
     private String email;
     private String password;
@@ -46,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     public Button button2;
     public Button button3;
 
-
+    EditText login;
     private TextView email1;
     public Button buttom;
     ImageView imageView;
@@ -63,7 +71,15 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         buttom = findViewById(R.id.button);
         //  buttom.getBackground().setAlpha(64);
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+        RegistrationData data = new RegistrationData();
 
+        login = findViewById(R.id.login);
+        login.setMaxLines(1);
+        Slot[] slots = new UnderscoreDigitSlotsParser().parseSlots("__-_______");
+        FormatWatcher formatWatcher = new MaskFormatWatcher( // форматировать текст будет вот он
+                MaskImpl.createTerminated(slots)
+        );
+        formatWatcher.installOn(login);
         button2 = findViewById(R.id.button2);
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +95,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                 Intent intent = new Intent(MainActivity.this, RecoveryPassword.class);
                 startActivity(intent);
             }
+
         });
 
 
@@ -109,7 +126,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         });
 
 
-
     }
 
     private void createAlertDialog(String title, String content) {
@@ -138,7 +154,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     }
 
     public void formSubmit(View view) {
-        EditText login = findViewById(R.id.login);
+        login = findViewById(R.id.login);
         final EditText password = findViewById(R.id.password);
 
 

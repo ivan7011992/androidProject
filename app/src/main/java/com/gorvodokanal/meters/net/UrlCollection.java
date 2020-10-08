@@ -16,3 +16,4 @@ public final class UrlCollection {
     public static final String REGISTRATION_URL =  BASE_URL + "registration.php";
 
 }
+

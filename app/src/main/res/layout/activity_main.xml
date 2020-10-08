@@ -46,6 +46,8 @@
             android:padding="20dp"
             android:layout_marginTop="21dp"
             android:layout_alignParentRight="true"
+
+
             android:layout_marginRight="50dp"
             android:layout_below="@+id/image"
             app:srcCompat="@drawable/ic_baseline_contact_support_24"

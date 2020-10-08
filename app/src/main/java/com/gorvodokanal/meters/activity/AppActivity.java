@@ -49,6 +49,13 @@ public class AppActivity extends AppCompatActivity implements NavigationView.OnN
         Toolbar toolBar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolBar); // для верхнего меню
         NavigationUI.setupWithNavController(toolBar, navController, appBarConfiguration);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+       getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_humburg);
+       toolBar.setTitleTextColor(Color.WHITE);
+
+
+
 
 
         // toolBar.setTitleTextColor(Color.WHITE);

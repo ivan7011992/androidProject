@@ -49,7 +49,7 @@ public class DateDialog extends DialogFragment {
         month.put("Май", 5);
         month.put("Июнь", 6);
         month.put("Июль", 7);
-        month.put("Агуст", 8);
+        month.put("Август", 8);
         month.put("Сентябрь", 9);
         month.put("Октябрь", 10);
         month.put("Ноябрь", 11);

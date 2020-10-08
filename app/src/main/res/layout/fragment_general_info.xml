@@ -82,7 +82,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Ф.И.О.абонента:"
-                android:layout_marginStart="15dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:textStyle="bold"
                 android:textColor="#0B0B0B"
@@ -92,7 +92,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ЖИЛЕЦ1"
-                android:layout_marginStart="15dp"
+                android:layout_marginStart="10dp"
                 android:layout_below="@id/fio_abonent"
                 android:layout_marginLeft="5dp"/>
 
@@ -101,7 +101,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Адрес абонента: ул."
-                android:layout_marginLeft="15dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
                 android:layout_below="@id/fio"
                 android:textStyle="bold"
@@ -111,7 +111,7 @@
                 android:id="@+id/address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
+                android:layout_marginStart="10dp"
                 android:text="РЕВОЛЮЦИИ, дом 5, кв. 1"
                 android:layout_below="@id/address_abonent"
                 android:layout_marginLeft="5dp"/>
@@ -146,10 +146,10 @@
                     android:id="@+id/tariff"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginLeft="10dp"
                     android:text="Действующие тарифы:"
                     android:textColor="#0B0B0B"
-                    android:textSize="13sp"
+                    android:textSize="15sp"
                     android:textStyle="bold" />
 
 
@@ -160,7 +160,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Холодное водоснабжение:"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginLeft="10dp"
 
                     android:layout_below="@id/tariff"
                     android:textStyle="bold"
@@ -184,7 +184,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Водоотведение"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginTop="5dp"
                     android:layout_below="@id/cool_data"
                     android:textStyle="bold"
@@ -272,7 +272,7 @@
                 android:layout_weight="1"
                 android:gravity="right"
                 android:text="Значение"
-                android:layout_marginLeft="15dp"
+                android:layout_marginLeft="10dp"
                 android:layout_alignParentRight="true"
                 android:paddingRight="10dip"
 
@@ -292,7 +292,7 @@
                     android:id="@+id/field3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginLeft="10dp"
                     android:text="Стоимость водоснабжения"
                     android:textColor="#0B0B0B"
 
@@ -323,7 +323,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Нормативное по водоотведению \n на чел/месяц"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginLeft="10dp"
 
                     android:textStyle="bold"
                     android:textColor="#0B0B0B"
@@ -338,7 +338,7 @@
                     android:paddingRight="10dip"
                     android:layout_alignParentRight="true"
 
-                    android:layout_marginLeft="15dp"/>
+                    android:layout_marginLeft="10dp"/>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/fieldBlock4"
@@ -407,7 +407,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            android:background="@drawable/dra6"
+
             android:padding="1dp"
             android:scrollbars="vertical" />
         </LinearLayout>
