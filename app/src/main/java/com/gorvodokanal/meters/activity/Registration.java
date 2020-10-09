@@ -21,6 +21,7 @@ import com.gorvodokanal.meters.net.VolleyJsonSuccessCallback;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,10 +31,12 @@ public class Registration extends AppCompatActivity {
     private static HashMap<String, EditText> dataRegistr = new HashMap<>();
 
     private static final HashMap<String, Integer> inputNames = new HashMap<>();
+
     static {
         inputNames.put("kod", R.id.kod);
         inputNames.put("phone", R.id.phone);
         inputNames.put("street", R.id.street);
+        inputNames.put("fio", R.id.fio);
         inputNames.put("house", R.id.house);
         inputNames.put("flat", R.id.flat);
         inputNames.put("passwordReg", R.id.passwordReg);
@@ -47,8 +50,8 @@ public class Registration extends AppCompatActivity {
         setContentView(R.layout.activity_registration);
 
         RegistrationData data = new RegistrationData();
-        for(Map.Entry<String, Integer> inputNameEntry : inputNames.entrySet()) {
-            data.add(inputNameEntry.getKey(),findViewById(inputNameEntry.getValue()) );
+        for (Map.Entry<String, Integer> inputNameEntry : inputNames.entrySet()) {
+            data.add(inputNameEntry.getKey(), findViewById(inputNameEntry.getValue()));
         }
 
         data.setViewMask("phone", "(___) ___-__-__");
@@ -77,7 +80,6 @@ public class Registration extends AppCompatActivity {
                 registrationSubmitData(data.getData());
             }
         });
-
 
 
     }
@@ -112,24 +114,32 @@ public class Registration extends AppCompatActivity {
 
         HashMap<String, String> emptyErrorMessages = new HashMap<>();
         emptyErrorMessages.put("kod", "Введите код");
+        emptyErrorMessages.put("phone", "Введите телефон");
         emptyErrorMessages.put("street", "Введите улицу");
         emptyErrorMessages.put("house", "Введите дом");
         emptyErrorMessages.put("flat", "Введите Введите квартиру");
-        emptyErrorMessages.put("fio", "Введите инициалы");
         emptyErrorMessages.put("passwordReg", "Введите пароль");
         emptyErrorMessages.put("confirmPassword", "Подтвердите пароль");
-        emptyErrorMessages.put("phone", "Введите телефон");
         emptyErrorMessages.put("emailReg", "Введете почту");
+        emptyErrorMessages.put("fio", "Введите инициалы");
 
-//        for(Map.Entry<String, String> errorEntry : emptyErrorMessages.entrySet()) {
-//            String value = data.get(errorEntry.getKey());
-//            if(value.isEmpty()) {
-//                displayError(errorEntry.getValue());
-//                return;
-//            }
-//
-//        }
+        ArrayList<String> errors = new ArrayList<>();
+        for (Map.Entry<String, String> errorEntry : emptyErrorMessages.entrySet()) {
+            String value = data.get(errorEntry.getKey());
+            if (value.isEmpty()) {
+                errors.add(errorEntry.getValue());
+            }
 
+        }
+
+        if (errors.size() > 0) {
+            StringBuilder errorBuilder = new StringBuilder();
+            for (String error : errors) {
+                errorBuilder.append(error).append("\n");
+            }
+            displayError("Обраружены ошибки: " + errorBuilder.toString());
+            return;
+        }
 
 
         Map<String, Object> requestData = new HashMap<>();
@@ -150,6 +160,7 @@ public class Registration extends AppCompatActivity {
                     final boolean isSuccess = response.getBoolean("success");
 
                     if (!isSuccess) {
+                        //todo сформировать строку со списком ошибок (по ключу error)
                         Toast.makeText(Registration.this, "Регистрация не удалась", Toast.LENGTH_LONG).show();
                         return;
                     }
@@ -157,7 +168,6 @@ public class Registration extends AppCompatActivity {
                 } catch (Exception e) {
                     Log.e("valley", "error", e);
                 }
-
 
 
             }
