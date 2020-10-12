@@ -14,11 +14,14 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.gorvodokanal.R;
+import com.gorvodokanal.meters.model.VodomerItem;
 import com.gorvodokanal.meters.net.PostRequest;
 import com.gorvodokanal.meters.net.RequestQueueSingleton;
 import com.gorvodokanal.meters.net.UrlCollection;
 import com.gorvodokanal.meters.net.VolleyJsonSuccessCallback;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -43,7 +46,12 @@ public class Registration extends AppCompatActivity {
         inputNames.put("confirmPassword", R.id.ConfirmPassword);
         inputNames.put("emailReg", R.id.emailReg);
     }
+    public  static String emailDialog;
 
+    {
+        View emailDialogView = findViewById(R.id.emailReg);
+        emailDialog = "" + emailDialogView;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +62,7 @@ public class Registration extends AppCompatActivity {
             data.add(inputNameEntry.getKey(), findViewById(inputNameEntry.getValue()));
         }
 
-        data.setViewMask("phone", "(___) ___-__-__");
+        data.setViewMask("phone", "+7(___) ___-__-__");
         data.setViewMask("kod", "__-_______");
 
         View image2 = findViewById(R.id.image2);
@@ -158,12 +166,17 @@ public class Registration extends AppCompatActivity {
                         return;
                     }
                     final boolean isSuccess = response.getBoolean("success");
-
+                    JSONObject rows = response.getJSONObject("errors");
                     if (!isSuccess) {
+
+                        JSONObject errors = rows;
+                        Toast.makeText(Registration.this, "Регистрация   не удалась" + errors , Toast.LENGTH_LONG).show();
                         //todo сформировать строку со списком ошибок (по ключу error)
-                        Toast.makeText(Registration.this, "Регистрация не удалась", Toast.LENGTH_LONG).show();
                         return;
                     }
+                    Toast.makeText(Registration.this, "Регистрация  удалась", Toast.LENGTH_LONG).show();
+
+                    return;
 
                 } catch (Exception e) {
                     Log.e("valley", "error", e);
@@ -172,6 +185,15 @@ public class Registration extends AppCompatActivity {
 
             }
         });
+    }
+    private ArrayList<String> buildData(JSONArray rows) throws JSONException {
+        ArrayList<String> data = new ArrayList<>();
+        for (int i = 0; i < rows.length(); i++) {
+            String item = (String) rows.get(i);
+            data.add(item);
+        }
+        return data;
+
     }
 
     private void displayError(String errorMessage) {

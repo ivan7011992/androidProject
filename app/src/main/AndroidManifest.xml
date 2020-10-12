@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".meters.activity.RecoveryPassword"></activity>
+        <activity android:name=".meters.activity.RegistrationFinalDialog"></activity>
+        <activity android:name=".meters.activity.RecoveryPassword" />
         <activity android:name=".meters.activity.Registration" />
         <activity
             android:name=".meters.settings.Setting"
