@@ -1,6 +1,7 @@
 package com.gorvodokanal.meters.activity;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
 import com.gorvodokanal.R;
 import com.gorvodokanal.meters.historyUtilClass.SummaryPassItemAdapter;
 import com.gorvodokanal.meters.model.VodomerItem;
@@ -32,6 +34,7 @@ import com.gorvodokanal.meters.net.GetRequest;
 import com.gorvodokanal.meters.net.PostRequest;
 import com.gorvodokanal.meters.net.RequestQueueSingleton;
 import com.gorvodokanal.meters.net.UrlCollection;
+import com.gorvodokanal.meters.net.VolleyJsonErrorCallback;
 import com.gorvodokanal.meters.net.VolleyJsonSuccessCallback;
 import com.gorvodokanal.meters.settings.Setting;
 
@@ -56,6 +59,7 @@ public class PassMetersFragment extends Fragment {
     ArrayList<VodomerItem> data;
     String currentDateNew;
      TextView currentDate;
+    ProgressDialog mDialog;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pass_meters, container, false);
@@ -66,7 +70,10 @@ public class PassMetersFragment extends Fragment {
 //                datePassMeters();
 //            }
 //        });
-
+        mDialog = new ProgressDialog(getContext());
+        mDialog.setMessage("Загрузка...");
+        mDialog.setCancelable(false);
+        mDialog.show();
 
         return view;
     }
@@ -92,6 +99,7 @@ public class PassMetersFragment extends Fragment {
         userInfoRequest.makeRequest(UrlCollection.PASS_METERS, new VolleyJsonSuccessCallback() {
             @Override
             public void onSuccess(JSONObject response) {
+                mDialog.dismiss();
                 try {
                     if (!response.has("success")) {
                         Log.e("server", String.format("Error response from url %s: %s", UrlCollection.AUTH_URL, response.toString()));
@@ -106,6 +114,11 @@ public class PassMetersFragment extends Fragment {
                 } catch (Exception e) {
                     Log.e("valley", "Error", e);
                 }
+            }
+        },new VolleyJsonErrorCallback() {
+            @Override
+            public void onError(VolleyError error) {
+                mDialog.dismiss();
             }
         });
     }

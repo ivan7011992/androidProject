@@ -1,5 +1,6 @@
 package com.gorvodokanal.meters.activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -23,6 +24,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
 import com.gorvodokanal.R;
 import com.gorvodokanal.meters.historyUtilClass.PaymentAdapter;
 import com.gorvodokanal.meters.model.SummaryPaymentData;
@@ -30,6 +32,7 @@ import com.gorvodokanal.meters.net.GetRequest;
 import com.gorvodokanal.meters.net.PostRequest;
 import com.gorvodokanal.meters.net.RequestQueueSingleton;
 import com.gorvodokanal.meters.net.UrlCollection;
+import com.gorvodokanal.meters.net.VolleyJsonErrorCallback;
 import com.gorvodokanal.meters.net.VolleyJsonSuccessCallback;
 import com.gorvodokanal.meters.settings.Setting;
 
@@ -44,7 +47,7 @@ public class PaymentFragment extends Fragment {
     EditText value1;
     EditText value2;
     EditText value3;
-
+    ProgressDialog mDialog;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +56,11 @@ public class PaymentFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        mDialog = new ProgressDialog(getContext());
+        mDialog.setMessage("Загрузка...");
+        mDialog.setCancelable(false);
+
+        mDialog.show();
         return inflater.inflate(R.layout.fragment_payment, container, false);
 
 
@@ -72,6 +80,7 @@ public class PaymentFragment extends Fragment {
         userInfoRequest.makeRequest(UrlCollection.PAYMENT_METERS, new VolleyJsonSuccessCallback() {
             @Override
             public void onSuccess(JSONObject response) {
+                mDialog.dismiss();
                 try {
                     if (!response.has("success")) {
                         Log.e("server", String.format("Error response from url %s: %s", UrlCollection.AUTH_URL, response.toString()));
@@ -104,6 +113,7 @@ public class PaymentFragment extends Fragment {
                             request.makeRequest(UrlCollection.PAYMENT_GENERATE_URL, requestData, new VolleyJsonSuccessCallback() {
                                 @Override
                                 public void onSuccess(JSONObject response) {
+                                    mDialog.dismiss();
                                     try {
                                         if (!response.has("success")) {
                                             Log.e("server", String.format("Error response from url %s: %s", UrlCollection.AUTH_URL, response.toString()));
@@ -142,6 +152,11 @@ public class PaymentFragment extends Fragment {
                 }
 
 
+            }
+        },new VolleyJsonErrorCallback() {
+            @Override
+            public void onError(VolleyError error) {
+                mDialog.dismiss();
             }
         });
 

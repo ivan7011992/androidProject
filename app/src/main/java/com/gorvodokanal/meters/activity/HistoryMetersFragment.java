@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import android.widget.DatePicker;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
 import com.gorvodokanal.R;
 import com.gorvodokanal.meters.historyUtilClass.SummaryHistoryItemAdapter;
 import com.gorvodokanal.meters.model.HistoryItem;
@@ -30,6 +32,7 @@ import com.gorvodokanal.meters.model.SummaryHistoryItem;
 import com.gorvodokanal.meters.net.GetRequest;
 import com.gorvodokanal.meters.net.RequestQueueSingleton;
 import com.gorvodokanal.meters.net.UrlCollection;
+import com.gorvodokanal.meters.net.VolleyJsonErrorCallback;
 import com.gorvodokanal.meters.net.VolleyJsonSuccessCallback;
 import com.gorvodokanal.meters.settings.Setting;
 
@@ -57,7 +60,7 @@ public class HistoryMetersFragment extends Fragment {
     Button startDateButton;
 
     int Date;
-
+    ProgressDialog mDialog;
 
 
 
@@ -69,7 +72,10 @@ public class HistoryMetersFragment extends Fragment {
         setHasOptionsMenu(true);
 
         Calendar calendar = Calendar.getInstance();
-
+        mDialog = new ProgressDialog(getContext());
+        mDialog.setMessage("Загрузка...");
+        mDialog.setCancelable(false);
+        mDialog.show();
 
 
         YearMonth month = YearMonth.now();
@@ -234,8 +240,10 @@ public class HistoryMetersFragment extends Fragment {
         request.makeRequest(requestUrl, new VolleyJsonSuccessCallback() {
             @Override
             public void onSuccess(JSONObject response) {
+                mDialog.dismiss();
                 try {
                     if (!response.has("success")) {
+
                         Log.e("server", String.format("Error response from url %s: %s", UrlCollection.AUTH_URL, response.toString()));
                         Toast.makeText(getContext(), "Неизвестная ошибка, попробуйте еще раз", Toast.LENGTH_LONG).show();
                         return;
@@ -266,6 +274,11 @@ public class HistoryMetersFragment extends Fragment {
                 } catch (Exception e) {
                     Log.e("valley", "error", e);
                 }
+            }
+        },new VolleyJsonErrorCallback() {
+            @Override
+            public void onError(VolleyError error) {
+                mDialog.dismiss();
             }
         });
 

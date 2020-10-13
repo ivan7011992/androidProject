@@ -2,6 +2,7 @@ package com.gorvodokanal.meters.activity;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -35,6 +36,15 @@ public class Registration extends AppCompatActivity {
 
     private static final HashMap<String, Integer> inputNames = new HashMap<>();
 
+    public interface UserIdProcessor {
+        public void process(int userId
+                            );
+    }
+    private  UserIdProcessor userIdProcessor;
+    private int userId;
+    public Registration(UserIdProcessor userIdProcessor) {
+        this. userIdProcessor =  userIdProcessor;
+    }
     static {
         inputNames.put("kod", R.id.kod);
         inputNames.put("phone", R.id.phone);
@@ -175,8 +185,17 @@ public class Registration extends AppCompatActivity {
                         return;
                     }
                     Toast.makeText(Registration.this, "Регистрация  удалась", Toast.LENGTH_LONG).show();
+                    userId= response.getInt("userId");
+                    userIdProcessor.process(
+                            Registration.this.userId
 
+                    );
+                    RegistrationFinalDialog  dialog  = new RegistrationFinalDialog ();
+
+                    FragmentTransaction ft = ((Registration) dialog.getActivity()).getSupportFragmentManager().beginTransaction();
+                    dialog.show(ft, "MyCustomDialog");
                     return;
+
 
                 } catch (Exception e) {
                     Log.e("valley", "error", e);

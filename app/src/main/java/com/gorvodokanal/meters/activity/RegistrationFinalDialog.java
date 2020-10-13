@@ -1,6 +1,7 @@
 package com.gorvodokanal.meters.activity;
 
 
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -36,9 +37,10 @@ import static androidx.constraintlayout.motion.utils.Oscillator.TAG;
 
 
 public class RegistrationFinalDialog   extends DialogFragment {
-
-    public interface mailProcessor {
-
+ private int userID;
+    Context mContext;
+    public RegistrationFinalDialog () {
+        mContext = getActivity();
     }
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.date_dialog, container, false);
@@ -58,11 +60,18 @@ public class RegistrationFinalDialog   extends DialogFragment {
               }
         });
 
-
+        Registration registration = new Registration(new Registration.UserIdProcessor() {
+            @Override
+            public void process(int userId) {
+                userID = userId;
+            }
+        });
         Spinner mail =  view.findViewById(R.id.spinnerMonthBegin);
         final RequestQueue mQueue = RequestQueueSingleton.getInstance(getContext());
         GetRequest request = new GetRequest(mQueue);
-        String requestUrl = UrlCollection.RESENDING_URL + "?user_id" ;// $user_id ;
+        String requestUrl = UrlCollection.RESENDING_URL + "?user_id" +  userID ;
+
+
         request.makeRequest(requestUrl, new VolleyJsonSuccessCallback() {
             @Override
             public void onSuccess(JSONObject response) {
