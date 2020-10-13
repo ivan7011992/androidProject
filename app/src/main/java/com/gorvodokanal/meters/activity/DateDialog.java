@@ -110,8 +110,6 @@ public class DateDialog extends DialogFragment {
 
 
         Spinner spinnerDateBeginMonth = (Spinner) view.findViewById(R.id.spinnerMonthBegin);
-
-
         Spinner spinnerDateBeginYear = (Spinner) view.findViewById(R.id.spinnerYearBegin);
         Spinner spinnerDateEndMonth = (Spinner) view.findViewById(R.id.spinnerMonthEnd);
         Spinner spinnerDateEndYear = (Spinner) view.findViewById(R.id.spinnerYearEnd);

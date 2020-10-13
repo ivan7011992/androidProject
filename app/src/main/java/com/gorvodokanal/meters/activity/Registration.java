@@ -27,6 +27,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public class Registration extends AppCompatActivity {
@@ -35,16 +36,6 @@ public class Registration extends AppCompatActivity {
     private static HashMap<String, EditText> dataRegistr = new HashMap<>();
 
     private static final HashMap<String, Integer> inputNames = new HashMap<>();
-
-    public interface UserIdProcessor {
-        public void process(int userId
-                            );
-    }
-    private  UserIdProcessor userIdProcessor;
-    private int userId;
-    public Registration(UserIdProcessor userIdProcessor) {
-        this. userIdProcessor =  userIdProcessor;
-    }
     static {
         inputNames.put("kod", R.id.kod);
         inputNames.put("phone", R.id.phone);
@@ -56,12 +47,10 @@ public class Registration extends AppCompatActivity {
         inputNames.put("confirmPassword", R.id.ConfirmPassword);
         inputNames.put("emailReg", R.id.emailReg);
     }
-    public  static String emailDialog;
 
-    {
-        View emailDialogView = findViewById(R.id.emailReg);
-        emailDialog = "" + emailDialogView;
-    }
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -176,25 +165,27 @@ public class Registration extends AppCompatActivity {
                         return;
                     }
                     final boolean isSuccess = response.getBoolean("success");
-                    JSONObject rows = response.getJSONObject("errors");
-                    if (!isSuccess) {
 
-                        JSONObject errors = rows;
-                        Toast.makeText(Registration.this, "Регистрация   не удалась" + errors , Toast.LENGTH_LONG).show();
-                        //todo сформировать строку со списком ошибок (по ключу error)
+                    if (!isSuccess) {
+                        JSONObject rows = response.getJSONObject("errors");
+
+                        StringBuilder errorBuilder = new StringBuilder();
+                        Iterator<String> temp = rows.keys();
+                        while (temp.hasNext()) {
+                            String key = temp.next();
+                            String error = rows.getString(key);
+                            errorBuilder.append(error).append("\n");
+                        }
+                        displayError("Обраружены ошибки: " + errorBuilder.toString());
+
                         return;
                     }
                     Toast.makeText(Registration.this, "Регистрация  удалась", Toast.LENGTH_LONG).show();
-                    userId= response.getInt("userId");
-                    userIdProcessor.process(
-                            Registration.this.userId
+                    int userId = response.getInt("userId");
 
-                    );
-                    RegistrationFinalDialog  dialog  = new RegistrationFinalDialog ();
+                    RegistrationFinalDialog dialog = new RegistrationFinalDialog(userId,((EditText) findViewById(R.id.emailReg)).getText().toString());
 
-                    FragmentTransaction ft = ((Registration) dialog.getActivity()).getSupportFragmentManager().beginTransaction();
-                    dialog.show(ft, "MyCustomDialog");
-                    return;
+                    dialog.show(getSupportFragmentManager(), "NoticeDialogFragment");
 
 
                 } catch (Exception e) {
@@ -205,6 +196,7 @@ public class Registration extends AppCompatActivity {
             }
         });
     }
+
     private ArrayList<String> buildData(JSONArray rows) throws JSONException {
         ArrayList<String> data = new ArrayList<>();
         for (int i = 0; i < rows.length(); i++) {
