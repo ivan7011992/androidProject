@@ -7,9 +7,11 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -32,7 +34,9 @@ import java.util.Map;
 
 public class Registration extends AppCompatActivity {
 
-
+    public boolean showPassword = false;
+    public EditText passwordUser;
+    public EditText passwordUserConfirm;
     private static HashMap<String, EditText> dataRegistr = new HashMap<>();
 
     private static final HashMap<String, Integer> inputNames = new HashMap<>();
@@ -71,8 +75,51 @@ public class Registration extends AppCompatActivity {
                 createAlertDialog("Код абоента", "Код абонента вводится в формате **-*******(пр.10-7777777)");
             }
         });
+        View imageFlat = findViewById(R.id.imageFlat);
+        imageFlat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createAlertDialog("Квартира", "Квартира – квартира регистрации потребителя. Если у вас отсутствует номер квартиры, необходимо указать 0.");
+            }
+        });
 
+        final ImageView imagePassword = findViewById(R.id.imagePassword);
 
+        imagePassword.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+               passwordUser = findViewById(R.id.passwordReg);
+
+                showPassword = !showPassword;
+                if (showPassword) {
+                    passwordUser.setTransformationMethod(null);
+                } else {
+                    passwordUser.setTransformationMethod(new PasswordTransformationMethod());
+                }
+                passwordUser.setSelection(passwordUser.length());
+
+            }
+
+        });
+        final ImageView imagePaswwordConfirm = findViewById(R.id.imagePaswwordConfirm);
+
+        imagePaswwordConfirm.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                passwordUserConfirm = findViewById(R.id.ConfirmPassword);
+                showPassword = !showPassword;
+                if (showPassword) {
+                    passwordUserConfirm.setTransformationMethod(null);
+                } else {
+                    passwordUserConfirm.setTransformationMethod(new PasswordTransformationMethod());
+                }
+                passwordUserConfirm.setSelection(passwordUserConfirm.length());
+
+            }
+
+        });
         FloatingActionButton myFab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
         myFab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -104,7 +151,7 @@ public class Registration extends AppCompatActivity {
                     public void onClick(DialogInterface dialog,
                                         int which) {
                         // по нажатию создаем всплывающее окно с типом нажатой конпки
-                        showMessage("Нажали ОК");
+                       // showMessage("Нажали ОК");
                     }
                 });
         // объект Builder создал диалоговое окно и оно готово появиться на экране

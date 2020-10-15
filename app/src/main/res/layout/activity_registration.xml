@@ -135,6 +135,21 @@
             android:textColor="#FFFFFF"
             android:hint="@string/flat"
             />
+        <ImageView
+            android:id="@+id/imageFlat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:layout_marginTop="10dp"
+
+            android:layout_toRightOf="@+id/headerRegistr"
+
+
+            android:layout_below="@+id/house"
+            app:srcCompat="@drawable/ic_baseline_contact_support_24"
+            tools:layout_editor_absoluteX="146dp"
+            tools:layout_editor_absoluteY="218dp"
+            tools:ignore="VectorDrawableCompat" />
         <EditText
             android:id="@+id/fio"
             android:layout_width="250dp"
@@ -182,6 +197,19 @@
             android:textColor="#FFFFFF"
             android:hint="@string/passwordReg"
             />
+        <ImageView
+            android:id="@+id/imagePassword"
+            android:padding="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="25dp"
+            android:layout_toRightOf="@+id/headerRegistr"
+            android:layout_marginRight="50dp"
+            android:layout_below="@+id/phone"
+            app:srcCompat="@drawable/ic_baseline_remove_red_eye_24"
+            />
+
         <EditText
             android:id="@+id/ConfirmPassword"
             android:layout_width="250dp"
@@ -197,6 +225,18 @@
             android:ems="10"
             android:textColor="#FFFFFF"
             android:hint="@string/passwordConfirm"
+            />
+        <ImageView
+            android:id="@+id/imagePaswwordConfirm"
+            android:padding="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="25dp"
+            android:layout_toRightOf="@+id/headerRegistr"
+
+            android:layout_below="@+id/passwordReg"
+            app:srcCompat="@drawable/ic_baseline_remove_red_eye_24"
             />
         <EditText
             android:id="@+id/emailReg"

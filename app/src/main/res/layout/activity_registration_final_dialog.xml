@@ -7,6 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/dra8"
     >
 
 
@@ -22,8 +23,6 @@
         android:paddingRight="0dp"
         android:textSize="18sp"
         android:gravity="center"
-        android:background="@drawable/dra12"
-
         />
 
     <RelativeLayout
@@ -43,15 +42,31 @@
             android:fontFamily="@font/roboto_medium"
             android:paddingRight="3dp"
             android:text="Текст"
-            android:textSize="22sp"
+            android:textSize="14sp"
             android:gravity="center"
-            android:textColor="#FF0707"/>
+            android:textColor="#000000"/>
 
-        <EditText
-            android:id="@+id/editConfirm"
+
+        <Button
+            android:id="@+id/buttonResentMail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/confirmText"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"
+            android:text="Отправить повторно письмо с активацией"
+            android:background="@drawable/dra9"
+            android:layout_marginTop="30dp"
+            android:textColor="#FFFFFF"
+            android:textSize="11sp"
+            android:padding="8dp"
+            android:layout_centerHorizontal="true"/>
+
+        <EditText
+            android:id="@+id/editemailConfirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/buttonResentMail"
             android:layout_marginTop="20dp"
             android:layout_centerHorizontal="true"
             android:hint="Введите почту"
@@ -59,25 +74,10 @@
             />
 
         <Button
-            android:id="@+id/buttonResentMail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/editConfirm"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="10dp"
-            android:text="Отправить повторно письмо с активацией"
-            android:background="@drawable/dra9"
-            android:layout_marginTop="30dp"
-            android:textColor="#FFFFFF"
-            android:textSize="14sp"
-            android:padding="8dp"
-            android:layout_centerHorizontal="true"/>
-
-        <Button
             android:id="@+id/buttonCloseRegistration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/buttonResentMail"
+            android:layout_below="@+id/editemailConfirm"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="10dp"
             android:text="Закрыть окно"

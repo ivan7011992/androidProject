@@ -83,8 +83,6 @@
             android:layout_marginRight="50dp"
             android:layout_below="@+id/login"
             app:srcCompat="@drawable/ic_baseline_remove_red_eye_24"
-
-
             />
 
         <Button

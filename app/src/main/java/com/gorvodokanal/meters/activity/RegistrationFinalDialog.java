@@ -2,6 +2,7 @@ package com.gorvodokanal.meters.activity;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,7 +51,8 @@ public class RegistrationFinalDialog extends DialogFragment {
 
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_registration_final_dialog, container, false);
-        TextView mActionOk = (TextView) view.findViewById(R.id.registrationFinealText);
+        TextView sendMail = (TextView) view.findViewById(R.id.buttonResentMail);
+        TextView closeDialog  = (TextView) view.findViewById(R.id.buttonCloseRegistration);
 
         if (getDialog() != null && getDialog().getWindow() != null) {
             getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -57,12 +60,14 @@ public class RegistrationFinalDialog extends DialogFragment {
         }
         ((TextView) view.findViewById(R.id.confirmText)).setText("Абонент успешно зарегистрирован. На почтовый ящик " + email + "выслано письмо с инструкцией по активации аккаунта. Если письмо отсутсвует, проверьте папку 'Спам'   " +
                 "                                       Если вам не пришло письмо на почту, то проверьте корректность введенных вами данных. Если почта указана неверно, у вас есть возможность изменить электронный адрес, указав новуб посту в поле ниже");
-        mActionOk.setOnClickListener(new View.OnClickListener() {
+        sendMail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final RequestQueue mQueue = RequestQueueSingleton.getInstance(getContext());
                 GetRequest request = new GetRequest(mQueue);
-                String requestUrl = UrlCollection.RESENDING_URL + "?user_id" + userID ;
+                EditText editemailConfirm =  view.findViewById(R.id.editemailConfirm);
+              String emailReg =editemailConfirm.getText().toString();
+                String requestUrl = UrlCollection.RESENDING_URL + "?user_id=" + userID + "&email=" +  emailReg;
 
 
                 request.makeRequest(requestUrl, new VolleyJsonSuccessCallback() {
@@ -76,7 +81,9 @@ public class RegistrationFinalDialog extends DialogFragment {
                             }
                             final boolean isSuccess = response.getBoolean("success");
 
-
+                            Toast.makeText(getContext(), "Сообщение отправлено на почту", Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(getContext(),MainActivity.class);
+                            startActivity(intent);
                         } catch (Exception e) {
                             Log.e("valley", "error", e);
                         }
@@ -84,6 +91,18 @@ public class RegistrationFinalDialog extends DialogFragment {
                 });
 
 
+
+            }
+        });
+
+        closeDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG, "onClick: closing dialog");
+                getDialog().dismiss();
+
+                Intent intent = new Intent(getContext(),MainActivity.class);
+                startActivity(intent);
 
             }
         });

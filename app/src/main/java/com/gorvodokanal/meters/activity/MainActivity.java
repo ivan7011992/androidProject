@@ -9,6 +9,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.app.RemoteActionCompatParcelizer;
+import android.text.Html;
 import android.text.InputType;
 import android.text.method.DigitsKeyListener;
 import android.text.method.PasswordTransformationMethod;
@@ -34,6 +36,7 @@ import com.gorvodokanal.meters.settings.SettingVariable;
 
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.net.CookieHandler;
 import java.net.CookieManager;
 import java.util.HashMap;
@@ -56,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
     EditText login;
     private TextView email1;
-    public Button buttom;
+    public Button button;
     ImageView imageView;
 
     @Override
@@ -68,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         passwordUser = findViewById(R.id.password);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         setIntervalFromSharedPrefarences(sharedPreferences);
-        buttom = findViewById(R.id.button);
+        button = findViewById(R.id.button);
         //  buttom.getBackground().setAlpha(64);
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
         RegistrationData data = new RegistrationData();
@@ -97,7 +100,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             }
 
         });
-
 
 
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -182,7 +184,12 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                     final boolean isSuccess = response.getBoolean("success");
 
                     if (!isSuccess) {
-                        Toast.makeText(MainActivity.this, "Неправильный логин или пароль", Toast.LENGTH_LONG).show();
+
+
+                        String errorMessage = response.getString("message");
+
+
+                        Toast.makeText(MainActivity.this, String.valueOf(errorMessage), Toast.LENGTH_LONG).show();
                         return;
                     }
                     UserModel.createInstance(loginValue);
@@ -197,6 +204,11 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         });
 
 
+    }
+
+    public String convert(String inString, String inCharset, String outCharset) throws UnsupportedEncodingException {
+        byte[] bytes = inString.getBytes(inCharset);
+        return new String(bytes, outCharset);
     }
 
     @Override
