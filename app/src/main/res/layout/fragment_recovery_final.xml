@@ -7,23 +7,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/dra8"
     >
 
 
     <TextView
-        android:id="@+id/confirm"
+        android:id="@+id/registrationFinealText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="Подтверждение"
+        android:text="Восстановление пароля"
         android:paddingTop="17dp"
         android:paddingBottom="17dp"
         android:paddingLeft="0dp"
         android:paddingRight="0dp"
         android:textSize="18sp"
         android:gravity="center"
-        android:background="@drawable/dra12"
-
         />
 
     <RelativeLayout
@@ -36,42 +35,33 @@
 
 
         <TextView
-            android:id="@+id/confirmText"
+            android:id="@+id/RecoveryFinalText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:fontFamily="@font/roboto_medium"
             android:paddingRight="3dp"
-            android:text="Почтовый ящик не подтверждён!
-            Пожалуйста, укажите актуальную электронную почту в настройках"
-            android:textSize="14dp"
+            android:text="Текст"
+            android:textSize="14sp"
             android:gravity="center"
-            android:textColor="#FF0707"/>
+            android:textColor="#000000"/>
 
-        <EditText
-            android:id="@+id/editConfirm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/confirmText"
-            android:layout_marginTop="20dp"
-            android:layout_centerHorizontal="true"
-            android:hint="Введите почту"
-            android:textColor="#000000"
-            />
+
+
 
         <Button
-            android:id="@+id/buttonConfirm"
+            android:id="@+id/buttonCloseRecovery"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/editConfirm"
+            android:layout_below="@+id/RecoveryFinalText"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="10dp"
-            android:text="Подтвердить"
-            android:background="@drawable/dra9"
+            android:text="Закрыть окно"
+            android:background="@drawable/dra5"
             android:layout_marginTop="30dp"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            android:padding="8dp"
+            android:textColor="#03A9F4"
+            android:textSize="14sp"
+            android:padding="10dp"
             android:layout_centerHorizontal="true"/>
     </RelativeLayout>
 

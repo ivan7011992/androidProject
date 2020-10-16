@@ -89,9 +89,11 @@ Button recoveryPasswordButton;
                     }
                     final boolean isSuccess = response.getBoolean("success");
 
+
+                    String email = response.getString("email");
+                    RecoveryFinalDialog recovery = new RecoveryFinalDialog(email);
                     Toast.makeText(RecoveryPassword.this, "Сообщение отправлено на почту", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(RecoveryPassword.this,MainActivity.class);
-                    startActivity(intent);
+                    recovery.show(getSupportFragmentManager(), "NoticeDialogFragment");
                 } catch (Exception e) {
                     Log.e("valley", "error", e);
                 }
