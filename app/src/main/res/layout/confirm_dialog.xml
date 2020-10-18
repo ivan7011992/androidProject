@@ -43,7 +43,7 @@
             android:fontFamily="@font/roboto_medium"
             android:paddingRight="3dp"
             android:text="Почтовый ящик не подтверждён!
-            Пожалуйста, укажите актуальную электронную почту в настройках"
+            Пожалуйста, проверте актуальность вашей почты и подтвердите подтвердите почтоый адрес"
             android:textSize="14dp"
             android:gravity="center"
             android:textColor="#FF0707"/>

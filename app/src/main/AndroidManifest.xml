@@ -12,18 +12,23 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".meters.activity.RegistrationFinalDialog"></activity>
-        <activity android:name=".meters.activity.RecoveryPassword" />
-        <activity android:name=".meters.activity.Registration" />
+        <activity android:name=".meters.activity.RegistrationFinalDialog"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".meters.activity.RecoveryPassword"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".meters.activity.Registration"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".meters.settings.Setting"
             android:label="Settings"
-            android:parentActivityName=".meters.activity.MainActivity">
+            android:parentActivityName=".meters.activity.MainActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".meters.activity.MainActivity" />
         </activity>
-        <activity android:name=".meters.activity.MainActivity">
+        <activity android:name=".meters.activity.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action
                     android:name="android.intent.action.MAIN"
@@ -32,7 +37,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".meters.activity.AppActivity" />
+        <activity android:name=".meters.activity.AppActivity"
+            android:screenOrientation="portrait"/>
 
         <meta-data
             android:name="preloaded_fonts"
