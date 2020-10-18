@@ -16,6 +16,7 @@ public final class UrlCollection {
     public static final String REGISTRATION_URL =  BASE_URL + "registration.php";
     public static final String RESENDING_URL =  BASE_URL + "resendingMail.php";
     public static final String RECOVERY_URL =  BASE_URL + "recovery.php";
+    public static final String GET_USER_INFO_URL =  BASE_URL + "user_get_info.php";
 
 }
 

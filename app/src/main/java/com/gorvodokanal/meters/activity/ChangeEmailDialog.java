@@ -14,6 +14,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.android.volley.RequestQueue;
 import com.gorvodokanal.R;
+import com.gorvodokanal.meters.net.GetRequest;
 import com.gorvodokanal.meters.net.PostRequest;
 import com.gorvodokanal.meters.net.RequestQueueSingleton;
 import com.gorvodokanal.meters.net.UrlCollection;
@@ -25,13 +26,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ChangeEmailDialog extends DialogFragment {
-           EditText emailDialog;
+    EditText emailDialog;
 
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.change_email_dialog, container, false);
         View changePasswordButton = view.findViewById(R.id.changeemailButton);
         emailDialog = view.findViewById(R.id.emailDialog);
-        changeEmailOnServer();
+        user_get_info();
         changePasswordButton.setOnClickListener(v -> processUserData());
         return view;
 
@@ -76,43 +77,9 @@ public class ChangeEmailDialog extends DialogFragment {
                     final boolean isSuccess = response.getBoolean("success");
 
                     if (!isSuccess) {
-                        Toast.makeText(getContext(),  response.has("message") ? response.getString("message") : "Неизвестная ошибка", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), response.has("message") ? response.getString("message") : "Неизвестная ошибка", Toast.LENGTH_LONG).show();
                         return;
-                    }else {
-
-                         Toast.makeText(getContext(), response.has("message") ? response.getString("message") : "Email изменен", Toast.LENGTH_LONG).show();
-                    }
-
-                } catch (Exception e) {
-                    Log.e("valley", "error", e);
-                }
-            }
-        });
-    }
-    private void changeEmailOnServer() {
-        final RequestQueue mQueue = RequestQueueSingleton.getInstance(getView().getContext());
-
-
-        Map<String, Object> requestData = new HashMap<>();
-        requestData.put("user_id", "322222");
-
-
-        PostRequest request = new PostRequest(mQueue);
-        request.makeRequest(UrlCollection.CHANGE_EMAIL_URL, requestData, new VolleyJsonSuccessCallback() {
-            @Override
-            public void onSuccess(JSONObject response) {
-                try {
-                    if (!response.has("success")) {
-                        Log.e("server", String.format("Error response from url %s: %s", UrlCollection.AUTH_URL, response.toString()));
-                        Toast.makeText(getContext(), "Неизвестная ошибка, попробуйте еще раз", Toast.LENGTH_LONG).show();
-                        return;
-                    }
-                    final boolean isSuccess = response.getBoolean("success");
-
-                    if (!isSuccess) {
-                        Toast.makeText(getContext(),  response.has("message") ? response.getString("message") : "Неизвестная ошибка", Toast.LENGTH_LONG).show();
-                        return;
-                    }else {
+                    } else {
 
                         Toast.makeText(getContext(), response.has("message") ? response.getString("message") : "Email изменен", Toast.LENGTH_LONG).show();
                     }
@@ -123,6 +90,40 @@ public class ChangeEmailDialog extends DialogFragment {
             }
         });
     }
+
+    private void user_get_info() {
+        final RequestQueue mQueue = RequestQueueSingleton.getInstance(getContext());
+        GetRequest request = new GetRequest(mQueue);
+        String requestUrl = UrlCollection.GET_USER_INFO_URL;
+        request.makeRequest(requestUrl, new VolleyJsonSuccessCallback() {
+            @Override
+            public void onSuccess(JSONObject response) {
+
+                try {
+                    if (!response.has("success")) {
+
+                        Log.e("server", String.format("Error response from url %s: %s", UrlCollection.AUTH_URL, response.toString()));
+                        Toast.makeText(getContext(), "Неизвестная ошибка, попробуйте еще раз", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    final boolean isSuccess = response.getBoolean("success");
+
+                    if (!isSuccess) {
+                        Toast.makeText(getContext(), "Неправильный логин или пароль", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+
+                    JSONObject emailObject = response.getJSONObject("data");
+                    String email = emailObject.getString("EMAIL");
+                    emailDialog.setHint(email);;
+                } catch (Exception e) {
+                    Log.e("valley", "error", e);
+                }
+
+            }
+        });
+    }
+
     private void displayError(String errorMessage) {
         Toast.makeText(getContext(), errorMessage, Toast.LENGTH_LONG).show();
     }
