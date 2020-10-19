@@ -34,6 +34,7 @@ import com.gorvodokanal.meters.settings.Setting;
 import com.gorvodokanal.meters.settings.SettingVariable;
 
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
@@ -192,8 +193,15 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                         Toast.makeText(MainActivity.this, String.valueOf(errorMessage), Toast.LENGTH_LONG).show();
                         return;
                     }
-                    UserModel.createInstance(loginValue);
 
+                    HashMap<Integer, String> ls = new HashMap<>();
+                    JSONArray lsList = response.getJSONArray("ls");
+                    for(int i = 0; i < lsList.length(); i++) {
+                        JSONObject currentLs = (JSONObject) lsList.get(i);
+                        ls.put(Integer.parseInt(currentLs.getString("ID")), currentLs.getString("LOGIN"));
+                    }
+
+                    UserModel.createInstance(loginValue, ls);
                     Intent intent = new Intent(MainActivity.this, AppActivity.class);
                     startActivity(intent);
 

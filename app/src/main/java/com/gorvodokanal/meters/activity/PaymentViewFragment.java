@@ -49,6 +49,7 @@ public class PaymentViewFragment extends Fragment {
         webView.setWebViewClient(new WebViewClient() {
             public boolean shouldOverrideUrlLoading(WebView view, String url){
                 if(url.startsWith("https://www.gorvodokanal.com/personal/payment/bad.php")) {
+
                     Uri uri = Uri.parse(url);
                     String errorMessage = uri.getQueryParameter("error");
                     if(errorMessage == null || errorMessage.isEmpty()){
@@ -61,6 +62,13 @@ public class PaymentViewFragment extends Fragment {
                     Bundle bundle = new Bundle();
                     bundle.putString("errorMessage", errorMessage);
                     navController.navigate(R.id.generalInfoFragment, bundle);
+                    return true;
+                }else if (url.startsWith("https://www.gorvodokanal.com/personal/payment/ok.php")){
+                    Toast.makeText(getActivity(), "Оплата прошла успешно", Toast.LENGTH_LONG).show();
+
+                    final NavController navController = NavHostFragment.findNavController(PaymentViewFragment.this);
+                    navController.navigate(R.id.paymentFragment);
+
                     return true;
                 }
                 view.loadUrl(url);

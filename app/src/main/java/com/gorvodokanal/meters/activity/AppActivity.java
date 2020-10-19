@@ -7,6 +7,9 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +27,9 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.navigation.NavigationView;
 import com.gorvodokanal.R;
 import com.gorvodokanal.meters.model.UserModel;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 
 public class AppActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -64,6 +70,21 @@ public class AppActivity extends AppCompatActivity implements NavigationView.OnN
         View header = sideBar.getHeaderView(0);
         ((TextView) header.findViewById(R.id.text)).setText(UserModel.getInstance().getLogin());
         View exit = sideBar.findViewById(R.id.exit);
+        Spinner listUser = findViewById(R.id.spinnerUserListSwith);
+        RelativeLayout swith = findViewById(R.id.swithParrent);
+        TextView text = findViewById(R.id.text);
+
+        if(UserModel.getInstance().getLs().size() ==1){
+            swith.removeView(listUser);
+
+        } else{
+            ArrayList<String> loginList = new ArrayList<>(UserModel.getInstance().getLs().values());
+            ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, loginList);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);// устанавливаем выпадающий список для спиннера
+            listUser.setAdapter(adapter);
+            swith.removeView(text);
+        }
+
 //        exit.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
