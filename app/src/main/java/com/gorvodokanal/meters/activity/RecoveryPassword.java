@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.gorvodokanal.R;
 import com.gorvodokanal.meters.net.GetRequest;
 import com.gorvodokanal.meters.net.RequestQueueSingleton;
@@ -34,19 +35,22 @@ Button recoveryPasswordButton;
             public void onClick(View v) {
 
                 sentMail();
-
-                View imageKodRecovery = findViewById(R.id.imageKodRecovery);
-                imageKodRecovery.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        createAlertDialog("Код абоента", "Код абонента вводится в формате **-*******(пр.10-7777777)");
-                    }
-                });
-
             }
         });
-
-
+        View imageKodRecovery = findViewById(R.id.imageKodRecovery);
+        imageKodRecovery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createAlertDialog("Код абоента", "Код абонента вводится в формате **-*******(пр.10-7777777)");
+            }
+        });
+        FloatingActionButton myFab = (FloatingActionButton) findViewById(R.id.floatingActionRecoveryButton);
+        myFab.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(RecoveryPassword.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
     private void createAlertDialog(String title, String content) {
         // объект Builder для создания диалогового окна

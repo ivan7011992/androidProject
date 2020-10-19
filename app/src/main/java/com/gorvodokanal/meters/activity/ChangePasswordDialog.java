@@ -17,6 +17,7 @@ import com.gorvodokanal.meters.net.PostRequest;
 import com.gorvodokanal.meters.net.RequestQueueSingleton;
 import com.gorvodokanal.meters.net.UrlCollection;
 import com.gorvodokanal.meters.net.VolleyJsonSuccessCallback;
+import com.gorvodokanal.meters.settings.SettingsFragment;
 
 import org.json.JSONObject;
 
@@ -35,13 +36,16 @@ public class ChangePasswordDialog extends DialogFragment {
     }
 
     private void processUserData() {
+
+        SettingsFragment confirm = new SettingsFragment();
+        confirm.getStatusConfirmEamil();
         String oldPassword = ((EditText) getView().findViewById(R.id.oldPassword)).getText().toString();
         String newPassword = ((EditText) getView().findViewById(R.id.newPassword)).getText().toString();
         String confirmationPassword = ((EditText) getView().findViewById(R.id.confirmationPassword)).getText().toString();
-
         oldPassword = oldPassword.trim();
         newPassword = newPassword.trim();
         confirmationPassword = confirmationPassword.trim();
+
 
         if (oldPassword.isEmpty()) {
             displayError("Нужно ввести старый пароль");

@@ -7,6 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/dra8"
     >
 
 
@@ -22,7 +23,6 @@
         android:paddingRight="0dp"
         android:textSize="18sp"
         android:gravity="center"
-        android:background="@drawable/dra12"
 
         />
 
@@ -42,14 +42,13 @@
             android:layout_marginTop="5dp"
             android:fontFamily="@font/roboto_medium"
             android:paddingRight="3dp"
-            android:text="Почтовый ящик не подтверждён!
-            Пожалуйста, проверте актуальность вашей почты и подтвердите подтвердите почтоый адрес"
+            android:text="Почтовый ящик не подтверждён! Пожалуйста, проверте актуальность вашей почты и подтвердите подтвердите почтовый адрес"
             android:textSize="14dp"
             android:gravity="center"
             android:textColor="#FF0707"/>
 
-        <EditText
-            android:id="@+id/editConfirm"
+        <TextView
+            android:id="@+id/emailConfirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/confirmText"
@@ -63,7 +62,7 @@
             android:id="@+id/buttonConfirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/editConfirm"
+            android:layout_below="@+id/emailConfirm"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="10dp"
             android:text="Подтвердить"
@@ -78,17 +77,19 @@
             android:id="@+id/buttonCloseConfirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/editConfirm"
-          android:layout_toRightOf="@+id/buttonConfirm"
+            android:layout_below="@+id/buttonConfirm"
+
             android:layout_marginBottom="20dp"
-            android:text="Закрыть"
-            android:background="#FFFFFF"
+            android:text="В другой раз"
+
             android:layout_marginTop="30dp"
             android:textColor="#03A9F4"
             android:textSize="9sp"
             android:padding="8dp"
             android:layout_centerHorizontal="true"/>
     </RelativeLayout>
+
+
 
 
 </LinearLayout>
