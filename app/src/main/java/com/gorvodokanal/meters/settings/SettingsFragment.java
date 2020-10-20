@@ -3,8 +3,11 @@ package com.gorvodokanal.meters.settings;
 import android.app.DatePickerDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
+import android.view.View;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -36,9 +39,13 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
       findPreference("change_password").setOnPreferenceClickListener(preference -> showChangePasswordFragment());
         findPreference("change_email").setOnPreferenceClickListener(preference -> showChangeEmailFragment());
-        getStatusConfirmEamil();
+        getStatusConfirmEmail();
+
+
+
+
     }
-   public void getStatusConfirmEamil() {
+   public void getStatusConfirmEmail() {
         final RequestQueue mQueue = RequestQueueSingleton.getInstance(getContext());
         GetRequest request = new GetRequest(mQueue);
         String requestUrl = UrlCollection.GET_STATUS_CONFIRM_EMAIL;
@@ -56,14 +63,16 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     final boolean isSuccess = response.getBoolean("success");
 
                     if (!isSuccess) {
-                        JSONObject emailObject = response.getJSONObject("data");
-                        String email = emailObject.getString("EMAIL");
+                       JSONObject emailObject = response.getJSONObject("data");
+                       String email = emailObject.getString("EMAIL");
                         ConfirmedDialogMessage confirmedDialogMessage = new ConfirmedDialogMessage(email);
                         confirmedDialogMessage.setTargetFragment(SettingsFragment.this, 1);
                         confirmedDialogMessage.show(SettingsFragment.this.getFragmentManager(), "MyCustomDialog");
                         Toast.makeText(getContext(), "Неправильный логин или пароль", Toast.LENGTH_LONG).show();
                         return;
                     }
+
+
 
 
 

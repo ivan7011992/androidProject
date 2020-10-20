@@ -51,7 +51,7 @@
     <fragment
         android:id="@+id/paymentViewFragment"
         android:name="com.gorvodokanal.meters.activity.PaymentViewFragment"
-        android:label="Action"
+        android:label="Переход на оплату"
         tools:layout="@layout/fragment_payment_view" >
 
         <argument

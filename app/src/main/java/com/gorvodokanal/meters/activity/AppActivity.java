@@ -71,19 +71,24 @@ public class AppActivity extends AppCompatActivity implements NavigationView.OnN
         ((TextView) header.findViewById(R.id.text)).setText(UserModel.getInstance().getLogin());
         View exit = sideBar.findViewById(R.id.exit);
         Spinner listUser = findViewById(R.id.spinnerUserListSwith);
-        RelativeLayout swith = findViewById(R.id.swithParrent);
+        //RelativeLayout swith = findViewById(R.id.swithParrent);
         TextView text = findViewById(R.id.text);
 
         if(UserModel.getInstance().getLs().size() ==1){
-            swith.removeView(listUser);
+          //  swith.removeView(listUser);
 
         } else{
             ArrayList<String> loginList = new ArrayList<>(UserModel.getInstance().getLs().values());
             ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, loginList);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);// устанавливаем выпадающий список для спиннера
-            listUser.setAdapter(adapter);
-            swith.removeView(text);
+           // listUser.setAdapter(adapter);
+           // swith.removeView(text);
         }
+
+
+
+
+
 
 //        exit.setOnClickListener(new View.OnClickListener() {
 //            @Override

@@ -5,7 +5,6 @@
     <Preference
 
         android:key="change_email"
-
         android:title="Изменить email" />
     <Preference
         android:key="change_password"

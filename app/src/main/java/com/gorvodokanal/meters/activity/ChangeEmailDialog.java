@@ -71,17 +71,19 @@ public class ChangeEmailDialog extends DialogFragment {
                 try {
                     if (!response.has("success")) {
                         Log.e("server", String.format("Error response from url %s: %s", UrlCollection.AUTH_URL, response.toString()));
+
                         Toast.makeText(getContext(), "Неизвестная ошибка, попробуйте еще раз", Toast.LENGTH_LONG).show();
                         return;
                     }
                     final boolean isSuccess = response.getBoolean("success");
 
                     if (!isSuccess) {
-                        Toast.makeText(getContext(), response.has("message") ? response.getString("message") : "Неизвестная ошибка", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), "Email не изменен", Toast.LENGTH_LONG).show();
+                      //  Toast.makeText(getContext(), response.has("message") ? response.getString("message") : "Неизвестная ошибка", Toast.LENGTH_LONG).show();
                         return;
                     } else {
-
-                        Toast.makeText(getContext(), response.has("message") ? response.getString("message") : "Email изменен", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), "Email  изменен", Toast.LENGTH_LONG).show();
+                       // Toast.makeText(getContext(), response.has("message") ? response.getString("message") : "Email изменен", Toast.LENGTH_LONG).show();
                     }
 
                 } catch (Exception e) {
