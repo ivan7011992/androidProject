@@ -11,6 +11,7 @@ import org.json.JSONException;
         private String enterDate;
         private  double pokaz;
 
+
         public VodomerItem(JSONObject row) throws JSONException {
             node =  row.getInt("NODE");
             nomerVodomer =  row.getInt("N_VODOMER");
