@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -32,8 +33,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 
-public class AppActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
+public class AppActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, AdapterView.OnItemSelectedListener {
+ int login;
+    String currentLogin;
+    Spinner listUser;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,22 +73,21 @@ public class AppActivity extends AppCompatActivity implements NavigationView.OnN
         View header = sideBar.getHeaderView(0);
         ((TextView) header.findViewById(R.id.text)).setText(UserModel.getInstance().getLogin());
         View exit = sideBar.findViewById(R.id.exit);
-        Spinner listUser = findViewById(R.id.spinnerUserListSwith);
+        listUser = findViewById(R.id.spinnerUserListSwith);
         //RelativeLayout swith = findViewById(R.id.swithParrent);
         TextView text = findViewById(R.id.text);
-
+        listUser.setOnItemSelectedListener(this);
         if(UserModel.getInstance().getLs().size() ==1){
           //  swith.removeView(listUser);
-
         } else{
             ArrayList<String> loginList = new ArrayList<>(UserModel.getInstance().getLs().values());
             ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, loginList);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);// устанавливаем выпадающий список для спиннера
-           // listUser.setAdapter(adapter);
+
+
+            // listUser.setAdapter(adapter);
            // swith.removeView(text);
         }
-
-
 
 
 
@@ -98,6 +100,7 @@ public class AppActivity extends AppCompatActivity implements NavigationView.OnN
 //            }
 //        });
     }
+
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -115,5 +118,19 @@ public class AppActivity extends AppCompatActivity implements NavigationView.OnN
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+        currentLogin = listUser.getSelectedItem().toString();
+       SwithAccount swithAccount = new SwithAccount(currentLogin);
+       swithAccount.sendDataAuth();
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }
