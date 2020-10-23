@@ -73,20 +73,20 @@ public class AppActivity extends AppCompatActivity implements NavigationView.OnN
         View header = sideBar.getHeaderView(0);
         ((TextView) header.findViewById(R.id.text)).setText(UserModel.getInstance().getLogin());
         View exit = sideBar.findViewById(R.id.exit);
-        listUser = findViewById(R.id.spinnerUserListSwith);
-        //RelativeLayout swith = findViewById(R.id.swithParrent);
-        TextView text = findViewById(R.id.text);
+        listUser = header.findViewById(R.id.spinnerUserListSwith);
+        RelativeLayout swith = header.findViewById(R.id.swithParrent);
+        TextView text = header.findViewById(R.id.text);
         listUser.setOnItemSelectedListener(this);
         if(UserModel.getInstance().getLs().size() ==1){
-          //  swith.removeView(listUser);
+           swith.removeView(listUser);
         } else{
             ArrayList<String> loginList = new ArrayList<>(UserModel.getInstance().getLs().values());
             ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, loginList);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);// устанавливаем выпадающий список для спиннера
 
 
-            // listUser.setAdapter(adapter);
-           // swith.removeView(text);
+             listUser.setAdapter(adapter);
+            swith.removeView(text);
         }
 
 
@@ -123,9 +123,16 @@ public class AppActivity extends AppCompatActivity implements NavigationView.OnN
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-        currentLogin = listUser.getSelectedItem().toString();
-       SwithAccount swithAccount = new SwithAccount(currentLogin);
-       swithAccount.sendDataAuth();
+//        currentLogin = listUser.getSelectedItem().toString();
+//       SwithAccount swithAccount = new SwithAccount(currentLogin, this, new SwithAccount.SuccessReponseHandler() {
+//           @Override
+//           public void process() {
+//               Intent intent = new Intent( AppActivity.this,AppActivity.class);
+//               startActivity(intent);
+//           }
+//       });
+//       swithAccount.sendDataAuth();
+
 
     }
 
@@ -133,4 +140,5 @@ public class AppActivity extends AppCompatActivity implements NavigationView.OnN
     public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
+
 }

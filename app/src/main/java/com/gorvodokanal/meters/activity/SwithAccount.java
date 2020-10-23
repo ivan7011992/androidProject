@@ -3,12 +3,15 @@ package com.gorvodokanal.meters.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.RequestQueue;
 import com.gorvodokanal.meters.net.GetRequest;
+import com.gorvodokanal.meters.net.PostRequest;
 import com.gorvodokanal.meters.net.RequestQueueSingleton;
 import com.gorvodokanal.meters.net.UrlCollection;
 import com.gorvodokanal.meters.net.VolleyJsonSuccessCallback;
@@ -17,45 +20,57 @@ import org.json.JSONObject;
 
 import java.net.CookieHandler;
 import java.net.CookieManager;
+import java.util.HashMap;
+import java.util.Map;
 
-public class SwithAccount extends AppActivity {
-   private String login;
-    public  SwithAccount(String login){
+public class SwithAccount {
+
+    public interface SuccessReponseHandler {
+        void process();
+    }
+
+    private String login;
+    private AppCompatActivity view;
+    private SuccessReponseHandler successReponseHandler;
+
+    public SwithAccount(
+            String login,
+            AppCompatActivity view,
+            SuccessReponseHandler successReponseHandler) {
         this.login = login;
+        this.view = view;
+        this.successReponseHandler = successReponseHandler;
     }
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        sendDataAuth();
-    }
 
-    public void  sendDataAuth(){
-        final RequestQueue mQueue = RequestQueueSingleton.getInstance(this);
-        GetRequest request = new GetRequest(mQueue);
+    public void sendDataAuth() {
+
+        Map<String, Object> requestData = new HashMap<>();
+        requestData.put("login", login);
+
+        final RequestQueue mQueue = RequestQueueSingleton.getInstance(view);
+        PostRequest request = new PostRequest(mQueue);
+
         final CookieManager manager = new CookieManager();
         CookieHandler.setDefault(manager);
 
 
-        String requestUrl = UrlCollection.RECOVERY_URL + "?login=" + login;
-
-        request.makeRequest(requestUrl, new VolleyJsonSuccessCallback() {
+        request.makeRequest(UrlCollection.SWITH_ACCOUNT, requestData, new VolleyJsonSuccessCallback() {
             @Override
             public void onSuccess(JSONObject response) {
                 try {
                     if (!response.has("success")) {
                         Log.e("server", String.format("Error response from url %s: %s", UrlCollection.AUTH_URL, response.toString()));
-                        Toast.makeText(SwithAccount.this, "Неизвестная ошибка, попробуйте еще раз", Toast.LENGTH_LONG).show();
+                        Toast.makeText(view, "Неизвестная ошибка, попробуйте еще раз", Toast.LENGTH_LONG).show();
                         return;
                     }
                     final boolean isSuccess = response.getBoolean("success");
                     if (!isSuccess) {
-                        Toast.makeText(SwithAccount.this, "Не удалось перейти в личный кабинет", Toast.LENGTH_LONG).show();
-                        return;
+                        Toast.makeText(view, "Не удалось перейти в личный кабинет", Toast.LENGTH_LONG).show();
+                        ;
                     }
-                    Intent intent = new Intent( SwithAccount.this, AppActivity.class);
-                    startActivity(intent);
-                    Toast.makeText(SwithAccount.this, "Успех", Toast.LENGTH_LONG).show();
+                    SwithAccount.this.successReponseHandler.process();
+
 
                 } catch (Exception e) {
                     Log.e("valley", "error", e);
