@@ -10,6 +10,9 @@ import org.json.JSONException;
         private int nomerVodomer;
         private String enterDate;
         private  double pokaz;
+        private String date_prom;
+
+
 
 
         public VodomerItem(JSONObject row) throws JSONException {
@@ -17,6 +20,7 @@ import org.json.JSONException;
             nomerVodomer =  row.getInt("N_VODOMER");
             enterDate =  row.getString("ENTER_DATE");
             pokaz = row.getDouble("POKAZ2");
+
         }
 
         public int getNode() {
@@ -34,6 +38,8 @@ import org.json.JSONException;
         public double getPokaz() {
             return pokaz;
         }
+
+
     }
 
 

@@ -7,6 +7,7 @@ import android.text.method.DigitsKeyListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -22,7 +23,6 @@ import java.util.Collections;
 public class SummaryPassItemAdapter  extends RecyclerView.Adapter< SummaryPassItemAdapter.RecycleViewViewHolder> {
     private ArrayList<VodomerItem> vodomerItems;
     private ArrayList<String> userData;
-
     public SummaryPassItemAdapter(ArrayList<VodomerItem> passMetersItems) {
         this.vodomerItems =  passMetersItems;
         userData = new ArrayList<String>(Collections.nCopies(passMetersItems.size(), new String()));
@@ -47,6 +47,7 @@ public class SummaryPassItemAdapter  extends RecyclerView.Adapter< SummaryPassIt
             userDataInput.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
             userDataInput.setKeyListener(DigitsKeyListener.getInstance(true, true));
 
+
         }
     }
 
@@ -69,22 +70,24 @@ public class SummaryPassItemAdapter  extends RecyclerView.Adapter< SummaryPassIt
         recycleViewViewHolder.n_vodomer.setText(String.valueOf(vodomerItem.getNomerVodomer()));
         recycleViewViewHolder.enter_date.setText(String.valueOf(vodomerItem.getEnterDate()));
         recycleViewViewHolder.pokaz.setText(String.valueOf(vodomerItem.getPokaz()));
-        recycleViewViewHolder.userDataInput.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            }
+            recycleViewViewHolder.userDataInput.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                userData.set(i, s.toString());
-            }
+                }
 
-            @Override
-            public void afterTextChanged(Editable s) {
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    userData.set(i, s.toString());
+                }
 
-            }
-        });
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
+
     }
 
     public ArrayList<String> getUserData() {

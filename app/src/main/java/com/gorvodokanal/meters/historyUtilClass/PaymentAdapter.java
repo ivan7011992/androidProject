@@ -69,7 +69,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.RecycleV
             item = paymentData.getSummaryItem();
             EditText entry = recycleViewViewHolder.paymentValue;
             TextView paymentSum = recycleViewViewHolder.paymentSum;
-            paymentSum.setText(String.valueOf(item.getOPLATA()));
+            paymentSum.setText(String.valueOf(item.dept()));
             ((ViewManager) entry.getParent()).removeView(entry);
 
             TextView title = recycleViewViewHolder.title;

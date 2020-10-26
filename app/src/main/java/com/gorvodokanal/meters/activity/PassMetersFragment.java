@@ -60,6 +60,8 @@ public class PassMetersFragment extends Fragment {
     String currentDateNew;
      TextView currentDate;
     ProgressDialog mDialog;
+    VodomerItem vodomerItem;
+    TextView noMeters;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pass_meters, container, false);
@@ -82,7 +84,7 @@ public class PassMetersFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         fetchAndDisplayData();
-
+        noMeters = getView().findViewById(R.id.noMeters);
         Calendar calendar = Calendar.getInstance();
         String[] monthNames = { "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь" };
         String month = monthNames[calendar.get(Calendar.MONTH)];
@@ -111,6 +113,7 @@ public class PassMetersFragment extends Fragment {
                     dataType(data);
                     passMetrsView(data);
 
+
                 } catch (Exception e) {
                     Log.e("valley", "Error", e);
                 }
@@ -134,7 +137,7 @@ public class PassMetersFragment extends Fragment {
         {
             Button button = getView().findViewById(R.id.buttonPassMeters);
             button.setText("Передача показаний недоступна");
-            TextView noMeters = getView().findViewById(R.id.noMeters);
+
             noMeters.setText("По вашему лицевому счёту не установлены приборы учёта");
 
         }

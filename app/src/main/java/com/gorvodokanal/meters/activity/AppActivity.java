@@ -52,6 +52,7 @@ public class AppActivity extends AppCompatActivity implements NavigationView.OnN
 
        // sideBar.setNavigationItemSelectedListener(this);
 
+
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph())
                 .setDrawerLayout(drawerLayout)
                 .build();
@@ -76,14 +77,14 @@ public class AppActivity extends AppCompatActivity implements NavigationView.OnN
         listUser = header.findViewById(R.id.spinnerUserListSwith);
         RelativeLayout swith = header.findViewById(R.id.swithParrent);
         TextView text = header.findViewById(R.id.text);
-        listUser.setOnItemSelectedListener(this);
+
         if(UserModel.getInstance().getLs().size() ==1){
            swith.removeView(listUser);
         } else{
             ArrayList<String> loginList = new ArrayList<>(UserModel.getInstance().getLs().values());
             ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, loginList);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);// устанавливаем выпадающий список для спиннера
-
+            listUser.setOnItemSelectedListener(this);
 
              listUser.setAdapter(adapter);
             swith.removeView(text);
@@ -122,16 +123,27 @@ public class AppActivity extends AppCompatActivity implements NavigationView.OnN
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        currentLogin = listUser.getSelectedItem().toString();
+        switch (currentLogin) {
+            case "10-6666666":
 
-//        currentLogin = listUser.getSelectedItem().toString();
-//       SwithAccount swithAccount = new SwithAccount(currentLogin, this, new SwithAccount.SuccessReponseHandler() {
-//           @Override
-//           public void process() {
-//               Intent intent = new Intent( AppActivity.this,AppActivity.class);
-//               startActivity(intent);
-//           }
-//       });
-//       swithAccount.sendDataAuth();
+                break;// этот оператор заканчивает выполение опретора swith прекращаент выполние кода
+
+
+            default:
+
+                    SwithAccount swithAccount = new SwithAccount(currentLogin, this, new SwithAccount.SuccessReponseHandler() {
+                        @Override
+                        public void process() {
+                            Intent intent = new Intent(AppActivity.this, AppActivity.class);
+                            startActivity(intent);
+                        }
+                    });
+                swithAccount.sendDataAuth();
+
+                break;
+        }
+
 
 
     }

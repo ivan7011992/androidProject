@@ -61,7 +61,7 @@ public class PaymentViewFragment extends Fragment {
                     final NavController navController = NavHostFragment.findNavController(PaymentViewFragment.this);
                     Bundle bundle = new Bundle();
                     bundle.putString("errorMessage", errorMessage);
-                    navController.navigate(R.id.generalInfoFragment, bundle);
+                    navController.navigate(R.id.paymentFragment, bundle);
                     return true;
                 }else if (url.startsWith("https://www.gorvodokanal.com/personal/payment/ok.php")){
                     Toast.makeText(getActivity(), "Оплата прошла успешно", Toast.LENGTH_LONG).show();
