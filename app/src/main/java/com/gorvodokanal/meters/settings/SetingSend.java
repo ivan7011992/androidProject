@@ -8,10 +8,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
 import com.gorvodokanal.R;
 import com.gorvodokanal.meters.net.PostRequest;
 import com.gorvodokanal.meters.net.RequestQueueSingleton;
 import com.gorvodokanal.meters.net.UrlCollection;
+import com.gorvodokanal.meters.net.VolleyJsonErrorCallback;
 import com.gorvodokanal.meters.net.VolleyJsonSuccessCallback;
 
 import org.json.JSONObject;
@@ -56,7 +58,15 @@ public class SetingSend extends AppCompatActivity {
                     Log.e("valley", "error", e);
                 }
             }
-            });
+            }, new VolleyJsonErrorCallback() {
+            @Override
+            public void onError(VolleyError error) {
+
+                Toast.makeText(SetingSend.this, "Неизвестная ошибка, попробуйте еще раз", Toast.LENGTH_LONG).show();
+            }
+
+
+        });
 
         }
     }

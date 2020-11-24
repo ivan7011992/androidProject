@@ -20,15 +20,33 @@ import com.gorvodokanal.meters.net.RequestQueueSingleton;
 import com.gorvodokanal.meters.net.UrlCollection;
 import com.gorvodokanal.meters.net.VolleyJsonSuccessCallback;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Iterator;
+
+import ru.tinkoff.decoro.MaskImpl;
+import ru.tinkoff.decoro.parser.UnderscoreDigitSlotsParser;
+import ru.tinkoff.decoro.slots.Slot;
+import ru.tinkoff.decoro.watchers.FormatWatcher;
+import ru.tinkoff.decoro.watchers.MaskFormatWatcher;
 
 public class RecoveryPassword extends AppCompatActivity {
 Button recoveryPasswordButton;
+    EditText kodRecovery;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recovery_password);
         recoveryPasswordButton = findViewById(R.id.recoveryPasswordButton);
+        kodRecovery =   findViewById(R.id.kodRecovery);
+        kodRecovery.setMaxLines(1);
+        Slot[] slots = new UnderscoreDigitSlotsParser().parseSlots("__-_______");
+        FormatWatcher formatWatcher = new MaskFormatWatcher( // форматировать текст будет вот он
+                MaskImpl.createTerminated(slots)
+        );
+        formatWatcher.installOn(kodRecovery);
 
         recoveryPasswordButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,8 +95,14 @@ Button recoveryPasswordButton;
 
         final RequestQueue mQueue = RequestQueueSingleton.getInstance(this);
         GetRequest request = new GetRequest(mQueue);
-        EditText kodRecovery = (EditText) findViewById(R.id.kodRecovery);
+
+
+
         String kodRec = kodRecovery.getText().toString();
+        if(kodRec.trim().length() == 0){
+            Toast.makeText(RecoveryPassword.this, "Введите код абонента", Toast.LENGTH_LONG).show();
+            return;
+        }
         String requestUrl = UrlCollection.RECOVERY_URL + "?kodRec=" + kodRec;
 
 
@@ -89,9 +113,26 @@ Button recoveryPasswordButton;
                     if (!response.has("success")) {
                         Log.e("server", String.format("Error response from url %s: %s", UrlCollection.AUTH_URL, response.toString()));
                         Toast.makeText(RecoveryPassword.this, "Неизвестная ошибка, попробуйте еще раз", Toast.LENGTH_LONG).show();
+
                         return;
                     }
                     final boolean isSuccess = response.getBoolean("success");
+
+                    if(!isSuccess){
+                        JSONObject rows = response.getJSONObject("message");
+                        StringBuilder errorBuilder = new StringBuilder();
+                        Iterator<String> temp = rows.keys();
+                        String error = "";
+                        while (temp.hasNext()) {
+                            String key = temp.next();
+                               error = rows.getString(key);
+
+                        }
+                     // String error =   getErrors(response.getJSONArray("message"));
+                        Toast.makeText(RecoveryPassword.this,  error, Toast.LENGTH_LONG).show();
+                        return;
+                    }
+
 
 
                     String email = response.getString("email");
@@ -106,5 +147,26 @@ Button recoveryPasswordButton;
 
     }
 
+    private String  getErrors(JSONArray array) {
+
+        String error = "";
+
+        for (int i = 0; i < array.length(); i++) {
+            JSONObject objects = null;
+            try {
+                objects = array.getJSONObject(i);
+
+                Iterator key = objects.keys();
+                while (key.hasNext()) {
+                    String k = key.next().toString();
+                    error = objects.getString(k);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+        return error;
+    }
 
 }

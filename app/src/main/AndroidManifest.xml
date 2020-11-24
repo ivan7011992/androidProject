@@ -19,7 +19,7 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".meters.settings.Setting"
-            android:label="Settings"
+            android:label="Настройки"
             android:parentActivityName=".meters.activity.MainActivity"
             android:screenOrientation="portrait">
             <meta-data

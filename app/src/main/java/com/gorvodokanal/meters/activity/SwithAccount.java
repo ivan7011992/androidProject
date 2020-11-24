@@ -10,10 +10,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
 import com.gorvodokanal.meters.net.GetRequest;
 import com.gorvodokanal.meters.net.PostRequest;
 import com.gorvodokanal.meters.net.RequestQueueSingleton;
 import com.gorvodokanal.meters.net.UrlCollection;
+import com.gorvodokanal.meters.net.VolleyJsonErrorCallback;
 import com.gorvodokanal.meters.net.VolleyJsonSuccessCallback;
 
 import org.json.JSONObject;
@@ -51,9 +53,6 @@ public class SwithAccount {
         final RequestQueue mQueue = RequestQueueSingleton.getInstance(view);
         PostRequest request = new PostRequest(mQueue);
 
-        final CookieManager manager = new CookieManager();
-        CookieHandler.setDefault(manager);
-
 
         request.makeRequest(UrlCollection.SWITH_ACCOUNT, requestData, new VolleyJsonSuccessCallback() {
             @Override
@@ -66,9 +65,12 @@ public class SwithAccount {
                     }
                     final boolean isSuccess = response.getBoolean("success");
                     if (!isSuccess) {
-                        Toast.makeText(view, "Не удалось перейти в личный кабинет", Toast.LENGTH_LONG).show();
-                        ;
+                        String errorMessage = response.getString("message");
+
+                        Toast.makeText(view, String.valueOf(errorMessage), Toast.LENGTH_LONG).show();
+
                     }
+
                     SwithAccount.this.successReponseHandler.process();
 
 
@@ -76,7 +78,14 @@ public class SwithAccount {
                     Log.e("valley", "error", e);
                 }
             }
-        });
+        },
+                new VolleyJsonErrorCallback() {
+                    @Override
+                    public void onError(VolleyError error) {
+                        Toast.makeText(view, "Неизвестная ошибка, попробуйте еще раз", Toast.LENGTH_LONG).show();
+                    }
+
+    });
 
 
     }

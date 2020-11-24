@@ -7,6 +7,10 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">#03A9F4</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+        <item name="android:textViewStyle">@style/RobotoFont</item>
+    </style>
+    <style name="RobotoFont" parent="android:Widget.TextView">
+        <item name="android:fontFamily">sans-serif</item>
     </style>
     <style name="RoundedCornerButton" parent="@style/Widget.AppCompat.Button.Colored">
         <item name="background">@drawable/dra</item>
@@ -36,4 +40,27 @@
         <item name="spinBars">true</item>
         <item name="color">@android:color/holo_blue_bright</item>
     </style>
+    <style name="CustomDialog" parent="@android:style/Theme.Holo.Light" >
+        <item name="android:windowBackground">@null</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
+    <style name="NavigationDrawerStyle">
+
+        <item name="android:textSize">14sp</item><!-- text size in menu-->
+
+        <!-- item size in menu-->
+        <item name="android:listPreferredItemHeightSmall">40dp</item>
+        <item name="listPreferredItemHeightSmall">45dp</item>
+
+        <!-- item padding left in menu-->
+        <item name="android:listPreferredItemPaddingLeft">0dp</item>
+        <item name="listPreferredItemPaddingLeft">8dp</item>
+
+
+        <!-- item padding right in menu-->
+        <item name="android:listPreferredItemPaddingRight">8dp</item>
+        <item name="listPreferredItemPaddingRight">0dp</item>
+    </style>
+
+
 </resources>

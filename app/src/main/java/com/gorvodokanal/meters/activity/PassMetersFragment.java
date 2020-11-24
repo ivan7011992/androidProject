@@ -2,6 +2,7 @@ package com.gorvodokanal.meters.activity;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
@@ -21,6 +23,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,6 +31,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.gorvodokanal.R;
+import com.gorvodokanal.meters.Utils;
 import com.gorvodokanal.meters.historyUtilClass.SummaryPassItemAdapter;
 import com.gorvodokanal.meters.model.VodomerItem;
 import com.gorvodokanal.meters.net.GetRequest;
@@ -58,10 +62,11 @@ public class PassMetersFragment extends Fragment {
     TextView date111;
     ArrayList<VodomerItem> data;
     String currentDateNew;
-     TextView currentDate;
+    TextView currentDate;
     ProgressDialog mDialog;
     VodomerItem vodomerItem;
     TextView noMeters;
+   static int  i=1;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pass_meters, container, false);
@@ -77,6 +82,8 @@ public class PassMetersFragment extends Fragment {
         mDialog.setCancelable(false);
         mDialog.show();
 
+
+
         return view;
     }
 
@@ -84,12 +91,13 @@ public class PassMetersFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         fetchAndDisplayData();
+
         noMeters = getView().findViewById(R.id.noMeters);
         Calendar calendar = Calendar.getInstance();
-        String[] monthNames = { "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь" };
+        String[] monthNames = {"Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"};
         String month = monthNames[calendar.get(Calendar.MONTH)];
         int year = calendar.get(Calendar.YEAR);
-        String currentDate =  month + " " + year;
+        String currentDate = month + " " + year;
 
 
         ((TextView) getView().findViewById(R.id.headerPassMeters)).setText(currentDate);
@@ -112,40 +120,66 @@ public class PassMetersFragment extends Fragment {
                     data = buildData(rows);
                     dataType(data);
                     passMetrsView(data);
+//               TextView text = (TextView) getView().findViewById(R.id.
+//                           buttonPassMeters);
+//
+//                i++;
+//                   text.setText("ОК" + i);
+//
 
 
                 } catch (Exception e) {
                     Log.e("valley", "Error", e);
                 }
             }
-        },new VolleyJsonErrorCallback() {
+        }, new VolleyJsonErrorCallback() {
             @Override
             public void onError(VolleyError error) {
                 mDialog.dismiss();
+                showErrorDialog();
+
             }
         });
     }
 
-    public void dataType(ArrayList<VodomerItem> data){
+    private boolean needShowPassButton(ArrayList<VodomerItem> data) {
 
-        if(data.size()>0){
-            LinearLayout parentPassMeters = getView().findViewById(R.id.parentPassMeters);
-            TextView noMeters = getView().findViewById(R.id.noMeters);
-            parentPassMeters.removeView(noMeters);
+        for (VodomerItem item : data) {
+
+            if (item.getDate_prom() == null) {
+                return true;
+            }
         }
-        if(data.size()==0)
-        {
-            Button button = getView().findViewById(R.id.buttonPassMeters);
-            button.setText("Передача показаний недоступна");
+        return false;
+    }
 
+
+    public void dataType(ArrayList<VodomerItem> data) {
+
+        if (!this.needShowPassButton(data)) {
+            Button button = getView().findViewById(R.id.buttonPassMeters);
+            Utils.removeElement(button);
+            noMeters.setText("Расчет платы за холодное водоснабжение и водоотведение по вашему адресу производит обслуживающая управляющая организация. По этой причине ввод показаний приборов учета при помощи нашего сайта, к сожалению, недоступен. Вам следует передавать показания в вашу управляющую организацию.");
+
+        }
+        if (data.size() == 0) {
             noMeters.setText("По вашему лицевому счёту не установлены приборы учёта");
 
         }
+
+        TextView noMeters = getView().findViewById(R.id.noMeters);
+
+        if(noMeters != null) {
+            if (noMeters.getText().length() == 0) {
+                Utils.removeElement(noMeters);
+            }
+        }
     }
+
     private void passMetrsView(ArrayList<VodomerItem> data) {
 
         RecyclerView passMetersView = (RecyclerView) getView().findViewById(R.id.passMeters);
-     passMetersView.setAdapter(null);
+        passMetersView.setAdapter(null);
         final SummaryPassItemAdapter adapter = new SummaryPassItemAdapter(data);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext()) {
             @Override
@@ -158,8 +192,8 @@ public class PassMetersFragment extends Fragment {
         passMetersView.setLayoutManager(layoutManager);
 
 
-
-        getView().findViewById(R.id.buttonPassMeters).setOnClickListener(new View.OnClickListener() {
+        getView().findViewById(R.id.
+                buttonPassMeters).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 passMetersData(adapter.getUserData());
@@ -167,11 +201,7 @@ public class PassMetersFragment extends Fragment {
         });
 
 
-
-
     }
-
-
 
 
     private ArrayList<VodomerItem> buildData(JSONArray rows) throws JSONException {
@@ -199,7 +229,27 @@ public class PassMetersFragment extends Fragment {
             requestData.put("dateIndicators", datePassMeters);
         }
 
-        requestData.put("meters", userData);
+       requestData.put("meters", userData);
+
+          for(int i= 0; i< userData.size(); i++) {
+                String item = userData.get(i);
+                double itemValue = Double.parseDouble(item);
+
+
+              if (item.isEmpty()) {
+                  Toast.makeText(getContext(), "Введите показания", Toast.LENGTH_LONG).show();
+                  return;
+              }
+
+              if(itemValue < data.get(i).getPokaz()){
+                  Toast.makeText(getContext(), "Показания не могут быть меньше текущих", Toast.LENGTH_LONG).show();
+                  return;
+              }
+
+          }
+
+
+
 
         PostRequest request = new PostRequest(mQueue);
         request.makeRequest(UrlCollection.SET_METERS, requestData, new VolleyJsonSuccessCallback() {
@@ -214,6 +264,7 @@ public class PassMetersFragment extends Fragment {
                     final boolean isSuccess = response.getBoolean("success");
 
                     Toast.makeText(getContext(), response.getString("message"), Toast.LENGTH_LONG).show();
+                    createAlertDialog("",  response.getString("message"));
                     fetchAndDisplayData();
 
 
@@ -221,7 +272,15 @@ public class PassMetersFragment extends Fragment {
                     Log.e("valley", "error", e);
                 }
             }
-        });
+        },
+                new VolleyJsonErrorCallback() {
+                    @Override
+                    public void onError(VolleyError error) {
+                        mDialog.dismiss();
+                        showErrorDialog();
+                    }
+
+                });
     }
 
     //    private boolean validateMeters() {
@@ -285,6 +344,35 @@ public class PassMetersFragment extends Fragment {
                 }, mYear, mMonth, mDay);
         datePickerDialog.show();
     }
+
+    private void  showErrorDialog(){
+        NoConnection dialog = new NoConnection();
+        dialog.setTargetFragment(this, 1);
+        dialog.show(this.getFragmentManager(), "MyCustomDialog");
+
+    }
+
+    private void createAlertDialog(String title, String content) {
+        // объект Builder для создания диалогового окна
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        // добавляем различные компоненты в диалоговое окно
+        builder.setTitle(title);
+        builder.setMessage(content);
+        // устанавливаем кнопку, которая отвечает за позитивный ответ
+        builder.setPositiveButton("OK",
+                // устанавливаем слушатель
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,
+                                        int which) {
+                        // по нажатию создаем всплывающее окно с типом нажатой конпки
+
+                    }
+                });
+        // объект Builder создал диалоговое окно и оно готово появиться на экране
+        // вызываем этот метод, чтобы показать AlertDialog на экране пользователя
+        builder.show();
+    }
+
 }
 
 

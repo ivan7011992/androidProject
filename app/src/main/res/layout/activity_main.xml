@@ -1,4 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nested"
+    android:fillViewport="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fon3"
+    >
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -10,12 +24,12 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/fon3">
+       >
 
         <ImageView
             android:id="@+id/image"
             android:layout_width="310dp"
-            android:layout_height="234dp"
+            android:layout_height="220dp"
             android:padding="20dp"
             app:srcCompat="@drawable/logo"
             android:layout_centerHorizontal="true"
@@ -26,11 +40,11 @@
         <EditText
             android:id="@+id/login"
             android:layout_width="310dp"
-            android:layout_height="50dp"
+            android:layout_height="45dp"
             android:layout_below="@+id/image"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="20dp"
              android:layout_centerHorizontal="true"
-            android:textSize="20sp"
+            android:textSize="20dp"
             android:background="@drawable/dra4"
             android:textColorHint="#fff"
             android:gravity="center"
@@ -43,12 +57,10 @@
             android:id="@+id/image2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:layout_marginTop="21dp"
-            android:layout_alignParentRight="true"
+           android:layout_marginStart="-50dp"
+            android:layout_marginTop="35dp"
 
-
-            android:layout_marginRight="50dp"
+            android:layout_toRightOf="@+id/image"
             android:layout_below="@+id/image"
             app:srcCompat="@drawable/ic_baseline_contact_support_24"
             tools:layout_editor_absoluteX="146dp"
@@ -60,14 +72,14 @@
         <EditText
             android:id="@+id/password"
             android:layout_width="310dp"
-            android:layout_height="60dp"
+            android:layout_height="45dp"
             android:layout_below="@+id/login"
             android:layout_marginTop="21dp"
             android:hint="Пароль"
             android:textColor="#FFFFFF"
              android:background="@drawable/dra4"
             android:layout_centerHorizontal="true"
-            android:textSize="20sp"
+            android:textSize="20dp"
             android:gravity="center"
             android:textColorHint="#fff"
             android:inputType="textPassword"
@@ -75,12 +87,11 @@
 
         <ImageView
             android:id="@+id/image3"
-            android:padding="20dp"
+            android:layout_marginStart="-50dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="21dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="50dp"
+            android:layout_marginTop="35dp"
+            android:layout_toRightOf="@+id/image"
             android:layout_below="@+id/login"
             app:srcCompat="@drawable/ic_baseline_remove_red_eye_24"
             />
@@ -91,11 +102,11 @@
             android:layout_height="70dp"
             android:layout_below="@+id/password"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="45dp"
             android:background="@drawable/dra5"
             android:onClick="formSubmit"
             android:text="Войти"
-            android:textSize="14sp" />
+            android:textSize="14dp" />
 
         <Button
             android:id="@+id/button2"
@@ -108,7 +119,7 @@
             android:text="Регистрация"
 
             android:textColor="#FFFFFF"
-            android:textSize="14sp"
+            android:textSize="14dp"
             />
 
         <Button
@@ -117,14 +128,16 @@
             android:layout_height="30dp"
             android:layout_below="@+id/button2"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/dra15"
             android:text="Восстановление пароля"
 
             android:textColor="#FFFFFF"
-            android:textSize="14sp"
+            android:textSize="14dp"
             />
 
 
     </RelativeLayout>
 </LinearLayout>
+    </ScrollView>
+</androidx.core.widget.NestedScrollView>

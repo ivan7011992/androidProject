@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="208dp"
+    android:layout_height="209dp"
     android:fontFamily="@font/roboto_medium"
     >
 
@@ -27,7 +27,7 @@
             android:gravity="center"
             android:text="Дата"
             android:textColor="#000000"
-            android:textSize="12sp"
+            android:textSize="12dp"
             android:textStyle="bold" />
     <RelativeLayout
         android:id="@+id/con3"
@@ -45,7 +45,7 @@
             android:fontFamily="@font/roboto_medium"
             android:paddingRight="3dp"
             android:text="Долг на начало периода"
-            android:textSize="14sp" />
+            android:textSize="14dp" />
 
 
         <TextView
@@ -55,7 +55,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/roboto_medium"
-            android:textSize="14sp"
+            android:textSize="14dp"
             android:textStyle="bold" />
 
 
@@ -68,7 +68,7 @@
             android:fontFamily="@font/roboto_medium"
             android:paddingRight="3dp"
             android:text="Начисление за период"
-            android:textSize="14sp"
+            android:textSize="14dp"
             />
 
         <TextView
@@ -81,7 +81,7 @@
             android:layout_marginRight="3dp"
             android:fontFamily="@font/roboto_medium"
             android:text="Значение"
-            android:textSize="14sp"
+            android:textSize="14dp"
 
             android:textStyle="bold" />
 
@@ -94,7 +94,7 @@
             android:fontFamily="@font/roboto_medium"
 
             android:text="Оплата за период"
-            android:textSize="14sp"
+            android:textSize="14dp"
             />
 
         <TextView
@@ -107,7 +107,7 @@
             android:paddingRight="3dp"
             android:fontFamily="@font/roboto_medium"
             android:text="Значение"
-            android:textSize="14sp"
+            android:textSize="14dp"
 
             android:textStyle="bold" />
 
@@ -120,7 +120,7 @@
             android:fontFamily="@font/roboto_medium"
             android:paddingRight="3dp"
             android:text="Долг на конец периода"
-            android:textSize="14sp"
+            android:textSize="14dp"
             />
 
         <TextView
@@ -133,7 +133,7 @@
             android:fontFamily="@font/roboto_medium"
             android:paddingRight="3dp"
             android:text="Значение"
-            android:textSize="14sp"
+            android:textSize="14dp"
             android:textStyle="bold" />
 
         <TextView
@@ -146,6 +146,7 @@
             android:layout_marginBottom="5dp"
             android:fontFamily="@font/roboto_medium"
             android:text="Подробнее"
+            android:textSize="14dp"
             android:textAlignment="center"
             android:textColor="#1A90D0"
 

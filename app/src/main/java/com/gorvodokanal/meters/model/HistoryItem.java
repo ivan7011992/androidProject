@@ -40,7 +40,7 @@ public class HistoryItem {
 
     public  double getDept(){
 
-        return getSaldoBegin() + getNachisleno() + getOplata();
+        return getSaldoBegin() + getNachisleno() - getOplata();
     }
 
 

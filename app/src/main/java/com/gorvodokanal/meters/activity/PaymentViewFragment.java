@@ -61,13 +61,14 @@ public class PaymentViewFragment extends Fragment {
                     final NavController navController = NavHostFragment.findNavController(PaymentViewFragment.this);
                     Bundle bundle = new Bundle();
                     bundle.putString("errorMessage", errorMessage);
-                    navController.navigate(R.id.paymentFragment, bundle);
+                    navController.popBackStack(R.id.paymentFragment,false);
+
                     return true;
                 }else if (url.startsWith("https://www.gorvodokanal.com/personal/payment/ok.php")){
                     Toast.makeText(getActivity(), "Оплата прошла успешно", Toast.LENGTH_LONG).show();
 
                     final NavController navController = NavHostFragment.findNavController(PaymentViewFragment.this);
-                    navController.navigate(R.id.paymentFragment);
+                    navController.popBackStack(R.id.paymentFragment,false);
 
                     return true;
                 }
@@ -76,6 +77,12 @@ public class PaymentViewFragment extends Fragment {
             }
         });
         webView.loadUrl(getArguments().getString("paymentUrl"));
+
+    }
+    private void  showErrorDialog(){
+        NoConnection dialog = new NoConnection();
+        dialog.setTargetFragment(this, 1);
+        dialog.show(this.getFragmentManager(), "MyCustomDialog");
 
     }
 }

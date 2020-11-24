@@ -52,8 +52,8 @@ public class RegistrationFinalDialog extends DialogFragment {
             getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         }
-        ((TextView) view.findViewById(R.id.confirmText)).setText("Абонент успешно зарегистрирован. На почтовый ящик " + email + "выслано письмо с инструкцией по активации аккаунта. Если письмо отсутсвует, проверьте папку 'Спам'   " +
-                "Если вам не пришло письмо на почту, то проверьте корректность введенных вами данных. Если почта указана неверно, у вас есть возможность изменить электронный адрес, указав новуб посту в поле ниже");
+        ((TextView) view.findViewById(R.id.confirmText)).setText("Абонент успешно зарегистрирован. На почтовый ящик " + email + "выслано письмо с инструкцией по активации аккаунта. Если письмо отсутствует, проверьте папку 'Спам'" +
+                "Если вам не пришло письмо на почту, то проверьте корректность введенных вами данных. Если почта указана неверно, у вас есть возможность изменить электронный адрес, указав новую почту в поле ниже");
         sendMail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

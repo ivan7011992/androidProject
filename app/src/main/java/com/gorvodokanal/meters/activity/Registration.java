@@ -15,12 +15,14 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.gorvodokanal.R;
 import com.gorvodokanal.meters.model.VodomerItem;
 import com.gorvodokanal.meters.net.PostRequest;
 import com.gorvodokanal.meters.net.RequestQueueSingleton;
 import com.gorvodokanal.meters.net.UrlCollection;
+import com.gorvodokanal.meters.net.VolleyJsonErrorCallback;
 import com.gorvodokanal.meters.net.VolleyJsonSuccessCallback;
 
 import org.json.JSONArray;
@@ -241,6 +243,12 @@ public class Registration extends AppCompatActivity {
 
 
             }
+        }, new VolleyJsonErrorCallback() {
+            @Override
+            public void onError(VolleyError error) {
+
+                showErrorDialog();
+            }
         });
     }
 
@@ -256,5 +264,10 @@ public class Registration extends AppCompatActivity {
 
     private void displayError(String errorMessage) {
         Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show();
+    }
+
+    private void  showErrorDialog(){
+
+        Toast.makeText(Registration.this, "Неизвестная ошибка, попробуйте еще раз", Toast.LENGTH_LONG).show();
     }
 }

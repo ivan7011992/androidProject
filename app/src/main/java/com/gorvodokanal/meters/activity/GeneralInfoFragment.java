@@ -39,6 +39,7 @@ public class GeneralInfoFragment extends Fragment  {
     private static String address;
    LinearLayout fieldParrent;
     LinearLayout fieldParrent2;
+    LinearLayout fieldParrent3;
     public static int confirm = 0;
 
     @Override
@@ -55,6 +56,7 @@ public class GeneralInfoFragment extends Fragment  {
         final RequestQueue mQueue = RequestQueueSingleton.getInstance(getActivity());
         fieldParrent =  view.findViewById(R.id.fieldParrent);
         fieldParrent2 =  view.findViewById(R.id.PriborBlock);
+        fieldParrent3 =  view.findViewById(R.id.fieldBlockIPU0);
         ProgressDialog mDialog = new ProgressDialog(getContext());
         mDialog.setMessage("Загрузка...");
         mDialog.setCancelable(false);
@@ -72,11 +74,7 @@ public class GeneralInfoFragment extends Fragment  {
                                 return;
                             }
 
-//                            confirm = response.getInt("conf");
-//
-//                            if (confirm != 1) {
-//                                ConfirmDialog dialog = new ConfirmDialog();
-//                            }
+
 
                             JSONArray rows = response.getJSONArray("data");
 
@@ -103,22 +101,33 @@ public class GeneralInfoFragment extends Fragment  {
 
                             } else {
                                 ((TextView) getView().findViewById(R.id.fieldIPU0)).setText("Степень благоустройства:");
-                                ((TextView) getView().findViewById(R.id.fieldValueIPU0)).setText("Жилые помещения (в т. ч. общежития квартирного типа) с холодным и горячим водоснабжением, канализованием, оборудованные ваннами длиной 1500-1700 мм, душами, раковинами, кухонными мойками и унитазами");
+                                ((TextView) getView().findViewById(R.id.fieldValueIPU0)).setText(firstRow.getString("ST_BLAG"));
 
 
-                                ((TextView) getView().findViewById(R.id.field3)).setText("Стоимость 1м воды:");
+                                ((TextView) getView().findViewById(R.id.field3)).setText("Стоимость 1м3 воды:");
                                 ((TextView) getView().findViewById(R.id.field3Value)).setText(firstRow.getString("ZENWODA"));
                                 ((TextView) getView().findViewById(R.id.field1NormPotrebl)).setText("Нормативное потребление воды \n на одного чел/месяц");
-                                ((TextView) getView().findViewById(R.id.field1ValueNormPotrebl)).setText(firstRow.getString("STOK_KUB_MES"));
-                                ((TextView) getView().findViewById(R.id.field4)).setText("Стоимость 1м стоков:");
-                                ((TextView) getView().findViewById(R.id.field4Value)).setText(firstRow.getString("ZENSTOK"));
+                                if (firstRow.has("STOK_KUB_MES")) {
+                                    ((TextView) getView().findViewById(R.id.field1ValueNormPotrebl)).setText(firstRow.getString("STOK_KUB_MES"));
+                                }else{
+                                    LinearLayout   fieldBlock4 = getView().findViewById(R.id.fieldBlock4);
+                                    fieldParrent3.removeView(fieldBlock4);
+
+                                }
+
+                                if (firstRow.has("ZENSTOK")) {
+                                    ((TextView) getView().findViewById(R.id.field4Value)).setText(firstRow.getString("ZENSTOK"));
+                                }else {
+                                    LinearLayout fieldBlock3 = getView().findViewById(R.id.fieldBlockNormPotrebl);
+                                    fieldParrent3.removeView(fieldBlock3);
+                                }
                                 ((TextView) getView().findViewById(R.id.field1NormVodootv)).setText("Норматив по водоотведению \n на 1 чел. в месяц:");
                                 ((TextView) getView().findViewById(R.id.field1ValueNormVodootv)).setText(firstRow.getString("WODA_KUB_MES"));
                                 LinearLayout fieldBlock1 = getView().findViewById(R.id.fieldBlockIPU1);
                                 fieldParrent.removeView(fieldBlock1);
                                 TextView fieldBlock2 = getView().findViewById(R.id.Probor);
                                 fieldParrent2.removeView(fieldBlock2);
-
+                                ((TextView) getView().findViewById(R.id.field5Value)).setText(firstRow.getString("KOLJIL"));
 
                             }
 
@@ -149,7 +158,9 @@ public class GeneralInfoFragment extends Fragment  {
                     @Override
                     public void onError(VolleyError error) {
                         mDialog.dismiss();
+                        showErrorDialog();
                     }
+
                 });
     }
     @Override
@@ -178,4 +189,10 @@ public class GeneralInfoFragment extends Fragment  {
         }
         return super.onOptionsItemSelected(item);
     }
+   private void  showErrorDialog(){
+       NoConnection dialog = new NoConnection();
+       dialog.setTargetFragment(this, 1);
+       dialog.show(this.getFragmentManager(), "MyCustomDialog");
+
+   }
 }

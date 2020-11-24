@@ -1,10 +1,13 @@
 package com.gorvodokanal.meters.activity;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -41,9 +44,12 @@ public class DetailHistoryDialog extends DialogFragment {
             }
         });
 
+        if (getDialog() != null && getDialog().getWindow() != null) {
+            getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        }
         TextView heading = view.findViewById(R.id.headingMonth);
         heading.setText(String.valueOf(historyItem.getReadableDate()));
-
         TextView saldoBeginValueVodosnab = view.findViewById(R.id.saldoBeginValueVodosnab);
         TextView nachisPeriodValueVodosnab = view.findViewById(R.id.nachisPeriodValueVodosnab);
         TextView oplataPeriodValueVodosnab = view.findViewById(R.id.oplataPeriodValueVodosnab);
@@ -70,13 +76,15 @@ public class DetailHistoryDialog extends DialogFragment {
         nachisPeriodValueVodosnab.setText(String.format("%.2f",voda.getNachisleno()));
         oplataPeriodValueVodosnab.setText(String.format("%.2f",voda.getOplata()));
         double deptVodosnab = voda.getDept();
-        deptValueVodosnab.setText(String.format("%.2f",deptVodosnab));
+        deptValueVodosnab.setText(String.format("%.2f", deptVodosnab));
+
 
         saldoBeginValueVodootv.setText(String.format("%.2f",stoki.getSaldoBegin()));
         nachisPeriodValueVodootv.setText(String.format("%.2f",stoki.getNachisleno()));
         oplataPeriodValueVodootv.setText(String.format("%.2f",stoki.getOplata()));
         double deptVootv = stoki.getDept();
         deptValueVodootv.setText(String.format("%.2f",deptVootv));
+
 
         saldoBeginValueOdn.setText(String.format("%.2f", odn.getSaldoBegin()));
         nachisPeriodValueOdn.setText(String.format("%.2f",odn.getNachisleno()));

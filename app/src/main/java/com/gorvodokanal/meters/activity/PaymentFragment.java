@@ -21,11 +21,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.gorvodokanal.R;
+import com.gorvodokanal.meters.datePiker.Utils;
 import com.gorvodokanal.meters.historyUtilClass.PaymentAdapter;
 import com.gorvodokanal.meters.model.SummaryPaymentData;
 import com.gorvodokanal.meters.net.GetRequest;
@@ -47,12 +49,21 @@ public class PaymentFragment extends Fragment {
     EditText value1;
     EditText value2;
     EditText value3;
+    public TextView textSumPay;
     ProgressDialog mDialog;
+    double sum;
+    int flag;
+
+static {
+
+}
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -61,7 +72,10 @@ public class PaymentFragment extends Fragment {
         mDialog.setCancelable(false);
 
         mDialog.show();
+
+
         return inflater.inflate(R.layout.fragment_payment, container, false);
+
 
 
     }
@@ -69,10 +83,16 @@ public class PaymentFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+       textSumPay = view.findViewById(R.id.textSumPay);
 
-        if(getArguments() != null && getArguments().containsKey("errorMessage")) {
+        if (getArguments() != null && getArguments().containsKey("errorMessage")) {
             Toast.makeText(getActivity(), getArguments().getString("errorMessage"), Toast.LENGTH_LONG).show();
         }
+
+        paymentViewData();
+    }
+
+    public  void paymentViewData(){
         final RequestQueue mQueue = RequestQueueSingleton.getInstance(getContext());
 
 
@@ -91,7 +111,7 @@ public class PaymentFragment extends Fragment {
                     SummaryPaymentData data = new SummaryPaymentData(rows);
 
 
-                    final PaymentAdapter adapter = new PaymentAdapter(data);
+                    final PaymentAdapter adapter = new PaymentAdapter(data,PaymentFragment.this);
                     LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
                     RecyclerView paymentMetersView = (RecyclerView) getView().findViewById(R.id.paymentMeters);
                     paymentMetersView.setAdapter(adapter);
@@ -103,7 +123,7 @@ public class PaymentFragment extends Fragment {
                             HashMap<Integer, String> userInputData = adapter.getUserInputData();
 
                             Map<String, Object> requestData = new HashMap<>();
-                            for(Map.Entry<Integer, String> userInputItem : userInputData.entrySet()) {
+                            for (Map.Entry<Integer, String> userInputItem : userInputData.entrySet()) {
                                 requestData.put(String.valueOf(userInputItem.getKey()), userInputItem.getValue());
                             }
 
@@ -134,15 +154,18 @@ public class PaymentFragment extends Fragment {
                                         navController.navigate(R.id.paymentViewFragment, bundle);
 
 
-
                                     } catch (Exception e) {
                                         Log.e("valley", "error", e);
                                     }
                                 }
+                            }, new VolleyJsonErrorCallback() {
+                                @Override
+                                public void onError(VolleyError error) {
+
+                                    showErrorDialog();
+                                }
+
                             });
-
-
-
 
 
                         }
@@ -153,16 +176,15 @@ public class PaymentFragment extends Fragment {
 
 
             }
-        },new VolleyJsonErrorCallback() {
+        }, new VolleyJsonErrorCallback() {
             @Override
             public void onError(VolleyError error) {
                 mDialog.dismiss();
+                showErrorDialog();
             }
         });
 
-
     }
-
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -170,7 +192,7 @@ public class PaymentFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
         //MenuInflater menuInflater = getMenuInflater();
         //menuInflater.inflate(R.menu.drawer_menu, menu);
-        inflater.inflate(R.menu.settings_menu, menu) ;
+        inflater.inflate(R.menu.settings_menu, menu);
 
     }
 
@@ -185,4 +207,21 @@ public class PaymentFragment extends Fragment {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    public void setTextSum(double sum,double totalSum) {
+     flag = 0;
+     if (flag == 0) {
+         textSumPay.setText(String.valueOf("К оплате:" + " " + totalSum));
+         flag = 1;
+     }
+        textSumPay.setText(String.valueOf("К оплате:" + " " + sum));
+    }
+    private void  showErrorDialog(){
+        NoConnection dialog = new NoConnection();
+        dialog.setTargetFragment(this, 1);
+        dialog.show(this.getFragmentManager(), "MyCustomDialog");
+
+    }
+
+
 }

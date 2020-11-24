@@ -10,10 +10,15 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gorvodokanal.R;
+import com.gorvodokanal.meters.Tuple;
+import com.gorvodokanal.meters.Utils;
 import com.gorvodokanal.meters.activity.DetailHistoryDialog;
+import com.gorvodokanal.meters.model.DateConverter;
 import com.gorvodokanal.meters.model.SummaryHistoryItem;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 
 public class SummaryHistoryItemAdapter extends RecyclerView.Adapter<SummaryHistoryItemAdapter.RecycleViewViewHolder> {
@@ -36,6 +41,7 @@ public class SummaryHistoryItemAdapter extends RecyclerView.Adapter<SummaryHisto
 
 
 
+
         public RecycleViewViewHolder(@NonNull View itemView) {//коструктор,  View itemView, этот параметор это отльный элемент RecelceView
             super(itemView);
             date = itemView.findViewById(R.id.dateHistory);
@@ -45,6 +51,7 @@ public class SummaryHistoryItemAdapter extends RecyclerView.Adapter<SummaryHisto
             dept = itemView.findViewById(R.id.deptValue);
 
             informationButton = itemView.findViewById(R.id.information);
+
 
 
         }
@@ -61,22 +68,37 @@ public class SummaryHistoryItemAdapter extends RecyclerView.Adapter<SummaryHisto
 
     @Override
     public void onBindViewHolder(@NonNull final RecycleViewViewHolder recycleViewViewHolder, int i) {
-        final SummaryHistoryItem historyItem = historyItems.get(i);
-        recycleViewViewHolder.date.setText(historyItem.getReadableDate());
-        recycleViewViewHolder.saldoBeginValue.setText(String.format("%.2f",historyItem.saldoBegin()));
-        recycleViewViewHolder.nachislenoValue.setText(String.format("%.2f",historyItem.nachisleno()));
-        recycleViewViewHolder.oplataValue.setText(String.format("%.2f",historyItem.oplata()));
-        recycleViewViewHolder.dept.setText(String.format("%.2f",historyItem.debt()));
 
-        recycleViewViewHolder.informationButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DetailHistoryDialog dialog = new DetailHistoryDialog(historyItem);
-                dialog.setTargetFragment(historyMetersFragment, 1);
-                dialog.show(historyMetersFragment.getFragmentManager(), "MyCustomDialog");
-            }
-        });
-    }
+
+            final SummaryHistoryItem historyItem = historyItems.get(i);
+
+        Tuple<Integer, Integer> startDate = DateConverter.dateToMonthYear(historyItem.getStartDate());
+        Date date = new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH) + 1;
+        if(startDate.x == month && startDate.y == year){
+
+            Utils.removeElement( recycleViewViewHolder.informationButton);
+        }
+
+            recycleViewViewHolder.date.setText(historyItem.getReadableDate());
+            recycleViewViewHolder.saldoBeginValue.setText(String.format("%.2f", historyItem.saldoBegin()));
+            recycleViewViewHolder.nachislenoValue.setText(String.format("%.2f", historyItem.nachisleno()));
+            recycleViewViewHolder.oplataValue.setText(String.format("%.2f", historyItem.oplata()));
+            recycleViewViewHolder.dept.setText(String.format("%.2f", historyItem.debt()));
+
+
+            recycleViewViewHolder.informationButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    DetailHistoryDialog dialog = new DetailHistoryDialog(historyItem);
+                    dialog.setTargetFragment(historyMetersFragment, 1);
+                    dialog.show(historyMetersFragment.getFragmentManager(), "MyCustomDialog");
+                }
+            });
+        }
 
     @Override
     public int getItemCount() {

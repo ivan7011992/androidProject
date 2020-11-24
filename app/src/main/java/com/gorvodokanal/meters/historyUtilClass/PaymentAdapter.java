@@ -1,5 +1,6 @@
 package com.gorvodokanal.meters.historyUtilClass;
 
+import android.content.Intent;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -10,24 +11,35 @@ import android.view.ViewGroup;
 import android.view.ViewManager;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gorvodokanal.R;
+import com.gorvodokanal.meters.activity.AppActivity;
+import com.gorvodokanal.meters.activity.PaymentFragment;
+import com.gorvodokanal.meters.datePiker.Utils;
 import com.gorvodokanal.meters.model.PaymentItem;
 import com.gorvodokanal.meters.model.SummaryHistoryItem;
 import com.gorvodokanal.meters.model.SummaryPaymentData;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.RecycleViewViewHolder> {
     private HashMap<Integer, String> userInputData = new HashMap<>();
-
+    TextView paymentSumTotalPay;
     private SummaryPaymentData paymentData;
+    private  PaymentFragment paymentFragment;
 
-    public PaymentAdapter(SummaryPaymentData paymentData) {
+
+    public PaymentAdapter(SummaryPaymentData paymentData,PaymentFragment paymentFragment) {
         this.paymentData = paymentData;
+        this.paymentFragment = paymentFragment;
     }
 
     public static class RecycleViewViewHolder extends RecyclerView.ViewHolder {
@@ -62,24 +74,29 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.RecycleV
         RecycleViewViewHolder recycleViewViewHolder = new RecycleViewViewHolder(view);
         return recycleViewViewHolder;
     }
+
     @Override
     public void onBindViewHolder(@NonNull RecycleViewViewHolder recycleViewViewHolder, int i) {
         final PaymentItem item;
+
         if (i == 0) {
             item = paymentData.getSummaryItem();
             EditText entry = recycleViewViewHolder.paymentValue;
-            TextView paymentSum = recycleViewViewHolder.paymentSum;
-            paymentSum.setText(String.valueOf(item.dept()));
+            paymentSumTotalPay = recycleViewViewHolder.paymentSum;
+            paymentSumTotalPay.setText(String.valueOf(item.dept()));
             ((ViewManager) entry.getParent()).removeView(entry);
-
+            double sum =0;
+            double totalSum = item.dept();
+            paymentFragment.setTextSum(sum,totalSum);
             TextView title = recycleViewViewHolder.title;
-            title.setText("Сентябрь");
             title.setBackgroundResource(0);
             title.setTextSize(18);
+
+
         } else {
             item = paymentData.getItem(i - 1);
-            recycleViewViewHolder.paymentValue.setText(String.format("%.2f",item.dept()));
-            userInputData.put(item.getVID_USLUGI(),String.valueOf(item.dept()));
+            recycleViewViewHolder.paymentValue.setHint(String.format("%.2f", item.dept()));
+            userInputData.put(item.getVID_USLUGI(), String.valueOf(item.dept()));
 
             TextView paymentSum = recycleViewViewHolder.paymentSum;
             ((ViewManager) paymentSum.getParent()).removeView(paymentSum);
@@ -92,6 +109,13 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.RecycleV
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
                     PaymentAdapter.this.userInputData.put(item.getVID_USLUGI(), s.toString());
+                  double sum =  changePayment(PaymentAdapter.this.userInputData);
+                    paymentSumTotalPay.setText(String.valueOf(sum));
+                     double totalSum = item.dept();
+                   paymentFragment.setTextSum(sum,totalSum);
+
+
+
                 }
 
                 @Override
@@ -101,14 +125,30 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.RecycleV
             });
         }
 
-        recycleViewViewHolder.deptBeginPeriodValue.setText(String.format("%.2f",item.getSALDO_BEGIN()));
-        recycleViewViewHolder.nachisPeriodValue.setText(String.format("%.2f",item.getNACHISLENO()));
-        recycleViewViewHolder.oplataPeriodPaymentValue.setText(String.format("%.2f",item.getOPLATA()));
-        recycleViewViewHolder.deptPeriodValue.setText(String.format("%.2f",item.dept()));
+        recycleViewViewHolder.deptBeginPeriodValue.setText(String.format("%.2f", item.getSALDO_BEGIN()));
+        recycleViewViewHolder.nachisPeriodValue.setText(String.format("%.2f", item.getNACHISLENO()));
+        recycleViewViewHolder.oplataPeriodPaymentValue.setText(String.format("%.2f", item.getOPLATA()));
+        recycleViewViewHolder.deptPeriodValue.setText(String.format("%.2f", item.dept()));
         recycleViewViewHolder.title.setText(String.valueOf(item.getNAME_USLUGI()));
 
 
     }
+
+    private double changePayment(HashMap dataPayment) {
+        Set<Map.Entry<Integer, String>> set = dataPayment.entrySet();
+        double sum = 0.0;
+        for (Map.Entry<Integer, String> entry : set) {
+            String value = entry.getValue();
+            try {
+                sum += Double.parseDouble(value);
+            }  catch (NumberFormatException e) {
+
+            }
+
+        }
+        return sum;
+    }
+
 
     @Override
     public int getItemCount() {

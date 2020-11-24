@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/RelativeLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/dra8"
+    >
+
+
+
+    <RelativeLayout
+        android:id="@+id/con3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        android:orientation="vertical"
+     >
+
+
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingcloseNoConnection"
+            android:scaleType="center"
+            android:layout_width="39dp"
+            app:fabSize="mini"
+            android:layout_height="42dp"
+            android:layout_alignParentRight="true"
+            android:clickable="true"
+         android:layout_marginLeft="30dp"
+            android:layout_marginRight="10dp"
+            app:backgroundTint="#FFFFFF"
+            android:background="@drawable/ic_baseline_close_8"
+            app:srcCompat="@drawable/ic_baseline_close_24"
+            tools:ignore="VectorDrawableCompat" />
+
+        <ImageView
+            android:id="@+id/imageNoCon"
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:padding="10dp"
+            app:srcCompat="@drawable/nocon"
+            android:contentDescription="TODO"/>
+
+        <TextView
+            android:id="@+id/noConnectionText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageNoCon"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/roboto_medium"
+            android:paddingRight="3dp"
+            android:text="Отсутвует  соединение "
+            android:textSize="14dp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:textColor="#000000"/>
+
+
+
+        <Button
+            android:id="@+id/buttonNoConnect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/noConnectionText"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"
+            android:text="Попробовать снова"
+            android:background="@drawable/dra4"
+            android:layout_marginTop="30dp"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:padding="8dp"
+            android:layout_centerHorizontal="true"/>
+
+    </RelativeLayout>
+
+
+
+
+</LinearLayout>
+
+
+
+
+
+
+
+
+
+

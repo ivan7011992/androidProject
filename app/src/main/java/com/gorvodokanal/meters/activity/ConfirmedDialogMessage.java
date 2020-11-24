@@ -93,7 +93,7 @@ public class ConfirmedDialogMessage extends DialogFragment {
                    }
 
                    Toast.makeText(getContext(), "Сообщение отправлено на почту", Toast.LENGTH_LONG).show();
-
+                   getDialog().dismiss();
                } catch (Exception e) {
                    Log.e("valley", "error", e);
                }

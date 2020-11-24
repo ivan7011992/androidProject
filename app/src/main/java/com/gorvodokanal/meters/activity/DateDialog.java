@@ -1,6 +1,5 @@
 package com.gorvodokanal.meters.activity;
 
-import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -13,59 +12,34 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.gorvodokanal.R;
-import com.gorvodokanal.meters.model.HistoryItem;
+import com.gorvodokanal.meters.model.DatePeriod;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 
 public class DateDialog extends DialogFragment {
-    private String number;
 
     interface SpinnerSelectedItemHandler {
         public void onSelect(String value);
     }
 
     public interface PeriodProcessor {
-        public void process(int startMonth,
-                            int startYear,
-                            int endMonth,
-                            int endYear);
-    }
-
-    private static final LinkedHashMap<String, Integer> month = new LinkedHashMap<>();
-
-    static {
-        month.put("Январь", 1);
-        month.put("Февраль", 2);
-        month.put("Март", 3);
-        month.put("Апрель", 4);
-        month.put("Май", 5);
-        month.put("Июнь", 6);
-        month.put("Июль", 7);
-        month.put("Август", 8);
-        month.put("Сентябрь", 9);
-        month.put("Октябрь", 10);
-        month.put("Ноябрь", 11);
-        month.put("Декабрь", 12);
+        public void process(DatePeriod period);
     }
 
     private static final String TAG = "MyCustomDialog";
-    private int startMonth;
-    private int startYear;
-    private int endMonth;
-    private int endYear;
-
+    private DatePeriod currentPeriod;
     private PeriodProcessor periodProcessor;
 
-    public DateDialog(PeriodProcessor periodProcessor) {
+    public DateDialog(DatePeriod datePeriod, PeriodProcessor periodProcessor) {
         this.periodProcessor = periodProcessor;
+        this.currentPeriod = datePeriod.clone();
     }
 
 
@@ -96,15 +70,13 @@ public class DateDialog extends DialogFragment {
         mActionOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "onClick: closing dialog");
-                getDialog().dismiss();
-                periodProcessor.process(
-                        DateDialog.this.startMonth,
-                        DateDialog.this.startYear,
-                        DateDialog.this.endMonth,
-                        DateDialog.this.endYear
-                );
-
+                if(currentPeriod.valid()) {
+                    Log.d(TAG, "onClick: closing dialog");
+                    getDialog().dismiss();
+                    periodProcessor.process(currentPeriod);
+                } else {
+                    Toast.makeText(getContext(), "Дата начала периода не может быть больше даты конца периода", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -114,59 +86,34 @@ public class DateDialog extends DialogFragment {
         Spinner spinnerDateEndMonth = (Spinner) view.findViewById(R.id.spinnerMonthEnd);
         Spinner spinnerDateEndYear = (Spinner) view.findViewById(R.id.spinnerYearEnd);
 
-        setSpinnerHandler(spinnerDateBeginMonth, (String value) -> DateDialog.this.startMonth = month.get(value));
-        setSpinnerHandler(spinnerDateBeginYear, (String value) -> DateDialog.this.startYear = Integer.parseInt(value));
-        setSpinnerHandler(spinnerDateEndMonth, (String value) -> DateDialog.this.endMonth = month.get(value));
-        setSpinnerHandler(spinnerDateEndYear, (String value) -> DateDialog.this.endYear = Integer.parseInt(value));
+        setSpinnerHandler(spinnerDateBeginMonth, (String value) -> DateDialog.this.currentPeriod.setStartMonth(value));
+        setSpinnerHandler(spinnerDateBeginYear, (String value) -> DateDialog.this.currentPeriod.setStartYear(Integer.parseInt(value)));
+        setSpinnerHandler(spinnerDateEndMonth, (String value) -> DateDialog.this.currentPeriod.setEndMonth(value));
+        setSpinnerHandler(spinnerDateEndYear, (String value) -> DateDialog.this.currentPeriod.setEndYear(Integer.parseInt(value)));
 
-        initMonthSpinner(spinnerDateBeginMonth);
-        initMonthSpinner(spinnerDateEndMonth);
-        initYearSpinner(spinnerDateBeginYear);
-        initYearSpinner(spinnerDateEndYear);
+        initMonthSpinner(spinnerDateBeginMonth,  DateDialog.this.currentPeriod.getStartMonth() - 1);
+        initMonthSpinner(spinnerDateEndMonth, DateDialog.this.currentPeriod.getEndMonth() - 1);
+        initYearSpinner(spinnerDateBeginYear, DateDialog.this.currentPeriod.getStartYear());
+        initYearSpinner(spinnerDateEndYear, DateDialog.this.currentPeriod.getEndYear());
 
 
         return view;
     }
 
-    private void initMonthSpinner(Spinner spinner) {
-        ArrayList<String> data = new ArrayList(month.keySet());
-
+    private void initMonthSpinner(Spinner spinner, int initialPosition) {
+        ArrayList<String> data = new ArrayList(DatePeriod.MONTH_NAMES.keySet());
 
         ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item, data);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);// устанавливаем выпадающий список для спиннера
         spinner.setAdapter(adapter);
-//        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//
-//            public void onItemSelected(AdapterView<?> parentView,
-//                                       View view, int position, long id) {
-//                // Object item = parentView.getItemAtPosition(position);
-//
-//                number = spinner.getSelectedItem().toString();
-//                Log.d ("number", "" + number );
-//
-//            }
-//
-//            public void onNothingSelected(AdapterView<?> arg0) {// do nothing
-//            }
-//
-//        });
-//        String compareValue = "" + number ;
-//        Log.d ("compareValue", "" + number );
-//
-//
-//        if (compareValue != null) {
-//            int spinnerPosition = adapter.getPosition(compareValue);
-//            spinner.setSelection(2);
-//        }
 
+        spinner.setSelection(initialPosition);
+    }
 
-
-}
-
-    private void initYearSpinner(Spinner spinner) {
+    private void initYearSpinner(Spinner spinner, int initialYear) {
         ArrayList<String> data = new ArrayList();
-        int year = Calendar.getInstance().get(Calendar.YEAR);
-        for (int i = year; i >= year - 5; i--) {
+        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+        for (int i = currentYear; i >= currentYear - 5; i--) {
             data.add(String.valueOf(i));
         }
 
@@ -175,33 +122,10 @@ public class DateDialog extends DialogFragment {
 
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);// устанавливаем выпадающий список для спиннера
         spinner.setAdapter(adapter2);
-//        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//
-//            public void onItemSelected(AdapterView<?> parentView,
-//                                       View view, int position, long id) {
-//                // Object item = parentView.getItemAtPosition(position);
-//
-//                  number = spinner.getSelectedItem().toString();
-//                Log.d ("number", "" + number );
-//
-//            }
-//
-//            public void onNothingSelected(AdapterView<?> arg0) {// do nothing
-//            }
-//
-//        });
-//
-//        String compareValue = "" + number ;
-//        Log.d ("compareValue", "" + number );
-//
-//
-//        if (compareValue != null) {
-//            int spinnerPosition = adapter2.getPosition(compareValue);
-//            spinner.setSelection(2);
-//        }
-  }
 
+        spinner.setSelection(currentYear - initialYear);
 
+    }
 
 
 }

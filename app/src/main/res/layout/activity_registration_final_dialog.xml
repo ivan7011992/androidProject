@@ -58,7 +58,7 @@
             android:background="@drawable/dra9"
             android:layout_marginTop="30dp"
             android:textColor="#FFFFFF"
-            android:textSize="11sp"
+            android:textSize="11dp"
             android:padding="8dp"
             android:layout_centerHorizontal="true"/>
 
@@ -73,7 +73,7 @@
             android:textColor="#000000"
             />
 
-        <Button
+        <TextView
             android:id="@+id/buttonCloseRegistration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -81,10 +81,9 @@
             android:layout_marginRight="20dp"
             android:layout_marginBottom="10dp"
             android:text="Закрыть окно"
-            android:background="@drawable/dra5"
             android:layout_marginTop="30dp"
-            android:textColor="#03A9F4"
-            android:textSize="14sp"
+            android:textColor="#1a90d0"
+            android:textSize="14dp"
             android:padding="10dp"
             android:layout_centerHorizontal="true"/>
     </RelativeLayout>

@@ -21,6 +21,10 @@ public class UserModel {
         return ls;
     }
 
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
     public static UserModel getInstance() {
         return instance;
     }

@@ -27,6 +27,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.gorvodokanal.R;
 import com.gorvodokanal.meters.historyUtilClass.SummaryHistoryItemAdapter;
+import com.gorvodokanal.meters.model.DatePeriod;
 import com.gorvodokanal.meters.model.HistoryItem;
 import com.gorvodokanal.meters.model.SummaryHistoryItem;
 import com.gorvodokanal.meters.net.GetRequest;
@@ -51,134 +52,62 @@ import java.util.LinkedHashMap;
 
 public class HistoryMetersFragment extends Fragment {
 
-    private static String beginDate =  "1.1.2020";
-    private static String endDate = "1.7.2020";
-    public static String beginMonthValue;
-    public static String endMonthValue;
-    public static String beginYearValue;
-    public static String endYearValue;
     Button startDateButton;
-
-    int Date;
     ProgressDialog mDialog;
+    private DatePeriod datePeriod = DatePeriod.fromCurrentDate();
 
 
-
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_history_meters, container, false);
         setHasOptionsMenu(true);
 
-        Calendar calendar = Calendar.getInstance();
         mDialog = new ProgressDialog(getContext());
         mDialog.setMessage("Загрузка...");
         mDialog.setCancelable(false);
         mDialog.show();
 
 
-        YearMonth month = YearMonth.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.y");
-        String firstDay = String.format(month.atDay(1).format(formatter).toString());
-                String   endDay = month.atEndOfMonth().toString();
-
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.y");
-        Calendar c = Calendar.getInstance();
-        try {
-            c.setTime(sdf.parse(firstDay));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-       endDate = sdf.format(c.getTime());
-
-
-        c.add(Calendar.DAY_OF_WEEK,0);
-        c.add(Calendar.MONTH, -6);  // number of days to add
-        beginDate = sdf.format(c.getTime());  // dt is now the new date
-
         startDateButton = view.findViewById(R.id.dateButton);
-        startDateButton.setText(beginDate + "-" + endDate );
+        startDateButton.setText(datePeriod.format());
 
         startDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               DateDialog dialog = new DateDialog(new DateDialog.PeriodProcessor() {
-                   @Override
-                   public void process(int startMonth, int startYear, int endMonth, int endYear) {
-                       beginDate = String.format("%s.%d.%d", "01", startMonth, startYear);
-                       endDate = String.format("%s.%d.%d", "01", endMonth, endYear);
+                DateDialog dialog = new DateDialog(datePeriod, new DateDialog.PeriodProcessor() {
+                    @Override
+                    public void process(DatePeriod userDatePeriod) {
+                        datePeriod = userDatePeriod;
+                        showData(datePeriod.formatStartDate(), datePeriod.formatEndDate());
+                        startDateButton.setText(datePeriod.format());
+                        Toast.makeText(getContext(), "Отчёт построен", Toast.LENGTH_LONG).show();
 
-                       beginMonthValue =  beginDate.substring(0,2);
-                       endMonthValue =String.valueOf(endMonth);
-                        beginYearValue=String.valueOf(startYear);
-                       endYearValue=String.valueOf(endYear);
-                       SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.y");
-                       SimpleDateFormat dateFormat1 = new SimpleDateFormat("dd.MM.y");
-                       Calendar cal = Calendar.getInstance();
-                       try {
-                           cal.setTime(sdf.parse(beginDate));
-                       } catch (ParseException e) {
-                           e.printStackTrace();
-                       }
-                       beginDate= dateFormat.format(cal.getTime());
-                       Calendar cal1 = Calendar.getInstance();
-                       try {
-                           cal1.setTime(sdf.parse(endDate));
-                       } catch (ParseException e) {
-                           e.printStackTrace();
-                       }
-                       endDate= dateFormat1.format(cal1.getTime());
-                       try {
-                           Date dateBegin = dateFormat.parse(beginDate);
-                           Date dateEnd  = dateFormat1.parse(endDate);
-
-
-                           if (dateBegin.compareTo(dateEnd) > 0) {
-
-                               Toast.makeText(getContext(), "Дата начала периода не может быть больше даты конца периода", Toast.LENGTH_LONG).show();
-
-
-                              }
-                           if (dateBegin.compareTo(dateEnd) <= 0) {
-
-                               showData(beginDate, endDate);
-
-                               startDateButton.setText(beginDate + "-" + endDate);
-                               Toast.makeText(getContext(), "Отчёт построен", Toast.LENGTH_LONG).show();
-
-                           }
-
-
-                       } catch (ParseException e) {
-                           e.printStackTrace();
-                       }
-
-
-                   }
-               });
+                    }
+                });
                 dialog.setTargetFragment(HistoryMetersFragment.this, 1);
                 dialog.show(HistoryMetersFragment.this.getFragmentManager(), "MyCustomDialog");
             }
         });
-//        endDateButon = view.findViewById(R.id.endDateButton);
-//
-//        Button endDateButton = view.findViewById(R.id.endDateButton);
-//        endDateButton.setText("" + endDate);
-//        endDateButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                endDate();
-//            }
-//        });
-
         Button applyPeriodButton = view.findViewById(R.id.applyPeriodButton);
         applyPeriodButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showData(beginDate, endDate);
+                DateDialog dialog = new DateDialog(datePeriod, new DateDialog.PeriodProcessor() {
+                    @Override
+                    public void process(DatePeriod userDatePeriod) {
+                        datePeriod = userDatePeriod;
+                        showData(datePeriod.formatStartDate(), datePeriod.formatEndDate());
+                        startDateButton.setText(datePeriod.format());
+                        Toast.makeText(getContext(), "Отчёт построен", Toast.LENGTH_LONG).show();
+
+                    }
+                });
+                dialog.setTargetFragment(HistoryMetersFragment.this, 1);
+                dialog.show(HistoryMetersFragment.this.getFragmentManager(), "MyCustomDialog");
             }
         });
+
+
         return view;
     }
 
@@ -186,50 +115,7 @@ public class HistoryMetersFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         super.onCreate(savedInstanceState);
-        showData(beginDate, endDate);
-    }
-
-
-    public void beginDate() {
-        final Calendar cal = Calendar.getInstance();
-        int mYear = cal.get(Calendar.YEAR);
-        int mMonth = cal.get(Calendar.MONTH);
-        int mDay = cal.get(Calendar.DAY_OF_MONTH);
-
-        // инициализируем диалог выбора даты текущими значениями
-        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
-                new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        String editTextDateParam = dayOfMonth + "." + (monthOfYear + 1) + "." + year;
-                        beginDate = editTextDateParam;
-                        startDateButton.setText("" + beginDate);
-
-
-                    }
-                }, mYear, mMonth, mDay);
-        datePickerDialog.show();
-    }
-
-    public void endDate() {
-        final Calendar cal = Calendar.getInstance();
-        int mYear = cal.get(Calendar.YEAR);
-        int mMonth = cal.get(Calendar.MONTH);
-        int mDay = cal.get(Calendar.DAY_OF_MONTH);
-
-        // инициализируем диалог выбора даты текущими значениями
-        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
-                new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        String editTextDateParam = dayOfMonth + "." + (monthOfYear + 1) + "." + year;
-                        endDate = editTextDateParam;
-                      //  endDateButon.setText("" + endDate);
-
-
-                    }
-                }, mYear, mMonth, mDay);
-        datePickerDialog.show();
+        showData(datePeriod.formatStartDate(), datePeriod.formatEndDate());
     }
 
 
@@ -275,10 +161,11 @@ public class HistoryMetersFragment extends Fragment {
                     Log.e("valley", "error", e);
                 }
             }
-        },new VolleyJsonErrorCallback() {
+        }, new VolleyJsonErrorCallback() {
             @Override
             public void onError(VolleyError error) {
                 mDialog.dismiss();
+                showErrorDialog();
             }
         });
 
@@ -329,5 +216,11 @@ public class HistoryMetersFragment extends Fragment {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    private void  showErrorDialog(){
+        NoConnection dialog = new NoConnection();
+        dialog.setTargetFragment(this, 1);
+        dialog.show(this.getFragmentManager(), "MyCustomDialog");
+
     }
 }

@@ -11,15 +11,31 @@ import org.json.JSONException;
         private String enterDate;
         private  double pokaz;
         private String date_prom;
+        private String pr_vod;
+
 
 
 
 
         public VodomerItem(JSONObject row) throws JSONException {
-            node =  row.getInt("NODE");
+            if (row.has("NODE")) {
+                node = row.getInt("NODE");
+            }
             nomerVodomer =  row.getInt("N_VODOMER");
             enterDate =  row.getString("ENTER_DATE");
             pokaz = row.getDouble("POKAZ2");
+            date_prom = row.getString("DATE_PROM");
+            if(date_prom.equals("null")){
+                date_prom = null;
+            }
+            pr_vod = row.getString("PR_VOD");
+                if(pr_vod.equals("1")){
+                    pr_vod = "- Холодная";
+                }else if(pr_vod.equals("2")){
+                    pr_vod = "- Горячая";
+                }
+
+
 
         }
 
@@ -39,7 +55,13 @@ import org.json.JSONException;
             return pokaz;
         }
 
+        public String getPr_vod() {
+            return pr_vod;
+        }
 
+        public String getDate_prom() {
+            return date_prom;
+        }
     }
 
 

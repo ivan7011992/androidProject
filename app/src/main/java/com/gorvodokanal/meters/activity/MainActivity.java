@@ -24,11 +24,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
 import com.gorvodokanal.meters.model.UserModel;
 import com.gorvodokanal.meters.net.PostRequest;
 import com.gorvodokanal.R;
 import com.gorvodokanal.meters.net.RequestQueueSingleton;
 import com.gorvodokanal.meters.net.UrlCollection;
+import com.gorvodokanal.meters.net.VolleyJsonErrorCallback;
 import com.gorvodokanal.meters.net.VolleyJsonSuccessCallback;
 import com.gorvodokanal.meters.settings.Setting;
 import com.gorvodokanal.meters.settings.SettingVariable;
@@ -106,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createAlertDialog("Код абоента", "Код абонента вводится в формате **-*******(пр.10-7777777)");
+                createAlertDialog("Код абонента", "Код абонента вводится в формате **-*******(пр.10-7777777)");
             }
         });
 
@@ -144,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                     public void onClick(DialogInterface dialog,
                                         int which) {
                         // по нажатию создаем всплывающее окно с типом нажатой конпки
-                        showMessage("Нажали ОК");
+
                     }
                 });
         // объект Builder создал диалоговое окно и оно готово появиться на экране
@@ -168,8 +170,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         requestData.put("login", loginValue);
         requestData.put("password", passwordValue);
 
-        final CookieManager manager = new CookieManager();
-        CookieHandler.setDefault(manager);
+
         final RequestQueue mQueue = RequestQueueSingleton.getInstance(this);
 
         PostRequest request = new PostRequest(mQueue);
@@ -209,6 +210,14 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                     Log.e("valley", "error", e);
                 }
             }
+        }, new VolleyJsonErrorCallback() {
+            @Override
+            public void onError(VolleyError error) {
+
+                showErrorDialog();
+            }
+
+
         });
 
 
@@ -264,6 +273,12 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     protected void onDestroy() {
         super.onDestroy();
         sharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
+    }
+
+    private void  showErrorDialog(){
+
+        Toast.makeText(this, "Some error happanns", Toast.LENGTH_LONG).show();
+
     }
 }
 //сделать страницу на сервере для полуение дданных

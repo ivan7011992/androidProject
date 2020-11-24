@@ -1,29 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.core.widget.NestedScrollView
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nested"
     android:fillViewport="true"
-    android:scrollbars="none"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/fon3"
+    >
     <ScrollView
         android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-<LinearLayout
-    android:id="@+id/RelativeLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/fon15"
-
-    >
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+
        >
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -49,7 +43,7 @@
             android:textColor="#FFFFFF"
             android:layout_marginTop="5dp"
             android:gravity="center"
-            android:textSize="20sp"
+            android:textSize="20dp"
             android:maxLines="1"
             />
 
@@ -61,10 +55,11 @@
             android:layout_below="@+id/headerRegistr"
             android:layout_marginTop="25dp"
             android:layout_centerHorizontal="true"
-            android:textSize="17sp"
+            android:textSize="17dp"
             android:background="@drawable/dra4"
             android:textColorHint="#FFFFFF"
             android:gravity="center"
+            android:inputType="phone"
             android:ems="10"
             android:textColor="#FFFFFF"
             android:hint="@string/kod"
@@ -93,7 +88,8 @@
             android:layout_below="@+id/kod"
             android:layout_marginTop="25dp"
             android:layout_centerHorizontal="true"
-            android:textSize="17sp"
+            android:textSize="17dp"
+            android:inputType="text"
             android:background="@drawable/dra4"
             android:textColorHint="#fff"
             android:gravity="center"
@@ -111,11 +107,12 @@
             android:layout_below="@+id/street"
             android:layout_marginTop="25dp"
             android:layout_centerHorizontal="true"
-            android:textSize="17sp"
+            android:textSize="17dp"
             android:background="@drawable/dra4"
             android:textColorHint="#fff"
             android:gravity="center"
             android:ems="10"
+            android:inputType="text"
             android:textColor="#FFFFFF"
             android:hint="@string/house"
             android:maxLines="1"
@@ -127,10 +124,11 @@
             android:layout_below="@+id/house"
             android:layout_marginTop="25dp"
             android:layout_centerHorizontal="true"
-            android:textSize="17sp"
+            android:textSize="17dp"
             android:background="@drawable/dra4"
             android:textColorHint="#fff"
             android:gravity="center"
+            android:inputType="text"
             android:ems="10"
             android:textColor="#FFFFFF"
             android:hint="@string/flat"
@@ -157,10 +155,11 @@
             android:layout_below="@+id/flat"
             android:layout_marginTop="25dp"
             android:layout_centerHorizontal="true"
-            android:textSize="17sp"
+            android:textSize="17dp"
             android:background="@drawable/dra4"
             android:textColorHint="#fff"
             android:gravity="center"
+            android:inputType="text"
             android:ems="10"
             android:textColor="#FFFFFF"
             android:hint="@string/fio"
@@ -173,7 +172,7 @@
             android:layout_below="@+id/fio"
             android:layout_marginTop="25dp"
             android:layout_centerHorizontal="true"
-            android:textSize="17sp"
+            android:textSize="17dp"
             android:background="@drawable/dra4"
             android:textColorHint="#fff"
             android:gravity="center"
@@ -188,10 +187,11 @@
             android:layout_below="@+id/phone"
             android:layout_marginTop="25dp"
             android:layout_centerHorizontal="true"
-            android:textSize="17sp"
+            android:textSize="17dp"
             android:background="@drawable/dra4"
             android:textColorHint="#fff"
             android:inputType="textPassword"
+
             android:gravity="center"
             android:ems="10"
             android:textColor="#FFFFFF"
@@ -217,7 +217,7 @@
             android:layout_below="@+id/passwordReg"
             android:layout_marginTop="25dp"
             android:layout_centerHorizontal="true"
-            android:textSize="17sp"
+            android:textSize="17dp"
             android:background="@drawable/dra4"
             android:textColorHint="#fff"
             android:inputType="textPassword"
@@ -245,10 +245,11 @@
             android:layout_below="@+id/ConfirmPassword"
             android:layout_marginTop="21dp"
             android:hint="@string/email"
+            android:inputType="text"
             android:textColor="#FFFFFF"
             android:background="@drawable/dra4"
             android:layout_centerHorizontal="true"
-            android:textSize="17sp"
+            android:textSize="17dp"
             android:gravity="center"
             android:textColorHint="#fff"
 
@@ -270,13 +271,12 @@
             android:background="@drawable/dra5"
             android:onClick="registrationSubmitData"
             android:text="Зарегистрироваться"
-            android:textSize="14sp"
+            android:textSize="14dp"
             />
 
 
 
     </RelativeLayout>
 
-</LinearLayout>
     </ScrollView>
 </androidx.core.widget.NestedScrollView>

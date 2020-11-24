@@ -12,10 +12,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.gorvodokanal.R;
 import com.gorvodokanal.meters.net.PostRequest;
 import com.gorvodokanal.meters.net.RequestQueueSingleton;
 import com.gorvodokanal.meters.net.UrlCollection;
+import com.gorvodokanal.meters.net.VolleyJsonErrorCallback;
 import com.gorvodokanal.meters.net.VolleyJsonSuccessCallback;
 import com.gorvodokanal.meters.settings.SettingsFragment;
 
@@ -31,8 +34,10 @@ public class ChangePasswordDialog extends DialogFragment {
         View view = inflater.inflate(R.layout.change_password_dialog, container, false);
         View changePasswordButton = view.findViewById(R.id.changePawwordButton);
         changePasswordButton.setOnClickListener(v -> processUserData());
-        return view;
 
+
+
+        return view;
     }
 
     private void processUserData() {
@@ -96,10 +101,26 @@ public class ChangePasswordDialog extends DialogFragment {
                     Log.e("valley", "error", e);
                 }
             }
+        }, new VolleyJsonErrorCallback() {
+            @Override
+            public void onError(VolleyError error) {
+
+                showErrorDialog();
+            }
+
+
         });
     }
 
     private void displayError(String errorMessage) {
         Toast.makeText(getContext(), errorMessage, Toast.LENGTH_LONG).show();
     }
+
+        private void  showErrorDialog(){
+            ChangePasswordDialog dialog = new  ChangePasswordDialog ();
+            dialog.setTargetFragment(this, 1);
+            dialog.setStyle( DialogFragment.STYLE_NORMAL, R.style.CustomDialog );
+            dialog.show(this.getFragmentManager(), "MyCustomDialog");
+
+        }
 }

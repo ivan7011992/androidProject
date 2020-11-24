@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="240dp"
+    android:padding="0dp"
+    app:cardCornerRadius="0dp"
+
+
+    >
+    <LinearLayout
+        android:id="@+id/passItemLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <LinearLayout
+            android:id="@+id/titlePass"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:orientation="horizontal"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/dra12"
+
+            android:gravity="center"
+
+            >
+
+            <TextView
+                android:id="@+id/dataRequest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:layout_marginRight="4dp"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="@font/roboto_medium"
+                android:text="Дата обращения:"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                />
+            <TextView
+                android:id="@+id/dataRequestValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:layout_toRightOf="@+id/nomerUzel"
+                android:fontFamily="@font/roboto_medium"
+                android:text="Значение"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                />
+
+
+
+        </LinearLayout>
+        <RelativeLayout
+            android:id="@+id/con3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:padding="8dp"
+
+            tools:context=".meters.activity.MainActivity">
+
+
+
+            <TextView
+                android:id="@+id/question"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Вопрос:"
+                android:textSize="14dp"
+                />
+
+            <TextView
+                android:id="@+id/questionValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/question"
+                android:fontFamily="@font/roboto_medium"
+                android:layout_marginTop="12dp"
+                android:textSize="14dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/date_response"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/questionValue"
+                android:layout_marginTop="10dp"
+                android:text="Дата ответа"
+                android:textSize="14dp"
+                />
+
+
+
+            <TextView
+                android:id="@+id/response"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/date_response"
+                android:layout_marginTop="10dp"
+                android:text="Ответ"
+                android:textSize="14dp"
+
+                />
+
+            <TextView
+                android:id="@+id/responseValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/response"
+                android:layout_marginTop="10dp"
+
+                android:fontFamily="@font/roboto_medium"
+                android:text="Значение"
+                android:textSize="14dp"
+                android:textStyle="bold" />
+
+
+
+
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

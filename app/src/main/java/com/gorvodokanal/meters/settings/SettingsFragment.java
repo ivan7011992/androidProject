@@ -5,12 +5,15 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.preference.CheckBoxPreference;
 import androidx.preference.EditTextPreference;
 import androidx.preference.ListPreference;
@@ -24,6 +27,7 @@ import com.gorvodokanal.meters.activity.ChangeEmailDialog;
 import com.gorvodokanal.meters.activity.ChangePasswordDialog;
 import com.gorvodokanal.meters.activity.ConfirmedDialogMessage;
 import com.gorvodokanal.meters.activity.HistoryMetersFragment;
+import com.gorvodokanal.meters.activity.NoConnection;
 import com.gorvodokanal.meters.net.GetRequest;
 import com.gorvodokanal.meters.net.RequestQueueSingleton;
 import com.gorvodokanal.meters.net.UrlCollection;
@@ -40,6 +44,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
       findPreference("change_password").setOnPreferenceClickListener(preference -> showChangePasswordFragment());
         findPreference("change_email").setOnPreferenceClickListener(preference -> showChangeEmailFragment());
         getStatusConfirmEmail();
+
 
 
 
@@ -68,7 +73,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         ConfirmedDialogMessage confirmedDialogMessage = new ConfirmedDialogMessage(email);
                         confirmedDialogMessage.setTargetFragment(SettingsFragment.this, 1);
                         confirmedDialogMessage.show(SettingsFragment.this.getFragmentManager(), "MyCustomDialog");
-                        Toast.makeText(getContext(), "Неправильный логин или пароль", Toast.LENGTH_LONG).show();
+
                         return;
                     }
 
@@ -98,9 +103,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         ChangeEmailDialog dialog = new ChangeEmailDialog();
         dialog.setTargetFragment(this, 1);
+
         dialog.show(this.getFragmentManager(), "MyCustomDialog");
         return true;
 
     }
+
+
 
 }

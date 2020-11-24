@@ -30,18 +30,20 @@ import com.gorvodokanal.R;
 import com.gorvodokanal.meters.model.UserModel;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 
 
 public class AppActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, AdapterView.OnItemSelectedListener {
- int login;
-    String currentLogin;
+    private long pausedMillis;
     Spinner listUser;
+    private boolean wasSelected = false;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app);
-
+        onResume();
 
         NavHostFragment host = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.navFragment);
         NavController navController = host.getNavController();
@@ -50,7 +52,7 @@ public class AppActivity extends AppCompatActivity implements NavigationView.OnN
         NavigationUI.setupWithNavController(sideBar, navController);
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-       // sideBar.setNavigationItemSelectedListener(this);
+        // sideBar.setNavigationItemSelectedListener(this);
 
 
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph())
@@ -61,11 +63,8 @@ public class AppActivity extends AppCompatActivity implements NavigationView.OnN
         NavigationUI.setupWithNavController(toolBar, navController, appBarConfiguration);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-       getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_humburg);
-       toolBar.setTitleTextColor(Color.WHITE);
-
-
-
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_humburg);
+        toolBar.setTitleTextColor(Color.WHITE);
 
 
         // toolBar.setTitleTextColor(Color.WHITE);
@@ -78,19 +77,25 @@ public class AppActivity extends AppCompatActivity implements NavigationView.OnN
         RelativeLayout swith = header.findViewById(R.id.swithParrent);
         TextView text = header.findViewById(R.id.text);
 
-        if(UserModel.getInstance().getLs().size() ==1){
-           swith.removeView(listUser);
-        } else{
+
+        if (UserModel.getInstance().getLs().size() <=1) {
+            swith.removeView(listUser);
+            text.setText(UserModel.getInstance().getLogin());
+
+        } else {
             ArrayList<String> loginList = new ArrayList<>(UserModel.getInstance().getLs().values());
+
             ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, loginList);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);// устанавливаем выпадающий список для спиннера
+
+            listUser.setPadding(0,0,-10,0 );
             listUser.setOnItemSelectedListener(this);
 
-             listUser.setAdapter(adapter);
+            listUser.setAdapter(adapter);
+
+            listUser.setSelection(loginList.indexOf(UserModel.getInstance().getLogin()));
             swith.removeView(text);
         }
-
-
 
 
 //        exit.setOnClickListener(new View.OnClickListener() {
@@ -123,27 +128,29 @@ public class AppActivity extends AppCompatActivity implements NavigationView.OnN
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        currentLogin = listUser.getSelectedItem().toString();
-        switch (currentLogin) {
-            case "10-6666666":
-
-                break;// этот оператор заканчивает выполение опретора swith прекращаент выполние кода
-
-
-            default:
-
-                    SwithAccount swithAccount = new SwithAccount(currentLogin, this, new SwithAccount.SuccessReponseHandler() {
-                        @Override
-                        public void process() {
-                            Intent intent = new Intent(AppActivity.this, AppActivity.class);
-                            startActivity(intent);
-                        }
-                    });
-                swithAccount.sendDataAuth();
-
-                break;
+        if (!wasSelected) {
+            wasSelected = true;
+            return;
         }
 
+        String currentLogin = listUser.getSelectedItem().toString();
+
+        SwithAccount swithAccount = new SwithAccount(currentLogin, this, new SwithAccount.SuccessReponseHandler() {
+            @Override
+            public void process() {
+
+            UserModel.getInstance().setLogin(currentLogin);
+                Intent intent = new Intent(AppActivity.this, AppActivity.class);
+               // intent.putExtra("login",currentLogin );
+                startActivity(intent);
+
+
+            }
+        });
+        swithAccount.sendDataAuth();
+
+        final NavController navController = new NavController(this);
+        navController.popBackStack(R.id.generalInfoFragment,false);
 
 
     }
@@ -151,6 +158,29 @@ public class AppActivity extends AppCompatActivity implements NavigationView.OnN
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        pausedMillis = Calendar.getInstance().getTimeInMillis();
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
+        try {
+            long currentMillis = Calendar.getInstance().getTimeInMillis();
+            if ( !(this instanceof AppActivity) && currentMillis - pausedMillis  > 1000 * 60 * 3 ) {
+                Intent intent = new Intent(this, AppActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 }

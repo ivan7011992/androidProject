@@ -20,6 +20,8 @@
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme"
             app:layout_constraintTop_toTopOf="parent"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             />
 
         <fragment
@@ -45,6 +47,7 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/header"
-        app:menu="@menu/drawer_menu" />
+        app:menu="@menu/drawer_menu"
+        app:theme="@style/NavigationDrawerStyle"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>

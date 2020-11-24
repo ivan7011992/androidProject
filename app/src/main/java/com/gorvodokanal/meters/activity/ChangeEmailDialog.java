@@ -13,12 +13,15 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
 import com.gorvodokanal.R;
 import com.gorvodokanal.meters.net.GetRequest;
 import com.gorvodokanal.meters.net.PostRequest;
 import com.gorvodokanal.meters.net.RequestQueueSingleton;
 import com.gorvodokanal.meters.net.UrlCollection;
+import com.gorvodokanal.meters.net.VolleyJsonErrorCallback;
 import com.gorvodokanal.meters.net.VolleyJsonSuccessCallback;
+import com.gorvodokanal.meters.settings.SettingsFragment;
 
 import org.json.JSONObject;
 
@@ -44,7 +47,9 @@ public class ChangeEmailDialog extends DialogFragment {
 
         email = email.trim();
 
-
+        ConfirmedDialogMessage confirmedDialogMessage = new ConfirmedDialogMessage(email);
+        confirmedDialogMessage.setTargetFragment(ChangeEmailDialog.this, 1);
+        confirmedDialogMessage.show(ChangeEmailDialog.this.getFragmentManager(), "MyCustomDialog");
         if (email.isEmpty()) {
             displayError("Введите почту");
             return;
@@ -52,6 +57,7 @@ public class ChangeEmailDialog extends DialogFragment {
 
 
         changeEmailOnServer(email);
+
 
 
     }
@@ -84,13 +90,21 @@ public class ChangeEmailDialog extends DialogFragment {
                     } else {
                         Toast.makeText(getContext(), "Email  изменен", Toast.LENGTH_LONG).show();
                        // Toast.makeText(getContext(), response.has("message") ? response.getString("message") : "Email изменен", Toast.LENGTH_LONG).show();
+                        getDialog().dismiss();
                     }
 
                 } catch (Exception e) {
                     Log.e("valley", "error", e);
                 }
             }
-        });
+        },
+                new VolleyJsonErrorCallback() {
+                    @Override
+                    public void onError(VolleyError error) {
+                        showErrorDialog();
+                    }
+
+                });
     }
 
     private void user_get_info() {
@@ -117,16 +131,30 @@ public class ChangeEmailDialog extends DialogFragment {
 
                     JSONObject emailObject = response.getJSONObject("data");
                     String email = emailObject.getString("EMAIL");
-                    emailDialog.setHint(email);;
+                    emailDialog.setText(email);
                 } catch (Exception e) {
                     Log.e("valley", "error", e);
                 }
 
             }
-        });
+        },
+                new VolleyJsonErrorCallback() {
+                    @Override
+                    public void onError(VolleyError error) {
+                         showErrorDialog();
+                    }
+
+                });
     }
 
     private void displayError(String errorMessage) {
         Toast.makeText(getContext(), errorMessage, Toast.LENGTH_LONG).show();
+    }
+
+    private void  showErrorDialog(){
+        NoConnection dialog = new NoConnection();
+        dialog.setTargetFragment(this, 1);
+        dialog.show(this.getFragmentManager(), "MyCustomDialog");
+
     }
 }

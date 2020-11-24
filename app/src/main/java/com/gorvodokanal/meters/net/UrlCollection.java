@@ -20,6 +20,8 @@ public final class UrlCollection {
     public static final String GET_STATUS_CONFIRM_EMAIL =  BASE_URL + "confirm_email.php";
     public static final String EMAIL_SEND_CONFIRM =  BASE_URL + "emailSendConfirm.php";
     public static final String SWITH_ACCOUNT =  BASE_URL + "re-authorization.php";
+    public static final String GET_INFO_SUPPORT =  BASE_URL + "getSupportAsk.php";
+    public static final String SET_DATA_QUESTION =  BASE_URL + "setDataQuestion.php";
 
 }
 

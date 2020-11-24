@@ -7,15 +7,21 @@ import android.text.method.DigitsKeyListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gorvodokanal.R;
+import com.gorvodokanal.meters.activity.PassMetersFragment;
 import com.gorvodokanal.meters.model.VodomerItem;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,6 +40,8 @@ public class SummaryPassItemAdapter  extends RecyclerView.Adapter< SummaryPassIt
         public TextView enter_date;
         public TextView pokaz;
         public EditText userDataInput;
+        LinearLayout baseItemPass;
+        String sumData;
 
 
         public RecycleViewViewHolder(@NonNull View itemView) {//коструктор,  View itemView, этот параметор это отльный элемент RecelceView
@@ -46,6 +54,9 @@ public class SummaryPassItemAdapter  extends RecyclerView.Adapter< SummaryPassIt
             userDataInput.setMaxLines(1);
             userDataInput.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
             userDataInput.setKeyListener(DigitsKeyListener.getInstance(true, true));
+            baseItemPass = itemView.findViewById(R.id.passItemLayout);
+
+
 
 
         }
@@ -66,10 +77,17 @@ public class SummaryPassItemAdapter  extends RecyclerView.Adapter< SummaryPassIt
     public void onBindViewHolder(@NonNull SummaryPassItemAdapter.RecycleViewViewHolder recycleViewViewHolder, final int i) {
         VodomerItem vodomerItem = vodomerItems.get(i);// при помощт i свящвваем каждый элемт из ArrayList с элметом RecycleVIew
 
-        recycleViewViewHolder.node.setText(String.valueOf(vodomerItem.getNode()));
+
+        recycleViewViewHolder.node.setText(String.valueOf(vodomerItem.getNode() + " " +  vodomerItem.getPr_vod()));
         recycleViewViewHolder.n_vodomer.setText(String.valueOf(vodomerItem.getNomerVodomer()));
         recycleViewViewHolder.enter_date.setText(String.valueOf(vodomerItem.getEnterDate()));
         recycleViewViewHolder.pokaz.setText(String.valueOf(vodomerItem.getPokaz()));
+        if (vodomerItem.getDate_prom() != null) {
+
+            ((ViewManager) recycleViewViewHolder.userDataInput.getParent()).removeView(recycleViewViewHolder.userDataInput);
+
+
+        } else {
 
             recycleViewViewHolder.userDataInput.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -80,6 +98,9 @@ public class SummaryPassItemAdapter  extends RecyclerView.Adapter< SummaryPassIt
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
                     userData.set(i, s.toString());
+                    recycleViewViewHolder.sumData =  userData.set(i, s.toString());
+
+
                 }
 
                 @Override
@@ -87,8 +108,10 @@ public class SummaryPassItemAdapter  extends RecyclerView.Adapter< SummaryPassIt
 
                 }
             });
-
+        }
     }
+
+
 
     public ArrayList<String> getUserData() {
         return userData;
@@ -98,4 +121,5 @@ public class SummaryPassItemAdapter  extends RecyclerView.Adapter< SummaryPassIt
     public int getItemCount() {
         return vodomerItems.size();
     }
+
 }

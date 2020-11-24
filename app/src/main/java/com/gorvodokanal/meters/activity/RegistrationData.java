@@ -16,6 +16,7 @@ public class RegistrationData {
     private HashMap<String, EditText> inputs = new HashMap<>();
 
     public void add(String name, EditText input) {
+
         inputs.put(name, input);
     }
 
