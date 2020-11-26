@@ -48,7 +48,7 @@
             android:background="@drawable/dra10"
             android:textColorHint="#000000"
             android:gravity="center"
-            android:ems="10"
+            android:maxLength="5000"
             android:textColor="#000000"
             android:hint="Введите вопрос в произвольной форме"
             />

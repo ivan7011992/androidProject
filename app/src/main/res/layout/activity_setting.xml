@@ -28,7 +28,7 @@
 
         <fragment
             android:id="@+id/activity_settings"
-            android:name="com.gorvodokanal.meters.settings.SettingsFragment"
+            android:name="com.gorvodokanalVer1.meters.settings.SettingsFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="70dp"/>

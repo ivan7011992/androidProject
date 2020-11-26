@@ -44,26 +44,7 @@
             />
 
 
-        <TextView
-            android:id="@+id/text2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Привязать ЛС"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            android:textSize="12dp"
-            android:layout_marginTop="45dp"
 
-            />
-
-        <Button
-            android:id="@+id/image2"
-            android:layout_width="40dp"
-            android:layout_below="@id/text2"
-            android:layout_height="40dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="35dp"
-           android:background="@drawable/ic_baseline_add_24" />
         <Spinner
             android:id="@+id/spinnerUserListSwith"
             android:textSize="20dp"

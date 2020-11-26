@@ -9,7 +9,7 @@
 
     <fragment
         android:id="@+id/generalInfoFragment"
-        android:name="com.gorvodokanal.meters.activity.GeneralInfoFragment"
+        android:name="com.gorvodokanalVer1.meters.activity.GeneralInfoFragment"
         android:label="Общая информация"
         tools:layout="@layout/fragment_general_info" >
 
@@ -21,7 +21,7 @@
 
     <fragment
         android:id="@+id/historyMetersFragment"
-        android:name="com.gorvodokanal.meters.activity.HistoryMetersFragment"
+        android:name="com.gorvodokanalVer1.meters.activity.HistoryMetersFragment"
         android:label="История оплат"
         tools:layout="@layout/fragment_history_meters" >
         <action
@@ -30,7 +30,7 @@
     </fragment>
     <fragment
         android:id="@+id/passMetersFragment"
-        android:name="com.gorvodokanal.meters.activity.PassMetersFragment"
+        android:name="com.gorvodokanalVer1.meters.activity.PassMetersFragment"
         android:label="Передача показаний"
         tools:layout="@layout/fragment_pass_meters" >
         <action
@@ -39,7 +39,7 @@
     </fragment>
     <fragment
         android:id="@+id/paymentFragment"
-        android:name="com.gorvodokanal.meters.activity.PaymentFragment"
+        android:name="com.gorvodokanalVer1.meters.activity.PaymentFragment"
         android:label="Оплата"
         tools:layout="@layout/fragment_payment">
 
@@ -50,7 +50,7 @@
 
     <fragment
         android:id="@+id/paymentViewFragment"
-        android:name="com.gorvodokanal.meters.activity.PaymentViewFragment"
+        android:name="com.gorvodokanalVer1.meters.activity.PaymentViewFragment"
         android:label="Переход на оплату"
         tools:layout="@layout/fragment_payment_view" >
 
@@ -64,7 +64,7 @@
     </fragment>
     <fragment
         android:id="@+id/supportFragment"
-        android:name="com.gorvodokanal.meters.activity.SupportFragment"
+        android:name="com.gorvodokanalVer1.meters.activity.SupportFragment"
         android:label="Поддержка"
         tools:layout="@layout/fragment_support" >
         <action
@@ -73,7 +73,7 @@
     </fragment>
     <fragment
         android:id="@+id/exit"
-        android:name="com.gorvodokanal.meters.activity.Exit"
+        android:name="com.gorvodokanalVer1.meters.activity.Exit"
         android:label="fragment_exit"
         tools:layout="@layout/fragment_exit" />
 

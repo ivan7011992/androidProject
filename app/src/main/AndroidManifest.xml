@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.gorvodokanal">
+    package="com.gorvodokanalVer1">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -13,20 +13,20 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
 
-        <activity android:name=".meters.activity.RecoveryPassword"
+        <activity android:name="com.gorvodokanalVer1.meters.activity.RecoveryPassword"
             android:screenOrientation="portrait"/>
-        <activity android:name=".meters.activity.Registration"
+        <activity android:name="com.gorvodokanalVer1.meters.activity.Registration"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".meters.settings.Setting"
+            android:name="com.gorvodokanalVer1.meters.settings.Setting"
             android:label="Настройки"
-            android:parentActivityName=".meters.activity.MainActivity"
+            android:parentActivityName="com.gorvodokanalVer1.meters.activity.MainActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".meters.activity.MainActivity" />
+                android:value="com.gorvodokanalVer1.meters.activity.MainActivity" />
         </activity>
-        <activity android:name=".meters.activity.MainActivity"
+        <activity android:name="com.gorvodokanalVer1.meters.activity.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action
@@ -36,7 +36,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".meters.activity.AppActivity"
+        <activity android:name="com.gorvodokanalVer1.meters.activity.AppActivity"
             android:screenOrientation="portrait"/>
 
         <meta-data
