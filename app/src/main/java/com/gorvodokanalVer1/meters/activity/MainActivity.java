@@ -285,9 +285,11 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
     private void  showErrorDialog(){
 
-        Toast.makeText(this, "Some error happanns", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Произошла ошибка, попробуйте повторить попытку позже", Toast.LENGTH_LONG).show();
 
     }
+
+
 }
 //сделать страницу на сервере для полуение дданных
 //активити

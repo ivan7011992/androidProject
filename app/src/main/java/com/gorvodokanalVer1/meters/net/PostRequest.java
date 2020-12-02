@@ -41,6 +41,9 @@ public class PostRequest {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     Log.d("VolleyError", error.getMessage());
+                    if(errorCallback!= null){
+                    errorCallback.onError(error);
+                    }
                 }
 
             });

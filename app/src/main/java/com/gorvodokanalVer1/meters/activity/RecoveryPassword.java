@@ -13,11 +13,13 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.gorvodokanalVer1.R;
 import com.gorvodokanalVer1.meters.net.GetRequest;
 import com.gorvodokanalVer1.meters.net.RequestQueueSingleton;
 import com.gorvodokanalVer1.meters.net.UrlCollection;
+import com.gorvodokanalVer1.meters.net.VolleyJsonErrorCallback;
 import com.gorvodokanalVer1.meters.net.VolleyJsonSuccessCallback;
 
 import org.json.JSONArray;
@@ -143,7 +145,13 @@ Button recoveryPasswordButton;
                     Log.e("valley", "error", e);
                 }
             }
-        });
+        }, new VolleyJsonErrorCallback() {
+            @Override
+            public void onError(VolleyError error) {
+
+                Toast.makeText(RecoveryPassword.this, "Произошла ошибка, попробуйте повторить попытку позже", Toast.LENGTH_LONG).show();
+
+            }});
 
     }
 
