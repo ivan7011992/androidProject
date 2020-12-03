@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="209dp"
+    android:layout_height="wrap_content"
     android:fontFamily="@font/roboto_medium"
     >
 
@@ -12,7 +12,6 @@
         android:id="@+id/con"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
         android:orientation="vertical"
         tools:context=".meters.activity.MainActivity">
 
@@ -138,12 +137,12 @@
 
         <TextView
             android:id="@+id/information"
-            android:layout_width="100dp"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/deptValue"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
+
             android:fontFamily="@font/roboto_medium"
             android:text="Подробнее"
             android:textSize="14dp"
