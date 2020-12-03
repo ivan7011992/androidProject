@@ -1,10 +1,13 @@
 package com.gorvodokanalVer1.meters.activity;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -34,7 +37,10 @@ public class ChangePasswordDialog extends DialogFragment {
         View changePasswordButton = view.findViewById(R.id.changePawwordButton);
         changePasswordButton.setOnClickListener(v -> processUserData());
 
-
+        if (getDialog() != null && getDialog().getWindow() != null) {
+            getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        }
 
         return view;
     }

@@ -21,6 +21,7 @@
 
         android:padding="10dp">
 
+
         <TextView
             android:id="@+id/confirm"
             android:layout_width="match_parent"
@@ -36,13 +37,14 @@
 
             />
 
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingcloseConfirmDialog"
             android:scaleType="center"
             android:layout_width="39dp"
             app:fabSize="mini"
             android:layout_height="42dp"
-            android:layout_marginTop="10dp"
+
             android:layout_alignParentRight="true"
             android:clickable="true"
             android:layout_marginRight="0dp"
@@ -57,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/confirm"
             android:layout_marginTop="15dp"
-
+             android:padding="20dp"
             android:paddingRight="3dp"
             android:text="Почтовый ящик не подтверждён! Пожалуйста, проверте актуальность вашей почты и подтвердите  почтовый адрес"
             android:textSize="14dp"
