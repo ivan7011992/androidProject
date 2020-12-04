@@ -12,21 +12,24 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-
-        <activity android:name="com.gorvodokanalVer1.meters.activity.RecoveryPassword"
-            android:screenOrientation="portrait"/>
-        <activity android:name="com.gorvodokanalVer1.meters.activity.Registration"
-            android:screenOrientation="portrait"/>
+        <activity android:name=".meters.activity.bindingLs"></activity>
         <activity
-            android:name="com.gorvodokanalVer1.meters.settings.Setting"
+            android:name=".meters.activity.RecoveryPassword"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".meters.activity.Registration"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".meters.settings.Setting"
             android:label="Настройки"
-            android:parentActivityName="com.gorvodokanalVer1.meters.activity.MainActivity"
+            android:parentActivityName=".meters.activity.MainActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.gorvodokanalVer1.meters.activity.MainActivity" />
         </activity>
-        <activity android:name="com.gorvodokanalVer1.meters.activity.MainActivity"
+        <activity
+            android:name=".meters.activity.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action
@@ -36,8 +39,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.gorvodokanalVer1.meters.activity.AppActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".meters.activity.AppActivity"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="preloaded_fonts"

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/RelativeLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@drawable/dra8"
+
+    >
+
+    <TextView
+        android:id="@+id/headerBindingLs"
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
+        android:layout_centerHorizontal="true"
+        android:text="Привязка ЛС"
+        android:fontFamily="@font/roboto_medium"
+
+        android:textColor="#000000"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:textSize="20dp"
+        />
+
+
+    <EditText
+        android:id="@+id/numberLs"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="25dp"
+        android:layout_centerHorizontal="true"
+        android:textSize="17dp"
+        android:background="@drawable/dra10"
+        android:textColorHint="#000000"
+        android:gravity="center"
+        android:ems="10"
+        android:textColor="#000000"
+        android:hint="Номер лицевого счета"
+        />
+
+
+    <EditText
+        android:id="@+id/bindingStreet"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="25dp"
+        android:layout_centerHorizontal="true"
+        android:textSize="17dp"
+        android:background="@drawable/dra10"
+        android:textColorHint="#000000"
+        android:gravity="center"
+        android:ems="10"
+        android:textColor="#000000"
+        android:hint="Улица"
+        />
+
+
+    <EditText
+        android:id="@+id/bindingHouse"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="25dp"
+        android:layout_centerHorizontal="true"
+        android:textSize="17dp"
+        android:background="@drawable/dra10"
+        android:textColorHint="#000000"
+        android:gravity="center"
+        android:ems="10"
+        android:textColor="#000000"
+        android:hint="Дом"
+        />
+
+    <EditText
+        android:id="@+id/bindingFlat"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="25dp"
+        android:layout_centerHorizontal="true"
+        android:textSize="17dp"
+        android:background="@drawable/dra10"
+        android:textColorHint="#000000"
+        android:gravity="center"
+        android:ems="10"
+        android:textColor="#000000"
+        android:hint="Квартира"
+        />
+    <EditText
+        android:id="@+id/binfingFio"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="25dp"
+        android:layout_centerHorizontal="true"
+        android:textSize="17dp"
+        android:background="@drawable/dra10"
+        android:textColorHint="#000000"
+        android:gravity="center"
+        android:ems="10"
+        android:textColor="#000000"
+        android:hint="ФИО"
+        />
+
+
+
+
+    <Button
+        android:id="@+id/changePawwordButton"
+        android:layout_width="310dp"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/dra"
+        android:onClick="formSubmit"
+        android:text="ок"
+        android:textColor="#2196F3"
+        android:textSize="14dp"
+        />
+
+
+
+
+</LinearLayout>
