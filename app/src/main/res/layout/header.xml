@@ -8,10 +8,7 @@
     android:orientation="vertical"
     tools:ignore="MissingConstraints"
     android:padding="10dp"
-
-
     android:background="@drawable/dra11"
-
 
     >
     <RelativeLayout
@@ -54,6 +51,33 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/loginHeader"
             />
+        <Button
+            android:id="@+id/buttonBindingLs"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:textSize="16dp"
+            android:layout_marginTop="45dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/ic_baseline_add_24"
+
+
+            />
+
+
+        <TextView
+            android:id="@+id/bindingLs"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Привязка ЛС"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/buttonBindingLs"
+            android:textSize="11dp"
+           android:layout_marginRight="10dp"
+            android:paddingBottom="5dp"
+            />
+
 
     </RelativeLayout>
 
