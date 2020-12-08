@@ -76,6 +76,7 @@ public class BindingLsDialog extends DialogFragment {
         requestData.put("binfingFio", binfingFio);
 
 
+
         final RequestQueue mQueue = RequestQueueSingleton.getInstance(getContext());
 
         PostRequest request = new PostRequest(mQueue);
@@ -129,4 +130,3 @@ public class BindingLsDialog extends DialogFragment {
 
 
     }
-}
