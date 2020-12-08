@@ -107,7 +107,7 @@
 
 
     <Button
-        android:id="@+id/changePawwordButton"
+        android:id="@+id/bindingButton"
         android:layout_width="310dp"
         android:layout_height="60dp"
         android:layout_centerHorizontal="true"
