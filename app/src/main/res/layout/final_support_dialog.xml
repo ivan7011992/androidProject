@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/RelativeLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/dra8"
+    >
+
+
+
+    <RelativeLayout
+        android:id="@+id/con3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        android:orientation="vertical"
+
+        android:padding="10dp">
+
+
+        <TextView
+            android:id="@+id/supportFinal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Поддержка"
+            android:paddingTop="17dp"
+            android:paddingBottom="17dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
+            android:textSize="20dp"
+            android:gravity="center"
+
+            />
+
+
+
+
+        <TextView
+            android:id="@+id/SupportText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/supportFinal"
+            android:layout_marginTop="15dp"
+            android:padding="20dp"
+            android:paddingRight="3dp"
+            android:text="Вопрос отправлен.Ответ будет дан в разделе 'Поддержка' позже или выслан по электронной почте"
+            android:textSize="14dp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:textColor="#000000"/>
+
+
+        <Button
+            android:id="@+id/buttonConfirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/SupportText"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"
+            android:text="Ок"
+            android:background="@drawable/dra4"
+            android:layout_marginTop="30dp"
+            android:textColor="#03A9F4"
+            android:textSize="16dp"
+            android:padding="8dp"
+            android:layout_centerHorizontal="true"/>
+
+    </RelativeLayout>
+
+
+
+
+</LinearLayout>
+
+
+
+
+
+
+
+
+
+

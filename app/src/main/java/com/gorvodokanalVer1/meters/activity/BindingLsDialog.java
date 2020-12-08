@@ -14,7 +14,7 @@ import android.view.Window;
 
 import com.gorvodokanalVer1.R;
 
-public class bindingLs extends DialogFragment {
+public class BindingLsDialog extends DialogFragment {
 
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.binding_ls_dialog, container, false);
@@ -27,5 +27,11 @@ public class bindingLs extends DialogFragment {
         }
 
         return view;
+    }
+
+
+    public void passDataBindingUser(){
+
+
     }
 }

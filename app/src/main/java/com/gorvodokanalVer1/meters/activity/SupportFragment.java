@@ -5,6 +5,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,6 +29,7 @@ import com.gorvodokanalVer1.meters.net.RequestQueueSingleton;
 import com.gorvodokanalVer1.meters.net.UrlCollection;
 import com.gorvodokanalVer1.meters.net.VolleyJsonErrorCallback;
 import com.gorvodokanalVer1.meters.net.VolleyJsonSuccessCallback;
+import com.gorvodokanalVer1.meters.settings.SettingsFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -99,7 +102,10 @@ Button button;
                             }
                             final boolean isSuccess = response.getBoolean("success");
 
-                            Toast.makeText(getContext(), "Вопрос оттправлен,на привязанную почту будет выслано письмо по вашей проблеме", Toast.LENGTH_LONG).show();
+                          //  Toast.makeText(getContext(), "Вопрос отправлен. На привязанную почту будет выслано письмо по вашей проблеме", Toast.LENGTH_LONG).show();
+                            FinalSupportDialog finalSupportDialog = new FinalSupportDialog();
+                            finalSupportDialog.setTargetFragment(SupportFragment.this, 1);
+                            finalSupportDialog.show(SupportFragment.this.getFragmentManager(), "MyCustomDialog");
 
 
                         } catch (Exception e) {

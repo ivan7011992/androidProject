@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -25,6 +26,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.navigation.NavigationView;
 import com.gorvodokanalVer1.R;
 import com.gorvodokanalVer1.meters.model.UserModel;
+import com.gorvodokanalVer1.meters.settings.SettingsFragment;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -34,6 +36,9 @@ public class AppActivity extends AppCompatActivity implements NavigationView.OnN
     private long pausedMillis;
     Spinner listUser;
     private boolean wasSelected = false;
+    Button buttonBindingLs;
+
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -72,6 +77,8 @@ public class AppActivity extends AppCompatActivity implements NavigationView.OnN
         listUser = header.findViewById(R.id.spinnerUserListSwith);
         RelativeLayout swith = header.findViewById(R.id.swithParrent);
         TextView text = header.findViewById(R.id.text);
+        buttonBindingLs = header.findViewById(R.id.buttonBindingLs);
+        buttonBindingLs.setOnClickListener(v -> processBindingData());
 
 
         if (UserModel.getInstance().getLs().size() <=1) {
@@ -103,7 +110,12 @@ public class AppActivity extends AppCompatActivity implements NavigationView.OnN
 //        });
     }
 
+    public  void processBindingData(){
+        BindingLsDialog bindingLsDialog = new BindingLsDialog();
+        bindingLsDialog .show(getSupportFragmentManager(), "NoticeDialogFragment");
 
+
+    }
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
