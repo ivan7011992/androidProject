@@ -22,7 +22,7 @@ public class SummaryGeneralItem {
 
     public GeneralItem getSummaryItem() {
         GeneralItem summaryItem = new GeneralItem();
-        summaryItem.setNomer_vodomer(nomerVodomer());
+       // summaryItem.setNomer_vodomer(nomerVodomer());
         summaryItem.setVid_uslgi(vidUslugi());
         summaryItem.setDate_ust(dataUst());
         summaryItem.setDate_poverk(datePoverk());
@@ -37,13 +37,13 @@ public class SummaryGeneralItem {
         return generaltItems.size();
     }
 
-    private int nomerVodomer() {
-        int sum = 0;
-        for (GeneralItem item : generaltItems) {
-            sum = item.getNomer_vodomer();
-        }
-        return sum;
-    }
+//    private int nomerVodomer() {
+//        int sum = 0;
+//        for (GeneralItem item : generaltItems) {
+//            sum = item.getNomer_vodomer();
+//        }
+//        return sum;
+//    }
 
     private String vidUslugi() {
          String sum = null;

@@ -4,7 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class GeneralItem {
-    private int nomer_vodomer;
+    private String nomer_vodomer;
     private String vid_uslgi;
     private String date_ust;
     private  String date_poverk;
@@ -18,7 +18,7 @@ public class GeneralItem {
 
 
     public GeneralItem (JSONObject row) throws JSONException {
-        nomer_vodomer =  row.getInt("N_VODOMER");
+        nomer_vodomer =  row.getString("N_VODOMER");
         vid_uslgi =  row.getString("VID");
         date_ust=  row.getString("DAT_UST");
         date_poverk = row.getString("DAT_POVER");
@@ -27,7 +27,8 @@ public class GeneralItem {
 
 
 
-    public int getNomer_vodomer() {
+    public String getNomer_vodomer() {
+
         return nomer_vodomer;
     }
     public String getVid_uslgi() {  return vid_uslgi;  }
@@ -45,7 +46,7 @@ public class GeneralItem {
         this.IPU = IPU;
     }
 
-    public void setNomer_vodomer(int nomer_vodomer) {
+    public void setNomer_vodomer(String nomer_vodomer) {
         this.nomer_vodomer = nomer_vodomer;
     }
 

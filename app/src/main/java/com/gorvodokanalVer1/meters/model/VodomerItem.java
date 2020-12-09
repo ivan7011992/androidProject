@@ -6,7 +6,7 @@ import org.json.JSONObject;
 
 public class VodomerItem {
         private int node;
-        private int nomerVodomer;
+        private String nomerVodomer;
         private String enterDate;
         private  double pokaz;
         private String date_prom;
@@ -20,7 +20,7 @@ public class VodomerItem {
             if (row.has("NODE")) {
                 node = row.getInt("NODE");
             }
-            nomerVodomer =  row.getInt("N_VODOMER");
+            nomerVodomer =  row.getString("N_VODOMER");
             enterDate =  row.getString("ENTER_DATE");
             pokaz = row.getDouble("POKAZ2");
             date_prom = row.getString("DATE_PROM");
@@ -42,7 +42,7 @@ public class VodomerItem {
             return  node;
         }
 
-        public int getNomerVodomer() {
+        public String getNomerVodomer() {
             return nomerVodomer;
         }
 
