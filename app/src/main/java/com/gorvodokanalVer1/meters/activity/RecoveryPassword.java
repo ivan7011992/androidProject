@@ -61,7 +61,7 @@ Button recoveryPasswordButton;
         imageKodRecovery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createAlertDialog("Код абоента", "Код абонента вводится в формате **-*******(пр.10-7777777)");
+                createAlertDialog("Код абонента", "Код абонента вводится в формате **-*******(пр.10-7777777)");
             }
         });
         FloatingActionButton myFab = (FloatingActionButton) findViewById(R.id.floatingActionRecoveryButton);
