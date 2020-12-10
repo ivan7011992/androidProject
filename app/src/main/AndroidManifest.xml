@@ -12,9 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".meters.activity.FinalSupportDialog"></activity>
+
         <activity android:name=".meters.activity.ConfirmCode" />
-        <activity android:name=".meters.activity.BindingLsDialog" />
+
         <activity
             android:name=".meters.activity.RecoveryPassword"
             android:screenOrientation="portrait" />
