@@ -27,6 +27,7 @@ import com.gorvodokanalVer1.meters.net.VolleyJsonSuccessCallback;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -79,8 +80,24 @@ public class BindingLsDialog extends DialogFragment {
 
         final RequestQueue mQueue = RequestQueueSingleton.getInstance(getContext());
 
+        HashMap<String, String> emptyErrorMessages = new HashMap<>();
+        emptyErrorMessages.put("numberLs", "Введите код");
+        emptyErrorMessages.put("bindingStreet", "Введите улицу");
+        emptyErrorMessages.put("bindingHouse", "Введите дом");
+        emptyErrorMessages.put("bindingFlat", "Введите квартиру");
+        emptyErrorMessages.put("binfingFio", "Введите Введите фамилию");
+     
+
+//        ArrayList<String> errors = new ArrayList<>();
+//        for (Map.Entry<String, String> errorEntry : emptyErrorMessages.entrySet()) {
+//            String value = data.get(errorEntry.getKey());
+//            if (value.isEmpty()) {
+//                errors.add(errorEntry.getValue());
+//            }
+
+    //    }
         PostRequest request = new PostRequest(mQueue);
-        request.makeRequest(UrlCollection.REGISTRATION_URL, requestData, new VolleyJsonSuccessCallback() {
+        request.makeRequest(UrlCollection.BILDING_LS, requestData, new VolleyJsonSuccessCallback() {
             @Override
             public void onSuccess(JSONObject response) {
                 try {

@@ -93,9 +93,7 @@ public class AppActivity extends AppCompatActivity implements NavigationView.OnN
 
             listUser.setPadding(0,0,-10,0 );
             listUser.setOnItemSelectedListener(this);
-
             listUser.setAdapter(adapter);
-
             listUser.setSelection(loginList.indexOf(UserModel.getInstance().getLogin()));
             swith.removeView(text);
         }
@@ -151,30 +149,23 @@ public class AppActivity extends AppCompatActivity implements NavigationView.OnN
                 Intent intent = new Intent(AppActivity.this, AppActivity.class);
                // intent.putExtra("login",currentLogin );
                 startActivity(intent);
-
-
             }
         });
         swithAccount.sendDataAuth();
-
         final NavController navController = new NavController(this);
         navController.popBackStack(R.id.generalInfoFragment,false);
 
-
     }
-
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
-
     }
-
     @Override
     protected void onStop() {
         super.onStop();
         pausedMillis = Calendar.getInstance().getTimeInMillis();
     }
-
     @Override
+
     public void onResume(){
         super.onResume();
 

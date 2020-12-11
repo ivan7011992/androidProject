@@ -22,6 +22,9 @@ public final class UrlCollection {
     public static final String SWITH_ACCOUNT =  BASE_URL + "re-authorization.php";
     public static final String GET_INFO_SUPPORT =  BASE_URL + "getSupportAsk.php";
     public static final String SET_DATA_QUESTION =  BASE_URL + "setDataQuestion.php";
+    public static final String BILDING_LS =  BASE_URL + "bindingLs.php";
+
+
 
 }
 
