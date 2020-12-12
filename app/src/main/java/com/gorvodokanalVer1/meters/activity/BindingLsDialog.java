@@ -31,9 +31,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 public class BindingLsDialog extends DialogFragment {
-   Button bindingButton;
+    Button bindingButton;
 
 
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -46,15 +47,11 @@ public class BindingLsDialog extends DialogFragment {
         }
 
 
-
-
-
-
-        bindingButton = view.findViewById(R.id. bindingButton);
+        bindingButton = view.findViewById(R.id.bindingButton);
         bindingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            //    passDataBindingUser(view);
+                   passDataBindingUser();
             }
         });
 
@@ -69,13 +66,12 @@ public class BindingLsDialog extends DialogFragment {
         String bindingHouse = ((EditText) view.findViewById(R.id.bindingHouse)).getText().toString();
         String bindingFlat = ((EditText) view.findViewById(R.id.bindingFlat)).getText().toString();
         String binfingFio = ((EditText) view.findViewById(R.id.binfingFio)).getText().toString();
-        Map<String, Object> requestData = new HashMap<>();
+        Map<String, String> requestData = new HashMap<>();
         requestData.put("numberLs", numberLs);
         requestData.put("bindingStreet", bindingStreet);
         requestData.put("bindingHouse", bindingHouse);
         requestData.put("bindingFlat", bindingFlat);
         requestData.put("binfingFio", binfingFio);
-
 
 
         final RequestQueue mQueue = RequestQueueSingleton.getInstance(getContext());
@@ -86,24 +82,39 @@ public class BindingLsDialog extends DialogFragment {
         emptyErrorMessages.put("bindingHouse", "Введите дом");
         emptyErrorMessages.put("bindingFlat", "Введите квартиру");
         emptyErrorMessages.put("binfingFio", "Введите Введите фамилию");
-     
 
-//        ArrayList<String> errors = new ArrayList<>();
-//        for (Map.Entry<String, String> errorEntry : emptyErrorMessages.entrySet()) {
-//            String value = data.get(errorEntry.getKey());
-//            if (value.isEmpty()) {
-//                errors.add(errorEntry.getValue());
-//            }
 
-    //    }
+        ArrayList<String> errors = new ArrayList<>();
+        Set<Map.Entry<String, String>> entrySet = requestData.entrySet();
+        for (Map.Entry<String, String> errorEntry : entrySet) {
+
+
+            if (errorEntry.getValue().isEmpty()) {
+                String errorMessage = emptyErrorMessages.get(errorEntry.getKey());
+                errors.add(errorMessage);
+            }
+
+
+        }
+
+        if (!errors.isEmpty()) {
+
+            StringBuilder allErrors = new StringBuilder();
+            for (String error : errors) {
+                allErrors.append(error).append("\n");
+
+            }
+            Toast.makeText(getContext(), allErrors.toString(), Toast.LENGTH_LONG).show();
+            return;
+        }
         PostRequest request = new PostRequest(mQueue);
-        request.makeRequest(UrlCollection.BILDING_LS, requestData, new VolleyJsonSuccessCallback() {
+        request.makeRequest(UrlCollection.BILDING_LS, new HashMap<String, Object>(requestData), new VolleyJsonSuccessCallback() {
             @Override
             public void onSuccess(JSONObject response) {
                 try {
                     if (!response.has("success")) {
                         Log.e("server", String.format("Error response from url %s: %s", UrlCollection.AUTH_URL, response.toString()));
-                      //  Toast.makeText(Registration.this, "Неизвестная ошибка, попробуйте еще раз", Toast.LENGTH_LONG).show();
+                        //  Toast.makeText(Registration.this, "Неизвестная ошибка, попробуйте еще раз", Toast.LENGTH_LONG).show();
                         return;
                     }
                     final boolean isSuccess = response.getBoolean("success");
@@ -118,16 +129,16 @@ public class BindingLsDialog extends DialogFragment {
                             String error = rows.getString(key);
                             errorBuilder.append(error).append("\n");
                         }
-                    //    displayError("Обраружены ошибки: " + errorBuilder.toString());
+                           displayError("Обраружены ошибки: " + errorBuilder.toString());
 
                         return;
                     }
-                //    Toast.makeText(Registration.this, "Регистрация  удалась", Toast.LENGTH_LONG).show();
+                    //    Toast.makeText(Registration.this, "Регистрация  удалась", Toast.LENGTH_LONG).show();
                     int userId = response.getInt("userId");
 
-                   // RegistrationFinalDialog dialog = new RegistrationFinalDialog(userId,((EditText) findViewById(R.id.emailReg)).getText().toString());
+                    // RegistrationFinalDialog dialog = new RegistrationFinalDialog(userId,((EditText) findViewById(R.id.emailReg)).getText().toString());
 
-                   // dialog.show(getSupportFragmentManager(), "NoticeDialogFragment");
+                    // dialog.show(getSupportFragmentManager(), "NoticeDialogFragment");
 
 
                 } catch (Exception e) {
@@ -140,10 +151,11 @@ public class BindingLsDialog extends DialogFragment {
             @Override
             public void onError(VolleyError error) {
 
-              //  showErrorDialog();
+                //  showErrorDialog();
             }
         });
     }
-
-
+    private void displayError(String errorMessage) {
+        Toast.makeText(getContext(), errorMessage, Toast.LENGTH_LONG).show();
     }
+}

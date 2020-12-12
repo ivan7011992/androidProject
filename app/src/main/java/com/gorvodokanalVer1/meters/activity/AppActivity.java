@@ -77,8 +77,8 @@ public class AppActivity extends AppCompatActivity implements NavigationView.OnN
         listUser = header.findViewById(R.id.spinnerUserListSwith);
         RelativeLayout swith = header.findViewById(R.id.swithParrent);
         TextView text = header.findViewById(R.id.text);
-        //buttonBindingLs = header.findViewById(R.id.buttonBindingLs);
-       //buttonBindingLs.setOnClickListener(v -> processBindingData());
+        buttonBindingLs = header.findViewById(R.id.buttonBindingLs);
+       buttonBindingLs.setOnClickListener(v -> processBindingData());
 
 
         if (UserModel.getInstance().getLs().size() <=1) {
