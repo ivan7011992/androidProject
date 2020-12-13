@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +41,7 @@ public class GeneralInfoFragment extends Fragment  {
    LinearLayout fieldParrent;
     LinearLayout fieldParrent2;
     LinearLayout fieldParrent3;
+    RelativeLayout fieldBlockTarif;
     public static int confirm = 0;
 
     @Override
@@ -57,6 +59,7 @@ public class GeneralInfoFragment extends Fragment  {
         fieldParrent =  view.findViewById(R.id.fieldParrent);
         fieldParrent2 =  view.findViewById(R.id.PriborBlock);
         fieldParrent3 =  view.findViewById(R.id.fieldBlockIPU0);
+        fieldBlockTarif = view.findViewById(R.id.fieldBlockTarif);
         ProgressDialog mDialog = new ProgressDialog(getContext());
         mDialog.setMessage("Загрузка...");
         mDialog.setCancelable(false);
@@ -90,11 +93,25 @@ public class GeneralInfoFragment extends Fragment  {
                             ((TextView) getView().findViewById(R.id.address)).setText(address);
                             if (IPU.equals("1")) {
                                 SummaryGeneralItem data = new SummaryGeneralItem(rows);
+                                if (firstRow.has("ZENWODA")) {
+                                    ((TextView) getView().findViewById(R.id.cool)).setText("Холодное водоснабжение");
+                                    ((TextView) getView().findViewById(R.id.cool_data)).setText(firstRow.getString("ZENWODA"));
 
-                                ((TextView) getView().findViewById(R.id.cool)).setText("Холодное водоснабжение");
-                                ((TextView) getView().findViewById(R.id.cool_data)).setText(firstRow.getString("ZENWODA"));
-                                ((TextView) getView().findViewById(R.id.voootv)).setText("Водоотведение");
-                                ((TextView) getView().findViewById(R.id.vootv_data)).setText(firstRow.getString("ZENSTOK"));
+                                }else {
+                                    TextView cool = getView().findViewById(R.id.cool);
+                                    fieldBlockTarif.removeView(cool);
+                                    TextView cool_data = getView().findViewById(R.id.cool_data);
+                                    fieldBlockTarif.removeView(cool_data);
+                                }
+                                if (firstRow.has("ZENSTOK")) {
+                                    ((TextView) getView().findViewById(R.id.voootv)).setText("Водоотведение");
+                                    ((TextView) getView().findViewById(R.id.vootv_data)).setText(firstRow.getString("ZENSTOK"));
+                                }else {
+                                    TextView voootv = getView().findViewById(R.id.voootv);
+                                    fieldBlockTarif.removeView(voootv);
+                                    TextView vootv_data = getView().findViewById(R.id.vootv_data);
+                                    fieldBlockTarif.removeView(vootv_data);
+                                }
                                 LinearLayout fieldBlock2 = getView().findViewById(R.id.fieldBlockIPU0);
                                 fieldParrent.removeView(fieldBlock2);
 

@@ -3,7 +3,10 @@ package com.gorvodokanalVer1.meters.activity;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -33,6 +36,12 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+import ru.tinkoff.decoro.MaskImpl;
+import ru.tinkoff.decoro.parser.UnderscoreDigitSlotsParser;
+import ru.tinkoff.decoro.slots.Slot;
+import ru.tinkoff.decoro.watchers.FormatWatcher;
+import ru.tinkoff.decoro.watchers.MaskFormatWatcher;
+
 public class BindingLsDialog extends DialogFragment {
     Button bindingButton;
 
@@ -45,7 +54,12 @@ public class BindingLsDialog extends DialogFragment {
             getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         }
-
+         EditText numberLsView = view.findViewById(R.id.numberLs);
+        Slot[] slots = new UnderscoreDigitSlotsParser().parseSlots("__-_______");
+        FormatWatcher formatWatcher = new MaskFormatWatcher( // форматировать текст будет вот он
+                MaskImpl.createTerminated(slots)
+        );
+        formatWatcher.installOn(numberLsView);
 
         bindingButton = view.findViewById(R.id.bindingButton);
         bindingButton.setOnClickListener(new View.OnClickListener() {
@@ -133,12 +147,10 @@ public class BindingLsDialog extends DialogFragment {
 
                         return;
                     }
-                    //    Toast.makeText(Registration.this, "Регистрация  удалась", Toast.LENGTH_LONG).show();
-                    int userId = response.getInt("userId");
+                       Toast.makeText(getContext(), "Аккаунт привязан", Toast.LENGTH_LONG).show();
 
-                    // RegistrationFinalDialog dialog = new RegistrationFinalDialog(userId,((EditText) findViewById(R.id.emailReg)).getText().toString());
+                    getDialog().dismiss();
 
-                    // dialog.show(getSupportFragmentManager(), "NoticeDialogFragment");
 
 
                 } catch (Exception e) {

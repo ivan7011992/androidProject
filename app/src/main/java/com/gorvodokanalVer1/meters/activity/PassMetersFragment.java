@@ -260,6 +260,7 @@ public class PassMetersFragment extends Fragment {
                     }
                     final boolean isSuccess = response.getBoolean("success");
 
+
                     Toast.makeText(getContext(), response.getString("message"), Toast.LENGTH_LONG).show();
                     createAlertDialog("",  response.getString("message"));
                     fetchAndDisplayData();
