@@ -36,9 +36,9 @@ import com.gorvodokanalVer1.meters.settings.Setting;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class GeneralInfoFragment extends Fragment  {
+public class GeneralInfoFragment extends Fragment {
     private static String address;
-   LinearLayout fieldParrent;
+    LinearLayout fieldParrent;
     LinearLayout fieldParrent2;
     LinearLayout fieldParrent3;
     RelativeLayout fieldBlockTarif;
@@ -53,12 +53,12 @@ public class GeneralInfoFragment extends Fragment  {
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
         final RequestQueue mQueue = RequestQueueSingleton.getInstance(getActivity());
-        fieldParrent =  view.findViewById(R.id.fieldParrent);
-        fieldParrent2 =  view.findViewById(R.id.PriborBlock);
-        fieldParrent3 =  view.findViewById(R.id.fieldBlockIPU0);
+        fieldParrent = view.findViewById(R.id.fieldParrent);
+        fieldParrent2 = view.findViewById(R.id.PriborBlock);
+        fieldParrent3 = view.findViewById(R.id.fieldBlockIPU0);
         fieldBlockTarif = view.findViewById(R.id.fieldBlockTarif);
         ProgressDialog mDialog = new ProgressDialog(getContext());
         mDialog.setMessage("Загрузка...");
@@ -76,7 +76,6 @@ public class GeneralInfoFragment extends Fragment  {
                                 Toast.makeText(getActivity(), "Неизвестная ошибка, попробуйте еще раз", Toast.LENGTH_LONG).show();
                                 return;
                             }
-
 
 
                             JSONArray rows = response.getJSONArray("data");
@@ -97,7 +96,7 @@ public class GeneralInfoFragment extends Fragment  {
                                     ((TextView) getView().findViewById(R.id.cool)).setText("Холодное водоснабжение");
                                     ((TextView) getView().findViewById(R.id.cool_data)).setText(firstRow.getString("ZENWODA"));
 
-                                }else {
+                                } else {
                                     TextView cool = getView().findViewById(R.id.cool);
                                     fieldBlockTarif.removeView(cool);
                                     TextView cool_data = getView().findViewById(R.id.cool_data);
@@ -106,7 +105,7 @@ public class GeneralInfoFragment extends Fragment  {
                                 if (firstRow.has("ZENSTOK")) {
                                     ((TextView) getView().findViewById(R.id.voootv)).setText("Водоотведение");
                                     ((TextView) getView().findViewById(R.id.vootv_data)).setText(firstRow.getString("ZENSTOK"));
-                                }else {
+                                } else {
                                     TextView voootv = getView().findViewById(R.id.voootv);
                                     fieldBlockTarif.removeView(voootv);
                                     TextView vootv_data = getView().findViewById(R.id.vootv_data);
@@ -121,25 +120,38 @@ public class GeneralInfoFragment extends Fragment  {
                                 ((TextView) getView().findViewById(R.id.fieldValueIPU0)).setText(firstRow.getString("ST_BLAG"));
 
 
-                                ((TextView) getView().findViewById(R.id.field3)).setText("Стоимость 1м3 воды:");
-                                ((TextView) getView().findViewById(R.id.field3Value)).setText(firstRow.getString("ZENWODA"));
-                                ((TextView) getView().findViewById(R.id.field1NormPotrebl)).setText("Нормативное потребление воды \n на одного чел/месяц");
-                                if (firstRow.has("STOK_KUB_MES")) {
-                                    ((TextView) getView().findViewById(R.id.field1ValueNormPotrebl)).setText(firstRow.getString("STOK_KUB_MES"));
+                                if (firstRow.has("WODA_KUB_MES")) {
+                                    ((TextView) getView().findViewById(R.id.field1NormPotrebl)).setText("Нормативное потребление воды \n на одного чел/месяц");
+                                    ((TextView) getView().findViewById(R.id.field1ValueNormPotrebl)).setText(firstRow.getString("WODA_KUB_MES"));
                                 }else{
-                                    LinearLayout   fieldBlock4 = getView().findViewById(R.id.fieldBlock4);
-                                    fieldParrent3.removeView(fieldBlock4);
+                                    LinearLayout fieldBlock3 = getView().findViewById(R.id.fieldBlockNormPotrebl);
+                                    fieldParrent3.removeView(fieldBlock3);
+
+                                }
+                                if (firstRow.has("ZENWODA")) {
+                                    ((TextView) getView().findViewById(R.id.field3)).setText("Стоимость 1м3 воды:");
+                                    ((TextView) getView().findViewById(R.id.field3Value)).setText(firstRow.getString("ZENWODA"));
+                                }else{
+                                    LinearLayout fieldBlock3 = getView().findViewById(R.id.fieldBlock3);
+                                    fieldParrent3.removeView(fieldBlock3);
+                                }
+                                if (firstRow.has("STOK_KUB_MES")) {
+                                    ((TextView) getView().findViewById(R.id.field1NormVodootv)).setText("Норматив по водоотведению \n на 1 чел. в месяц:");
+                                    ((TextView) getView().findViewById(R.id.field1ValueNormVodootv)).setText(firstRow.getString("STOK_KUB_MES"));
+                                }else{
+                                    LinearLayout fieldBlock1NormVodootv = getView().findViewById(R.id.fieldBlock1NormVodootv);
+                                    fieldParrent3.removeView(fieldBlock1NormVodootv);
 
                                 }
 
                                 if (firstRow.has("ZENSTOK")) {
                                     ((TextView) getView().findViewById(R.id.field4Value)).setText(firstRow.getString("ZENSTOK"));
-                                }else {
-                                    LinearLayout fieldBlock3 = getView().findViewById(R.id.fieldBlockNormPotrebl);
-                                    fieldParrent3.removeView(fieldBlock3);
+                                } else {
+                                    LinearLayout fieldBlock4 = getView().findViewById(R.id.fieldBlock4);
+                                    fieldParrent3.removeView(fieldBlock4);
+
                                 }
-                                ((TextView) getView().findViewById(R.id.field1NormVodootv)).setText("Норматив по водоотведению \n на 1 чел. в месяц:");
-                                ((TextView) getView().findViewById(R.id.field1ValueNormVodootv)).setText(firstRow.getString("WODA_KUB_MES"));
+
                                 LinearLayout fieldBlock1 = getView().findViewById(R.id.fieldBlockIPU1);
                                 fieldParrent.removeView(fieldBlock1);
                                 TextView fieldBlock2 = getView().findViewById(R.id.Probor);
@@ -180,18 +192,20 @@ public class GeneralInfoFragment extends Fragment  {
 
                 });
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);//Make sure you have this line of code.
     }
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 
         super.onCreateOptionsMenu(menu, inflater);
         //MenuInflater menuInflater = getMenuInflater();
         //menuInflater.inflate(R.menu.drawer_menu, menu);
-        inflater.inflate(R.menu.settings_menu, menu) ;
+        inflater.inflate(R.menu.settings_menu, menu);
 
     }
 
@@ -206,10 +220,11 @@ public class GeneralInfoFragment extends Fragment  {
         }
         return super.onOptionsItemSelected(item);
     }
-   private void  showErrorDialog(){
-       NoConnection dialog = new NoConnection();
-       dialog.setTargetFragment(this, 1);
-       dialog.show(this.getFragmentManager(), "MyCustomDialog");
 
-   }
+    private void showErrorDialog() {
+        NoConnection dialog = new NoConnection();
+        dialog.setTargetFragment(this, 1);
+        dialog.show(this.getFragmentManager(), "MyCustomDialog");
+
+    }
 }

@@ -36,7 +36,11 @@
            android:title="Поддержка"
     />
 
-
+    <item
+        android:id="@+id/listBindingLsFragment"
+        android:icon="@drawable/ic_baseline_list_24"
+        android:title="Список ЛС"
+        />
     <item
         android:id="@+id/exit"
         android:title="Выход"

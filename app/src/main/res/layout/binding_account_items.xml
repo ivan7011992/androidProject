@@ -30,11 +30,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:text="Логин:"
+                android:text="Логин:10-6666666"
                 android:textSize="14dp"
 
                 />
             <Button
+                android:id="@+id/buttonBinding"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/loginBinding"

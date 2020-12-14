@@ -68,13 +68,19 @@
         android:label="Поддержка"
         tools:layout="@layout/fragment_support" >
         <action
-            android:id="@+id/action_supportFragment_to_exit2"
-            app:destination="@id/exit" />
+            android:id="@+id/action_supportFragment_to_listBindingLs2"
+            app:destination="@id/listBindingLsFragment" />
     </fragment>
     <fragment
         android:id="@+id/exit"
         android:name="com.gorvodokanalVer1.meters.activity.Exit"
         android:label="fragment_exit"
         tools:layout="@layout/fragment_exit" />
+    <fragment
+        android:id="@+id/listBindingLsFragment"
+        android:name="com.gorvodokanalVer1.meters.activity.ListBindingLsFragment"
+
+        android:label="Список ЛС"
+        tools:layout="@layout/fragment_list_binding_ls" />
 
 </navigation>

@@ -18,9 +18,9 @@ import java.util.Collections;
 public class SupportAdapter  extends RecyclerView.Adapter< SupportAdapter.RecycleViewViewHolder> {
     private ArrayList<SupportItem> supportItems;
     private ArrayList<String> userData;
-    public SupportAdapter(ArrayList< SupportItem> passMetersItems) {
-        this.supportItems =  passMetersItems;
-        userData = new ArrayList<String>(Collections.nCopies(passMetersItems.size(), new String()));
+    public SupportAdapter(ArrayList< SupportItem> supportItems) {
+        this.supportItems = supportItems;
+        userData = new ArrayList<String>(Collections.nCopies(supportItems.size(), new String()));
     }
 
     public static class RecycleViewViewHolder extends RecyclerView.ViewHolder {
