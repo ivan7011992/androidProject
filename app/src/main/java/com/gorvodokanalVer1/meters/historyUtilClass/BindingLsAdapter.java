@@ -4,21 +4,33 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gorvodokanalVer1.R;
+import com.gorvodokanalVer1.meters.model.BindingItem;
 import com.gorvodokanalVer1.meters.model.SupportItem;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class BindingLsAdapter  extends RecyclerView.Adapter< BindingLsAdapter.RecycleViewViewHolder>  {
+    private ArrayList<BindingItem> bindingLs;
 
-  public static ArrayList<String> bindingLsItems;
+    private ArrayList<String> userData;
+    public BindingLsAdapter (ArrayList< BindingItem> bindingItem) {
+        this.bindingLs = bindingItem;
+        userData = new ArrayList<String>(Collections.nCopies(bindingLs.size(), new String()));
+
+    }
+//  public static String bindingLsItems;
+//    public BindingLsAdapter(String bindingItem) {
+//        this.bindingLsItems = bindingItem;
+//
+//    }
+
 
 
     public static class RecycleViewViewHolder extends RecyclerView.ViewHolder {
@@ -30,7 +42,7 @@ public class BindingLsAdapter  extends RecyclerView.Adapter< BindingLsAdapter.Re
             super(itemView);
             loginBinding = itemView.findViewById(R.id.loginBinding);
             buttonBinding = itemView.findViewById(R.id. buttonBinding);
-            bindingLsItems.add(0, "10-6666666");
+
 
         }
     }
@@ -49,17 +61,15 @@ public class BindingLsAdapter  extends RecyclerView.Adapter< BindingLsAdapter.Re
 
     @Override
     public void onBindViewHolder(@NonNull BindingLsAdapter.RecycleViewViewHolder recycleViewViewHolder, final int i) {
-      String login = bindingLsItems.get(i);
 
-        recycleViewViewHolder.loginBinding.setText(login);
-
-
+        BindingItem bindingItem = bindingLs.get(i);
+       recycleViewViewHolder.loginBinding.setText(bindingItem.getLoginls());
 
 
 
     }
     @Override
     public int getItemCount() {
-        return 0;
+      return bindingLs.size();
     }
 }

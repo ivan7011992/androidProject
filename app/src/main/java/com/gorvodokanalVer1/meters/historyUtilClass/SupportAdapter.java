@@ -21,6 +21,7 @@ public class SupportAdapter  extends RecyclerView.Adapter< SupportAdapter.Recycl
     public SupportAdapter(ArrayList< SupportItem> supportItems) {
         this.supportItems = supportItems;
         userData = new ArrayList<String>(Collections.nCopies(supportItems.size(), new String()));
+
     }
 
     public static class RecycleViewViewHolder extends RecyclerView.ViewHolder {
