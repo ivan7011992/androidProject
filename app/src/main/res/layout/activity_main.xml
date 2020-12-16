@@ -106,7 +106,7 @@
             android:background="@drawable/dra5"
             android:onClick="formSubmit"
             android:text="Войти"
-            android:textSize="14dp" />
+            android:textSize="14dp"/>
 
         <Button
             android:id="@+id/button2"
