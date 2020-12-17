@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.RequestQueue;
@@ -75,6 +76,7 @@ public class BindingLsAdapter  extends RecyclerView.Adapter< BindingLsAdapter.Re
     public BindingLsAdapter.RecycleViewViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.binding_account_items, viewGroup, false);
         BindingLsAdapter.RecycleViewViewHolder recycleViewViewHolder = new BindingLsAdapter.RecycleViewViewHolder(view);
+
         return recycleViewViewHolder;
     }
 

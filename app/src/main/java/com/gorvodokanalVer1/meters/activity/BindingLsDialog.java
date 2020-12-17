@@ -1,11 +1,13 @@
 package com.gorvodokanalVer1.meters.activity;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -17,6 +19,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -44,7 +47,7 @@ import ru.tinkoff.decoro.watchers.MaskFormatWatcher;
 
 public class BindingLsDialog extends DialogFragment {
     Button bindingButton;
-
+    ImageView imageView;
 
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.binding_ls_dialog, container, false);
@@ -68,6 +71,25 @@ public class BindingLsDialog extends DialogFragment {
                    passDataBindingUser();
             }
         });
+
+        imageView = view.findViewById(R.id.imageSupportBinding);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createAlertDialog("Привязка лицевого счёта.", "Для привязки аккаунта должны быть выполнены следующие условия:\n" +
+                        "\n" +
+                        "1)Должен быть открыт лицевой счёт\n" +
+                        "\n" +
+                        "2)Электронные адреса текущего и привязываемого аккаунта должны совпадать\n" +
+                        "\n" +
+                        "3)Почта должна быть подтверждена\n" +
+                        "\n" +
+                        "Если привязываемый аккаунт ещё не зарегистрирован, можете заполнить поля формы и подтвердить привязку.");
+            }
+        });
+
+
+
 
         return view;
     }
@@ -169,5 +191,25 @@ public class BindingLsDialog extends DialogFragment {
     }
     private void displayError(String errorMessage) {
         Toast.makeText(getContext(), errorMessage, Toast.LENGTH_LONG).show();
+    }
+    private void createAlertDialog(String title, String content) {
+        // объект Builder для создания диалогового окна
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        // добавляем различные компоненты в диалоговое окно
+        builder.setTitle(title);
+        builder.setMessage(content);
+        // устанавливаем кнопку, которая отвечает за позитивный ответ
+        builder.setPositiveButton("OK",
+                // устанавливаем слушатель
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,
+                                        int which) {
+                        // по нажатию создаем всплывающее окно с типом нажатой конпки
+
+                    }
+                });
+        // объект Builder создал диалоговое окно и оно готово появиться на экране
+        // вызываем этот метод, чтобы показать AlertDialog на экране пользователя
+        builder.show();
     }
 }

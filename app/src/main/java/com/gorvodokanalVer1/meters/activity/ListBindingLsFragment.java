@@ -123,7 +123,6 @@ public void getBindingLs(){
 
         RecyclerView listBindingDataView = (RecyclerView) getView().findViewById(R.id.listBindingLs);
         listBindingDataView.setAdapter(null);
-
         final BindingLsAdapter adapter = new BindingLsAdapter(data, this);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext()) {
             @Override
