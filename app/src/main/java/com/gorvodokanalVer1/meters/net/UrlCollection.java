@@ -24,6 +24,7 @@ public final class UrlCollection {
     public static final String SET_DATA_QUESTION =  BASE_URL + "setDataQuestion.php";
     public static final String BILDING_LS =  BASE_URL + "bindingLs.php";
     public static final String GET_BINDING_LS =  BASE_URL + "getBindLs.php";
+    public static final String REMOVE_BINDING_LS =  BASE_URL + "removeBindingLs.php";
 
 
 }
