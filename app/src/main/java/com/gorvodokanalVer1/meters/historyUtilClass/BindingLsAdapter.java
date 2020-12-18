@@ -41,6 +41,8 @@ public class BindingLsAdapter  extends RecyclerView.Adapter< BindingLsAdapter.Re
     private Button buttonLs;
     ListBindingLsFragment viewFragment;
 
+
+
     private ArrayList<String> userData;
     public BindingLsAdapter (ArrayList< BindingItem> bindingItem, ListBindingLsFragment view) {
         this.bindingLs = bindingItem;
@@ -130,6 +132,7 @@ public class BindingLsAdapter  extends RecyclerView.Adapter< BindingLsAdapter.Re
                         return;
                     }
 
+                    viewFragment.getBindingLsUpdate();
                     Toast.makeText(viewFragment.getContext() , "Лицевой счёт отвязан", Toast.LENGTH_LONG).show();
 
 
@@ -155,5 +158,7 @@ public class BindingLsAdapter  extends RecyclerView.Adapter< BindingLsAdapter.Re
         Toast.makeText(viewFragment.getContext(), "Произошла ошибка, попробуйте повторить попытку позже", Toast.LENGTH_LONG).show();
 
     }
+
+
 
 }

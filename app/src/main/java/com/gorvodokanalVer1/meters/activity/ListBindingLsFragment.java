@@ -6,6 +6,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -51,10 +53,7 @@ public class ListBindingLsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mDialog = new ProgressDialog(getContext());
-        mDialog.setMessage("Загрузка...");
-        mDialog.setCancelable(false);
-        mDialog.show();
+
         getBindingLs();
 
 
@@ -70,7 +69,7 @@ public void getBindingLs(){
     request.makeRequest(requestUrl, new VolleyJsonSuccessCallback() {
         @Override
         public void onSuccess(JSONObject response) {
-            mDialog.dismiss();
+
             try {
                 if (!response.has("success")) {
 
@@ -135,4 +134,8 @@ public void getBindingLs(){
         listBindingDataView.setLayoutManager(layoutManager);
 
     }
+
+   public void getBindingLsUpdate(){
+       getBindingLs();
+   }
 }

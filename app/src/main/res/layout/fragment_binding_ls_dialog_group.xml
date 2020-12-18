@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/RelativeLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+
+    android:background="@drawable/dra8"
+
+    >
+
+    <ImageView
+        android:id="@+id/imageSupportBindingGroup"
+        android:layout_width="44dp"
+        android:layout_height="43dp"
+        android:layout_gravity="right"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_toRightOf="@+id/headerBindingLs"
+        app:srcCompat="@drawable/binding_contact_support_24" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <TextView
+            android:id="@+id/headerBindingLs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Привязка ЛС"
+            android:fontFamily="@font/roboto_medium"
+            android:textColor="#000000"
+            android:layout_marginTop="5dp"
+            android:layout_centerHorizontal="true"
+            android:textSize="20dp"
+            />
+
+
+        <TextView
+            android:id="@+id/TextBindLs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_centerHorizontal="true"
+            android:textSize="17dp"
+            android:layout_below="@+id/headerBindingLs"
+
+            android:textColorHint="#000000"
+            android:gravity="center"
+            android:ems="10"
+            android:textColor="#000000"
+            android:hint="На электронной почте... уже есть привязанные счета.
+         Если хотите привязать текущий ЛС, то нажмите кнопку «Принять»"
+            />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/TextBindLs"
+            android:layout_centerHorizontal="true"
+
+            >
+            <Button
+                android:id="@+id/bindingButtonOk"
+                android:layout_width="170dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/dra5"
+                android:onClick="formSubmit"
+                android:text="Принять"
+                android:textColor="#2196F3"
+                android:textSize="14dp"
+                />
+            <Button
+                android:id="@+id/bindingButtonCancel"
+                android:layout_width="170dp"
+                android:layout_height="50dp"
+                android:layout_toRightOf="@+id/bindingButtonOk"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/dra5"
+                android:onClick="formSubmit"
+                android:text="Отмена"
+                android:textColor="#2196F3"
+                android:textSize="14dp"
+
+                />
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+
+
+
+</LinearLayout>
