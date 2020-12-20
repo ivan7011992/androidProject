@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.gorvodokanalVer1.R;
+import com.gorvodokanalVer1.meters.model.UserModel;
 import com.gorvodokanalVer1.meters.net.PostRequest;
 import com.gorvodokanalVer1.meters.net.RequestQueueSingleton;
 import com.gorvodokanalVer1.meters.net.UrlCollection;
@@ -169,11 +170,17 @@ public class BindingLsDialog extends DialogFragment {
 
                         return;
                     }
+
+
                        Toast.makeText(getContext(), "Аккаунт привязан", Toast.LENGTH_LONG).show();
+                        String userIdS =  response.getString("userId");
+                        Integer userId =  Integer.parseInt(userIdS);
+
 
                     getDialog().dismiss();
-
-
+                    UserModel.getInstance().addLs(userId,numberLs);
+                    Intent openSetting = new Intent(getActivity(), AppActivity.class);
+                      startActivity(openSetting);
 
                 } catch (Exception e) {
                     Log.e("valley", "error", e);

@@ -27,6 +27,7 @@ import com.gorvodokanalVer1.meters.net.RequestQueueSingleton;
 import com.gorvodokanalVer1.meters.net.UrlCollection;
 import com.gorvodokanalVer1.meters.net.VolleyJsonErrorCallback;
 import com.gorvodokanalVer1.meters.net.VolleyJsonSuccessCallback;
+import com.gorvodokanalVer1.meters.settings.Setting;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -135,7 +136,10 @@ public class BindingLsAdapter  extends RecyclerView.Adapter< BindingLsAdapter.Re
                     viewFragment.getBindingLsUpdate();
                     Toast.makeText(viewFragment.getContext() , "Лицевой счёт отвязан", Toast.LENGTH_LONG).show();
 
-
+                    Integer item =Integer.parseInt(itemLs);
+                  UserModel.getInstance().removeLs(item);
+                    Intent openSetting = new Intent(viewFragment.getActivity(), AppActivity.class);
+                    viewFragment.getActivity().startActivity(openSetting);
 
                 } catch (Exception e) {
                     Log.e("valley", "error", e);

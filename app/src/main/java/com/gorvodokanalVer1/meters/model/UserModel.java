@@ -12,7 +12,12 @@ public class UserModel {
         this.login = login;
         this.ls = ls;
     }
-
+    public void removeLs(Integer lsUser){
+        ls.remove(lsUser);
+            }
+    public void addLs(Integer lsUser,String login) {
+        ls.put(lsUser,login);
+    }
     public String getLogin() {
         return login;
     }
