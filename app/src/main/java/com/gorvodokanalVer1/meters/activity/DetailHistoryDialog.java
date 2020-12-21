@@ -12,18 +12,24 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.gorvodokanalVer1.R;
+import com.gorvodokanalVer1.meters.historyUtilClass.HistoryMetersDetailAdapter;
+import com.gorvodokanalVer1.meters.historyUtilClass.SupportAdapter;
 import com.gorvodokanalVer1.meters.model.HistoryItem;
 import com.gorvodokanalVer1.meters.model.SummaryHistoryItem;
 
+import java.util.ArrayList;
+
 public class DetailHistoryDialog extends DialogFragment {
-    private SummaryHistoryItem historyItem;
+    private ArrayList<SummaryHistoryItem> historyItem;
     private TextView mActionOk;
 
     private static final String TAG = "MyCustomDialog";
 
-    public DetailHistoryDialog(SummaryHistoryItem historyItem) {
+    public DetailHistoryDialog(ArrayList<SummaryHistoryItem> historyItem) {
         this.historyItem = historyItem;
 
     }
@@ -45,49 +51,66 @@ public class DetailHistoryDialog extends DialogFragment {
             getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         }
-        TextView heading = view.findViewById(R.id.headingMonth);
-        heading.setText(String.valueOf(historyItem.getReadableDate()));
-        TextView saldoBeginValueVodosnab = view.findViewById(R.id.saldoBeginValueVodosnab);
-        TextView nachisPeriodValueVodosnab = view.findViewById(R.id.nachisPeriodValueVodosnab);
-        TextView oplataPeriodValueVodosnab = view.findViewById(R.id.oplataPeriodValueVodosnab);
-        TextView deptValueVodosnab = view.findViewById(R.id.deptValueVodosnab);
-
-        TextView saldoBeginValueVodootv = view.findViewById(R.id.saldoBeginValueVodootv);
-        TextView nachisPeriodValueVodootv = view.findViewById(R.id.nachisPeriodValueVodootv);
-        TextView oplataPeriodValueVodootv = view.findViewById(R.id.oplataPeriodValueVodootv);
-        TextView deptValueVodootv = view.findViewById(R.id.deptValueVodootv);
-
-        TextView saldoBeginValueOdn = view.findViewById(R.id.saldoBeginValueOdn);
-        TextView nachisPeriodValueOdn = view.findViewById(R.id.nachisPeriodValueOdn);
-        TextView oplataPeriodValueOdn = view.findViewById(R.id.oplataPeriodValueOdn);
-        TextView deptValueVodoOdn = view.findViewById(R.id.deptValueOdn);
 
 
-        HistoryItem voda = historyItem.getByVidUslugi(HistoryItem.VID_USLUGI_VODA);
-        HistoryItem stoki = historyItem.getByVidUslugi(HistoryItem.VID_USLUGI_STOKI);
-        HistoryItem odn = historyItem.getByVidUslugi(HistoryItem.VID_USLUGI_ODN);
+        RecyclerView detailHistoryDataView = (RecyclerView) view.findViewById(R.id.datailHistoryItem);
+        detailHistoryDataView.setAdapter(null);
+        final HistoryMetersDetailAdapter adapter = new HistoryMetersDetailAdapter(historyItem);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext()) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        detailHistoryDataView.setAdapter(adapter);
+        detailHistoryDataView.setNestedScrollingEnabled(false);
+        detailHistoryDataView.setLayoutManager(layoutManager);
 
 
 
-        saldoBeginValueVodosnab.setText(String.format("%.2f",voda.getSaldoBegin()));
-        nachisPeriodValueVodosnab.setText(String.format("%.2f",voda.getNachisleno()));
-        oplataPeriodValueVodosnab.setText(String.format("%.2f",voda.getOplata()));
-        double deptVodosnab = voda.getDept();
-        deptValueVodosnab.setText(String.format("%.2f", deptVodosnab));
-
-
-        saldoBeginValueVodootv.setText(String.format("%.2f",stoki.getSaldoBegin()));
-        nachisPeriodValueVodootv.setText(String.format("%.2f",stoki.getNachisleno()));
-        oplataPeriodValueVodootv.setText(String.format("%.2f",stoki.getOplata()));
-        double deptVootv = stoki.getDept();
-        deptValueVodootv.setText(String.format("%.2f",deptVootv));
-
-
-        saldoBeginValueOdn.setText(String.format("%.2f", odn.getSaldoBegin()));
-        nachisPeriodValueOdn.setText(String.format("%.2f",odn.getNachisleno()));
-        oplataPeriodValueOdn.setText(String.format("%.2f",odn.getOplata()));
-        double deptOdn = odn.getDept();
-        deptValueVodoOdn.setText(String.format("%.2f",deptOdn));
+//        TextView heading = view.findViewById(R.id.headingMonth);
+//        heading.setText(String.valueOf(historyItem.getReadableDate()));
+//        TextView saldoBeginValueVodosnab = view.findViewById(R.id.saldoBeginValueVodosnab);
+//        TextView nachisPeriodValueVodosnab = view.findViewById(R.id.nachisPeriodValueVodosnab);
+//        TextView oplataPeriodValueVodosnab = view.findViewById(R.id.oplataPeriodValueVodosnab);
+//        TextView deptValueVodosnab = view.findViewById(R.id.deptValueVodosnab);
+//
+//        TextView saldoBeginValueVodootv = view.findViewById(R.id.saldoBeginValueVodootv);
+//        TextView nachisPeriodValueVodootv = view.findViewById(R.id.nachisPeriodValueVodootv);
+//        TextView oplataPeriodValueVodootv = view.findViewById(R.id.oplataPeriodValueVodootv);
+//        TextView deptValueVodootv = view.findViewById(R.id.deptValueVodootv);
+//
+//        TextView saldoBeginValueOdn = view.findViewById(R.id.saldoBeginValueOdn);
+//        TextView nachisPeriodValueOdn = view.findViewById(R.id.nachisPeriodValueOdn);
+//        TextView oplataPeriodValueOdn = view.findViewById(R.id.oplataPeriodValueOdn);
+//        TextView deptValueVodoOdn = view.findViewById(R.id.deptValueOdn);
+//
+//
+//        HistoryItem voda = historyItem.getByVidUslugi(HistoryItem.VID_USLUGI_VODA);
+//        HistoryItem stoki = historyItem.getByVidUslugi(HistoryItem.VID_USLUGI_STOKI);
+//        HistoryItem odn = historyItem.getByVidUslugi(HistoryItem.VID_USLUGI_ODN);
+//
+//
+//
+//        saldoBeginValueVodosnab.setText(String.format("%.2f",voda.getSaldoBegin()));
+//        nachisPeriodValueVodosnab.setText(String.format("%.2f",voda.getNachisleno()));
+//        oplataPeriodValueVodosnab.setText(String.format("%.2f",voda.getOplata()));
+//        double deptVodosnab = voda.getDept();
+//        deptValueVodosnab.setText(String.format("%.2f", deptVodosnab));
+//
+//
+//        saldoBeginValueVodootv.setText(String.format("%.2f",stoki.getSaldoBegin()));
+//        nachisPeriodValueVodootv.setText(String.format("%.2f",stoki.getNachisleno()));
+//        oplataPeriodValueVodootv.setText(String.format("%.2f",stoki.getOplata()));
+//        double deptVootv = stoki.getDept();
+//        deptValueVodootv.setText(String.format("%.2f",deptVootv));
+//
+//
+//        saldoBeginValueOdn.setText(String.format("%.2f", odn.getSaldoBegin()));
+//        nachisPeriodValueOdn.setText(String.format("%.2f",odn.getNachisleno()));
+//        oplataPeriodValueOdn.setText(String.format("%.2f",odn.getOplata()));
+//        double deptOdn = odn.getDept();
+//        deptValueVodoOdn.setText(String.format("%.2f",deptOdn));
 
         //nachisPeriodValueVodosnab.setText(String.valueOf(stoki.getSaldoBegin()));
         //oplataPeriodValueVodosnab.setText(String.valueOf());

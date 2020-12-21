@@ -16,31 +16,9 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         >
-        <LinearLayout
-            android:id="@+id/titlePass"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:orientation="horizontal"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/dra12"
 
-            android:gravity="center"
 
-            >
 
-            <TextView
-                android:id="@+id/dataRequest"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
-                android:layout_marginRight="4dp"
-                android:layout_centerHorizontal="true"
-                android:fontFamily="@font/roboto_medium"
-                android:text="Месяц"
-                android:textSize="15dp"
-                android:textStyle="bold"
-                android:textColor="#000000"
-                />
 
 
         </LinearLayout>
@@ -62,13 +40,13 @@
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/roboto_medium"
                 android:paddingRight="3dp"
-                android:text="Водоснабжение"
+                android:text="Услуга"
                 android:textSize="20dp"
 
                 android:textColor="#000000"/>
 
             <TextView
-                android:id="@+id/datePassMeters"
+                android:id="@+id/saldoBegin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/VidUslugi"
@@ -79,7 +57,7 @@
 
 
             <TextView
-                android:id="@+id/saldoBegin"
+                android:id="@+id/saldoBeginValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/VidUslugi"
@@ -96,7 +74,7 @@
                 android:id="@+id/nachisPeriod"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/datePassMeters"
+                android:layout_below="@+id/saldoBegin"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/roboto_medium"
 
@@ -107,7 +85,7 @@
                 android:id="@+id/nachisPeriodValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/datePassMeters"
+                android:layout_below="@+id/saldoBeginValue"
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="10dp"
                 android:paddingRight="5dp"
@@ -168,6 +146,6 @@
 
 
         </RelativeLayout>
-    </LinearLayout>
+
 
 </androidx.cardview.widget.CardView>

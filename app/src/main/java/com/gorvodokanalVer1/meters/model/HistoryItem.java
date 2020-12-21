@@ -12,6 +12,7 @@ public class HistoryItem {
     private double nachisleno;
     private double oplata;
     private int vidUslugi;
+    private  String nameUslugi;
     private double dept;
 
 
@@ -20,10 +21,15 @@ public class HistoryItem {
         nachisleno =  row.getDouble("NACHISLENO");
         oplata =  row.getDouble("OPLATA");
         vidUslugi = row.getInt("VID_USLUGI");
+        nameUslugi = row.getString("NAME_USLUGI");
     }
 
     public double getSaldoBegin() {
         return saldoBegin;
+    }
+
+    public String getVidUslugiOdn() {
+        return nameUslugi;
     }
 
     public double getNachisleno() {

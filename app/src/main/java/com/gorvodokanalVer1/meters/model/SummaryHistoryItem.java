@@ -8,7 +8,7 @@ import java.util.Map;
 public class SummaryHistoryItem {
 
     private String startDate;
-    private HashMap<Integer,HistoryItem> items = new HashMap<>();
+    private HashMap<Integer, HistoryItem> items = new HashMap<>();
 
 
     public SummaryHistoryItem(String startDate) throws JSONException {
@@ -16,12 +16,12 @@ public class SummaryHistoryItem {
     }
 
     public void addItem(HistoryItem item) {
-       items.put(item.getVidUslugi(),item);
+        items.put(item.getVidUslugi(), item);
     }
 
     public double saldoBegin() {
         double sum = 0.0;
-        for(Map.Entry<Integer,HistoryItem> item : items.entrySet()) {
+        for (Map.Entry<Integer, HistoryItem> item : items.entrySet()) {
             sum += item.getValue().getSaldoBegin();
         }
         return sum;
@@ -29,7 +29,7 @@ public class SummaryHistoryItem {
 
     public double nachisleno() {
         double sum = 0.0;
-        for(Map.Entry<Integer,HistoryItem> item : items.entrySet()) {
+        for (Map.Entry<Integer, HistoryItem> item : items.entrySet()) {
             sum += item.getValue().getNachisleno();
         }
         return sum;
@@ -37,14 +37,15 @@ public class SummaryHistoryItem {
 
     public double oplata() {
         double sum = 0.0;
-        for(Map.Entry<Integer,HistoryItem>item : items.entrySet()) {
+        for (Map.Entry<Integer, HistoryItem> item : items.entrySet()) {
             sum += item.getValue().getOplata();
         }
         return sum;
     }
 
+
     public double debt() {
-       return saldoBegin() + nachisleno() - oplata();
+        return saldoBegin() + nachisleno() - oplata();
     }
 
     public String getStartDate() {
@@ -55,7 +56,15 @@ public class SummaryHistoryItem {
         return DateConverter.convert(startDate);
     }
 
-    public HistoryItem getByVidUslugi(int vidUslugi) {
-        return items.get(vidUslugi);
+    public String getByVidUslugi() {
+        String uslug = "";
+        for (Map.Entry<Integer, HistoryItem> item : items.entrySet()) {
+         uslug = item.getValue().getVidUslugiOdn();
+
+
+
+        }
+        return uslug;
     }
+
 }
