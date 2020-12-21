@@ -179,6 +179,9 @@ public class BindingLsDialog extends DialogFragment {
 
                     getDialog().dismiss();
                     UserModel.getInstance().addLs(userId,numberLs);
+
+                    final NavController navController = NavHostFragment.findNavController(BindingLsDialog.this);
+                    navController.popBackStack(R.id.generalInfoFragment,false);
                     Intent openSetting = new Intent(getActivity(), AppActivity.class);
                       startActivity(openSetting);
 

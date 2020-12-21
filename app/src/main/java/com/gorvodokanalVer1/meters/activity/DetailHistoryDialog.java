@@ -24,12 +24,12 @@ import com.gorvodokanalVer1.meters.model.SummaryHistoryItem;
 import java.util.ArrayList;
 
 public class DetailHistoryDialog extends DialogFragment {
-    private ArrayList<SummaryHistoryItem> historyItem;
+    private SummaryHistoryItem historyItem;
     private TextView mActionOk;
 
     private static final String TAG = "MyCustomDialog";
 
-    public DetailHistoryDialog(ArrayList<SummaryHistoryItem> historyItem) {
+    public DetailHistoryDialog(SummaryHistoryItem historyItem) {
         this.historyItem = historyItem;
 
     }
@@ -68,8 +68,8 @@ public class DetailHistoryDialog extends DialogFragment {
 
 
 
-//        TextView heading = view.findViewById(R.id.headingMonth);
-//        heading.setText(String.valueOf(historyItem.getReadableDate()));
+       TextView heading = view.findViewById(R.id.headingMonth);
+       heading.setText(String.valueOf(historyItem.getReadableDate()));
 //        TextView saldoBeginValueVodosnab = view.findViewById(R.id.saldoBeginValueVodosnab);
 //        TextView nachisPeriodValueVodosnab = view.findViewById(R.id.nachisPeriodValueVodosnab);
 //        TextView oplataPeriodValueVodosnab = view.findViewById(R.id.oplataPeriodValueVodosnab);

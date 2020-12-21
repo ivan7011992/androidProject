@@ -28,9 +28,7 @@ public class HistoryItem {
         return saldoBegin;
     }
 
-    public String getVidUslugiOdn() {
-        return nameUslugi;
-    }
+
 
     public double getNachisleno() {
         return nachisleno;
@@ -38,6 +36,10 @@ public class HistoryItem {
 
     public double getOplata() {
         return oplata;
+    }
+
+    public String getNameUslugi() {
+        return nameUslugi;
     }
 
     public int getVidUslugi() {

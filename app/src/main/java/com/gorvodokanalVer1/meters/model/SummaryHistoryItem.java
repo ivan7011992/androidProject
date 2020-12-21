@@ -2,6 +2,7 @@ package com.gorvodokanalVer1.meters.model;
 
 import org.json.JSONException;
 
+import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,6 +14,12 @@ public class SummaryHistoryItem {
 
     public SummaryHistoryItem(String startDate) throws JSONException {
         this.startDate = startDate;
+    }
+
+    public HistoryItem getByIndex(int index) {
+        Object[] keys = items.keySet().toArray();
+        return items.get(keys[index]);
+
     }
 
     public void addItem(HistoryItem item) {
@@ -59,12 +66,14 @@ public class SummaryHistoryItem {
     public String getByVidUslugi() {
         String uslug = "";
         for (Map.Entry<Integer, HistoryItem> item : items.entrySet()) {
-         uslug = item.getValue().getVidUslugiOdn();
-
-
+            uslug = item.getValue().getNameUslugi();
 
         }
         return uslug;
+    }
+
+    public int size() {
+        return items.size();
     }
 
 }

@@ -2,8 +2,6 @@ package com.gorvodokanalVer1.meters.historyUtilClass;
         import android.view.LayoutInflater;
         import android.view.View;
         import android.view.ViewGroup;
-        import android.widget.EditText;
-        import android.widget.LinearLayout;
         import android.widget.TextView;
 
         import androidx.annotation.NonNull;
@@ -12,17 +10,13 @@ package com.gorvodokanalVer1.meters.historyUtilClass;
         import com.gorvodokanalVer1.R;
         import com.gorvodokanalVer1.meters.model.HistoryItem;
         import com.gorvodokanalVer1.meters.model.SummaryHistoryItem;
-        import com.gorvodokanalVer1.meters.model.SupportItem;
-
-        import java.util.ArrayList;
-        import java.util.Collections;
 
 public class HistoryMetersDetailAdapter  extends RecyclerView.Adapter< HistoryMetersDetailAdapter.RecycleViewViewHolder> {
 
-    private ArrayList<SummaryHistoryItem> historyItem;
+    private SummaryHistoryItem summaryHistoryItem;
 
-    public HistoryMetersDetailAdapter(ArrayList<SummaryHistoryItem> historyItem) {
-        this.historyItem = historyItem;
+    public HistoryMetersDetailAdapter(SummaryHistoryItem historyItem) {
+        this.summaryHistoryItem = historyItem;
 
     }
 
@@ -60,12 +54,12 @@ public class HistoryMetersDetailAdapter  extends RecyclerView.Adapter< HistoryMe
 
     @Override
     public void onBindViewHolder(@NonNull HistoryMetersDetailAdapter.RecycleViewViewHolder recycleViewViewHolder, final int i) {
-      SummaryHistoryItem summaryHistoryItem = historyItem.get(i);// при помощт i свящвваем каждый элемт из ArrayList с элметом RecycleVIew
-        recycleViewViewHolder.VidUslugi.setText(String.valueOf(summaryHistoryItem.getByVidUslugi()));
-        recycleViewViewHolder.saldoBegin.setText(String.valueOf(summaryHistoryItem.saldoBegin()));
-        recycleViewViewHolder.nachisPeriod.setText(String.valueOf(summaryHistoryItem.nachisleno()));
-        recycleViewViewHolder.oplataPeriod.setText(String.valueOf(summaryHistoryItem.oplata()));
-        recycleViewViewHolder.dept.setText(String.valueOf(summaryHistoryItem.debt()));
+     HistoryItem historyItem = this.summaryHistoryItem.getByIndex(i);// при помощт i свящвваем каждый элемт из ArrayList с элметом RecycleVIew
+        recycleViewViewHolder.VidUslugi.setText(String.valueOf(historyItem.getNameUslugi()));
+        recycleViewViewHolder.saldoBegin.setText(String.valueOf(historyItem.getSaldoBegin()));
+        recycleViewViewHolder.nachisPeriod.setText(String.valueOf(historyItem.getNachisleno()));
+        recycleViewViewHolder.oplataPeriod.setText(String.valueOf(historyItem.getOplata()));
+        recycleViewViewHolder.dept.setText(String.valueOf(historyItem.getDept()));
 
 
 
@@ -79,7 +73,7 @@ public class HistoryMetersDetailAdapter  extends RecyclerView.Adapter< HistoryMe
 
     @Override
     public int getItemCount() {
-        return historyItem.size();
+        return summaryHistoryItem.size();
     }
 
 }

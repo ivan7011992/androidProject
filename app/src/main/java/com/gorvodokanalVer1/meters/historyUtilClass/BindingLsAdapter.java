@@ -11,12 +11,15 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.gorvodokanalVer1.R;
 import com.gorvodokanalVer1.meters.activity.AppActivity;
+import com.gorvodokanalVer1.meters.activity.BindingLsDialog;
 import com.gorvodokanalVer1.meters.activity.ListBindingLsFragment;
 import com.gorvodokanalVer1.meters.activity.MainActivity;
 import com.gorvodokanalVer1.meters.model.BindingItem;
@@ -138,6 +141,8 @@ public class BindingLsAdapter  extends RecyclerView.Adapter< BindingLsAdapter.Re
 
                     Integer item =Integer.parseInt(itemLs);
                   UserModel.getInstance().removeLs(item);
+                    final NavController navController = NavHostFragment.findNavController(viewFragment);
+                    navController.popBackStack(R.id.generalInfoFragment,false);
                     Intent openSetting = new Intent(viewFragment.getActivity(), AppActivity.class);
                     viewFragment.getActivity().startActivity(openSetting);
 

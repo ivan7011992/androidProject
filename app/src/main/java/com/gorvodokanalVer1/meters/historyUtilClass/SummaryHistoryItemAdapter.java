@@ -93,7 +93,7 @@ public class SummaryHistoryItemAdapter extends RecyclerView.Adapter<SummaryHisto
             recycleViewViewHolder.informationButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    DetailHistoryDialog dialog = new DetailHistoryDialog(historyItems);
+                    DetailHistoryDialog dialog = new DetailHistoryDialog(historyItem);
                     dialog.setTargetFragment(historyMetersFragment, 1);
                     dialog.show(historyMetersFragment.getFragmentManager(), "MyCustomDialog");
                 }
