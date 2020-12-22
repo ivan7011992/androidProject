@@ -28,6 +28,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.gorvodokanalVer1.R;
 import com.gorvodokanalVer1.meters.historyUtilClass.PaymentAdapter;
+import com.gorvodokanalVer1.meters.model.PaymentItem;
 import com.gorvodokanalVer1.meters.model.SummaryPaymentData;
 import com.gorvodokanalVer1.meters.net.GetRequest;
 import com.gorvodokanalVer1.meters.net.PostRequest;
@@ -52,6 +53,7 @@ public class PaymentFragment extends Fragment {
     ProgressDialog mDialog;
     double sum;
     int flag;
+    static int flagTime = 1;
 
 static {
 
@@ -209,11 +211,19 @@ static {
 
     public void setTextSum(double sum,double totalSum) {
      flag = 0;
+        PaymentItem item = new PaymentItem();
      if (flag == 0) {
-         textSumPay.setText(String.valueOf("К оплате:" + " " + totalSum));
+         textSumPay.setText(String.valueOf("К оплате:" + " " + String.format("%.2f",totalSum)));
          flag = 1;
-     }
-        textSumPay.setText(String.valueOf("К оплате:" + " " + sum));
+      }
+
+                if(flagTime == 1){
+                    textSumPay.setText(String.valueOf("К оплате:" + " " + String.format("%.2f",item.dept())));
+                    flagTime = 0;
+                }else {
+
+                    textSumPay.setText(String.valueOf("К оплате:" + " " + String.format("%.2f",sum)));
+                }
     }
     private void  showErrorDialog(){
         NoConnection dialog = new NoConnection();

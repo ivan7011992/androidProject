@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="2dp"
-            android:padding="8dp"
+            android:padding="5dp"
 
             tools:context=".meters.activity.MainActivity">
 
@@ -75,7 +75,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/saldoBegin"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="6dp"
                 android:fontFamily="@font/roboto_medium"
 
                 android:text="Начисление за период"
@@ -87,7 +87,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/saldoBeginValue"
                 android:layout_alignParentRight="true"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="6dp"
                 android:paddingRight="5dp"
                 android:fontFamily="@font/roboto_medium"
                 android:text="Значение"
@@ -100,7 +100,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/nachisPeriodValue"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="12dp"
                 android:fontFamily="@font/roboto_medium"
                 android:text="Оплата за период"
                 android:textSize="12dp" />
@@ -111,7 +111,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/nachisPeriodValue"
                 android:layout_alignParentRight="true"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="12dp"
                 android:fontFamily="@font/roboto_medium"
                 android:paddingRight="5dp"
                 android:text="Значение"
@@ -124,7 +124,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/oplataPeriod"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="6dp"
                 android:fontFamily="@font/roboto_medium"
                 android:text="Долг на конец периода"
                 android:textSize="12dp" />
@@ -135,7 +135,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/oplataPeriod"
                 android:layout_alignParentRight="true"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="6dp"
                 android:fontFamily="@font/roboto_medium"
                 android:paddingRight="5dp"
                 android:text="Значение"

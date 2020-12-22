@@ -15,6 +15,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -43,6 +45,7 @@ import java.util.LinkedHashMap;
 public class ListBindingLsFragment extends Fragment {
     ProgressDialog mDialog;
     ArrayList<BindingItem> data;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -84,6 +87,7 @@ public void getBindingLs(){
                     return;
                 }
                 JSONArray rows = response.getJSONArray("ls");
+
                 data = buildData(rows);
 
                 BindingDataView(data);
@@ -120,7 +124,13 @@ public void getBindingLs(){
 
     private void BindingDataView(ArrayList<BindingItem> data){
 
+        TextView textAbsentLs = getView().findViewById(R.id.textAbsentLs);
+        if (data.size() == 0) {
+            textAbsentLs.setText("Отсутствуют привязанные лицевые счета");
+        }
+
         RecyclerView listBindingDataView = (RecyclerView) getView().findViewById(R.id.listBindingLs);
+
         listBindingDataView.setAdapter(null);
         final BindingLsAdapter adapter = new BindingLsAdapter(data, this);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext()) {

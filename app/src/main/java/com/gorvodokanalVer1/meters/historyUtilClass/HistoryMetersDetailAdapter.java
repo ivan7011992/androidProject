@@ -56,10 +56,10 @@ public class HistoryMetersDetailAdapter  extends RecyclerView.Adapter< HistoryMe
     public void onBindViewHolder(@NonNull HistoryMetersDetailAdapter.RecycleViewViewHolder recycleViewViewHolder, final int i) {
      HistoryItem historyItem = this.summaryHistoryItem.getByIndex(i);// при помощт i свящвваем каждый элемт из ArrayList с элметом RecycleVIew
         recycleViewViewHolder.VidUslugi.setText(String.valueOf(historyItem.getNameUslugi()));
-        recycleViewViewHolder.saldoBegin.setText(String.valueOf(historyItem.getSaldoBegin()));
-        recycleViewViewHolder.nachisPeriod.setText(String.valueOf(historyItem.getNachisleno()));
-        recycleViewViewHolder.oplataPeriod.setText(String.valueOf(historyItem.getOplata()));
-        recycleViewViewHolder.dept.setText(String.valueOf(historyItem.getDept()));
+        recycleViewViewHolder.saldoBegin.setText(String.format("%.2f",historyItem.getSaldoBegin()));
+        recycleViewViewHolder.nachisPeriod.setText(String.format("%.2f",historyItem.getNachisleno()));
+        recycleViewViewHolder.oplataPeriod.setText(String.format("%.2f",historyItem.getOplata()));
+        recycleViewViewHolder.dept.setText(String.format("%.2f",historyItem.getDept()));
 
 
 
