@@ -76,7 +76,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.RecycleV
             item = paymentData.getSummaryItem();
             EditText entry = recycleViewViewHolder.paymentValue;
             paymentSumTotalPay = recycleViewViewHolder.paymentSum;
-            paymentSumTotalPay.setText(String.valueOf(item.dept()));
+            paymentSumTotalPay.setText(String.format("%.2f",item.dept()));
             ((ViewManager) entry.getParent()).removeView(entry);
             double sum =0;
             double totalSum = item.dept();
@@ -101,10 +101,12 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.RecycleV
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    recycleViewViewHolder.paymentValue.setHint(String.format("0.0"));
                     PaymentAdapter.this.userInputData.put(item.getVID_USLUGI(), s.toString());
                   double sum =  changePayment(PaymentAdapter.this.userInputData);
-                    paymentSumTotalPay.setText(String.valueOf(sum));
+                    paymentSumTotalPay.setText(String.format("%.2f",sum));
                      double totalSum = item.dept();
+
                    paymentFragment.setTextSum(sum,totalSum);
 
 

@@ -211,14 +211,15 @@ static {
 
     public void setTextSum(double sum,double totalSum) {
      flag = 0;
-        PaymentItem item = new PaymentItem();
+
+
      if (flag == 0) {
          textSumPay.setText(String.valueOf("К оплате:" + " " + String.format("%.2f",totalSum)));
          flag = 1;
       }
 
                 if(flagTime == 1){
-                    textSumPay.setText(String.valueOf("К оплате:" + " " + String.format("%.2f",item.dept())));
+                    textSumPay.setText(String.valueOf("К оплате:" + " " + String.format("%.2f",totalSum)));
                     flagTime = 0;
                 }else {
 
