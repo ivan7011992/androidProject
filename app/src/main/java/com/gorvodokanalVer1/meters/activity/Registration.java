@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -67,6 +68,7 @@ public class Registration extends AppCompatActivity {
 
         data.setViewMask("phone", "+7(___) ___-__-__");
         data.setViewMask("kod", "__-_______");
+
 
         View image2 = findViewById(R.id.image2);
         image2.setOnClickListener(new View.OnClickListener() {

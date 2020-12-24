@@ -1,5 +1,6 @@
 package com.gorvodokanalVer1.meters.activity;
 
+import android.text.InputType;
 import android.widget.EditText;
 
 import java.util.HashMap;
@@ -27,6 +28,8 @@ public class RegistrationData {
                 MaskImpl.createTerminated(slots)
         );
         formatWatcher.installOn(inputs.get(name));
+        inputs.get("flat").setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
+
     }
 
     public HashMap<String, String> getData() {

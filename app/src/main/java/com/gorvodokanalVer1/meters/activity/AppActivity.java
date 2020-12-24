@@ -74,6 +74,7 @@ public class AppActivity extends AppCompatActivity implements NavigationView.OnN
         View header = sideBar.getHeaderView(0);
         ((TextView) header.findViewById(R.id.text)).setText(UserModel.getInstance().getLogin());
         View exit = sideBar.findViewById(R.id.exit);
+
         listUser = header.findViewById(R.id.spinnerUserListSwith);
         RelativeLayout swith = header.findViewById(R.id.swithParrent);
         TextView text = header.findViewById(R.id.text);

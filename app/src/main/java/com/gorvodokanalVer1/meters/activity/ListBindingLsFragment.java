@@ -48,6 +48,10 @@ public class ListBindingLsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        mDialog = new ProgressDialog(getContext());
+        mDialog.setMessage("Загрузка...");
+        mDialog.setCancelable(false);
+        mDialog.show();
 
         return inflater.inflate(R.layout.fragment_list_binding_ls, container, false);
 
@@ -58,7 +62,6 @@ public class ListBindingLsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         getBindingLs();
-
 
 
     }
@@ -72,7 +75,7 @@ public void getBindingLs(){
     request.makeRequest(requestUrl, new VolleyJsonSuccessCallback() {
         @Override
         public void onSuccess(JSONObject response) {
-
+            mDialog.dismiss();
             try {
                 if (!response.has("success")) {
 
@@ -86,6 +89,7 @@ public void getBindingLs(){
                     Toast.makeText(getContext(), "Не удалось получить список", Toast.LENGTH_LONG).show();
                     return;
                 }
+
                 JSONArray rows = response.getJSONArray("ls");
 
                 data = buildData(rows);

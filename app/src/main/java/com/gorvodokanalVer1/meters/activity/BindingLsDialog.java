@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,6 +65,9 @@ public class BindingLsDialog extends DialogFragment {
                 MaskImpl.createTerminated(slots)
         );
         formatWatcher.installOn(numberLsView);
+        EditText flat = view.findViewById(R.id.bindingFlat);
+        flat.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
+
 
         bindingButton = view.findViewById(R.id.bindingButton);
         bindingButton.setOnClickListener(new View.OnClickListener() {
