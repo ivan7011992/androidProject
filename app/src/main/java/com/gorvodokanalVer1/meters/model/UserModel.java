@@ -7,9 +7,9 @@ public class UserModel {
 
     private String login;
     private HashMap<Integer,String> ls;
-    private  String countSupportItems;
+    private  int countSupportItems;
 
-    private UserModel(String login, HashMap<Integer, String> ls, String countSupportItems) {
+    private UserModel(String login, HashMap<Integer, String> ls, int countSupportItems) {
         this.login = login;
         this.ls = ls;
         this.countSupportItems = countSupportItems;
@@ -25,7 +25,7 @@ public class UserModel {
         return login;
     }
 
-    public String getCountSupportItems() {
+    public int getCountSupportItems() {
         return countSupportItems;
     }
 
@@ -41,7 +41,7 @@ public class UserModel {
         return instance;
     }
 
-    public static void createInstance(String login, HashMap<Integer, String> ls,String countSupportItems) {
+    public static void createInstance(String login, HashMap<Integer, String> ls,int countSupportItems) {
         instance = new UserModel(login, ls,countSupportItems);
     }
 }

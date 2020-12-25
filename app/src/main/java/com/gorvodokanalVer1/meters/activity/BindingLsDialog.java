@@ -148,6 +148,12 @@ public class BindingLsDialog extends DialogFragment {
             Toast.makeText(getContext(), allErrors.toString(), Toast.LENGTH_LONG).show();
             return;
         }
+
+        String userLogin = UserModel.getInstance().getLogin();
+        if(requestData.get("numberLs").equals(userLogin)){
+            Toast.makeText(getContext(), "Привязываемый логин не должен совпадать с текущим", Toast.LENGTH_LONG).show();
+            return;
+        }
         PostRequest request = new PostRequest(mQueue);
         request.makeRequest(UrlCollection.BILDING_LS, new HashMap<String, Object>(requestData), new VolleyJsonSuccessCallback() {
             @Override
@@ -184,10 +190,11 @@ public class BindingLsDialog extends DialogFragment {
                     getDialog().dismiss();
                     UserModel.getInstance().addLs(userId,numberLs);
 
-                    final NavController navController = NavHostFragment.findNavController(BindingLsDialog.this);
-                    navController.popBackStack(R.id.generalInfoFragment,false);
+
                     Intent openSetting = new Intent(getActivity(), AppActivity.class);
-                      startActivity(openSetting);
+                    openSetting.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(openSetting);
+                    getActivity().finish();
 
                 } catch (Exception e) {
                     Log.e("valley", "error", e);

@@ -102,7 +102,7 @@ public class AppActivity extends AppCompatActivity implements NavigationView.OnN
             listUser.setSelection(loginList.indexOf(UserModel.getInstance().getLogin()));
             swith.removeView(text);
         }
-        //setMenuCounter(menu.findItem(R.id.supportFragment),UserModel.getInstance().getCountSupportItems());
+        setMenuCounter(R.id.supportFragment,UserModel.getInstance().getCountSupportItems());
 
 //        exit.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -190,7 +190,7 @@ public class AppActivity extends AppCompatActivity implements NavigationView.OnN
     private void setMenuCounter(@IdRes int itemId, int count) {
         NavigationView navigation = (NavigationView)findViewById(R.id.nav_view);
         TextView view = (TextView) navigation.getMenu().findItem(itemId).getActionView();
-        view.setText(count > 0 ? String.valueOf(count) : null);
+        view.setText( count > 0 ? "+" +  String.valueOf(count) : null);
     }
 
 
