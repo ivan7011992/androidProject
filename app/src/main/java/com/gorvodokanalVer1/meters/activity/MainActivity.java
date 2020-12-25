@@ -209,8 +209,9 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                         JSONObject currentLs = (JSONObject) lsList.get(i);
                         ls.put(Integer.parseInt(currentLs.getString("ID")), currentLs.getString("LOGIN"));
                     }
+                   String countSupportItems = response.getString("countSupportItems");
 
-                    UserModel.createInstance(loginValue, ls);
+                    UserModel.createInstance(loginValue, ls,countSupportItems);
                     Intent intent = new Intent(MainActivity.this, AppActivity.class);
                     startActivity(intent);
 

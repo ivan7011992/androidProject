@@ -3,6 +3,7 @@ package com.gorvodokanalVer1.meters.activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,6 +14,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.IdRes;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -37,6 +39,7 @@ public class AppActivity extends AppCompatActivity implements NavigationView.OnN
     Spinner listUser;
     private boolean wasSelected = false;
     Button buttonBindingLs;
+    private Menu menu;
 
 
 
@@ -66,6 +69,7 @@ public class AppActivity extends AppCompatActivity implements NavigationView.OnN
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_humburg);
         toolBar.setTitleTextColor(Color.WHITE);
+
 
 
         // toolBar.setTitleTextColor(Color.WHITE);
@@ -98,7 +102,7 @@ public class AppActivity extends AppCompatActivity implements NavigationView.OnN
             listUser.setSelection(loginList.indexOf(UserModel.getInstance().getLogin()));
             swith.removeView(text);
         }
-
+        //setMenuCounter(menu.findItem(R.id.supportFragment),UserModel.getInstance().getCountSupportItems());
 
 //        exit.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -182,5 +186,13 @@ public class AppActivity extends AppCompatActivity implements NavigationView.OnN
             e.printStackTrace();
         }
     }
+
+    private void setMenuCounter(@IdRes int itemId, int count) {
+        NavigationView navigation = (NavigationView)findViewById(R.id.nav_view);
+        TextView view = (TextView) navigation.getMenu().findItem(itemId).getActionView();
+        view.setText(count > 0 ? String.valueOf(count) : null);
+    }
+
+
 
 }
