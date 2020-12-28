@@ -21,7 +21,7 @@ public class Exit extends Fragment {
 
         getActivity().finish();
 
-
+        //System.exit (0);
 
         return inflater.inflate(R.layout.fragment_exit, container, false);
 

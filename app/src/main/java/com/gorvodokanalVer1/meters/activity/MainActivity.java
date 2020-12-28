@@ -3,6 +3,8 @@ package com.gorvodokanalVer1.meters.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.preference.PreferenceManager;
 
 import android.content.Context;
@@ -111,7 +113,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createAlertDialog("Код абонента", "Код абонента вводится в формате **-*******(пр.10-7777777)");
+                createAlertDialog("", "Поле 'Логин' соответствует коду лицевого счёта (Код абонента) и вводится в формате **-*******(пр.10-7777777)." + "\n" +
+                        "Код абонента отражен в кассовом чеке, либо уточнить по тел: 204-99-19.");
             }
         });
 
@@ -209,12 +212,13 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                         JSONObject currentLs = (JSONObject) lsList.get(i);
                         ls.put(Integer.parseInt(currentLs.getString("ID")), currentLs.getString("LOGIN"));
                     }
-                   String countSupportItems = response.getString("countSupportItems");
+                  String countSupportItems = response.getString("SupportItems");
                     int countSupport = Integer.parseInt(countSupportItems);
 
                     UserModel.createInstance(loginValue, ls,countSupport);
                     Intent intent = new Intent(MainActivity.this, AppActivity.class);
                     startActivity(intent);
+
 
                 } catch (Exception e) {
                     Log.e("valley", "error", e);

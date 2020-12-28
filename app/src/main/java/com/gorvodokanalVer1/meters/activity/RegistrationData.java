@@ -28,7 +28,7 @@ public class RegistrationData {
                 MaskImpl.createTerminated(slots)
         );
         formatWatcher.installOn(inputs.get(name));
-        inputs.get("flat").setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
+        inputs.get("flat").setInputType(InputType.TYPE_CLASS_NUMBER);
 
     }
 

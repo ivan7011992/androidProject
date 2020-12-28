@@ -143,8 +143,12 @@ public class BindingLsAdapter  extends RecyclerView.Adapter< BindingLsAdapter.Re
                   UserModel.getInstance().removeLs(item);
                     final NavController navController = NavHostFragment.findNavController(viewFragment);
                     navController.popBackStack(R.id.generalInfoFragment,false);
+
+
                     Intent openSetting = new Intent(viewFragment.getActivity(), AppActivity.class);
+                    openSetting.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     viewFragment.getActivity().startActivity(openSetting);
+                    viewFragment.getActivity().finish();
 
                 } catch (Exception e) {
                     Log.e("valley", "error", e);

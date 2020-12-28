@@ -66,7 +66,7 @@ public class BindingLsDialog extends DialogFragment {
         );
         formatWatcher.installOn(numberLsView);
         EditText flat = view.findViewById(R.id.bindingFlat);
-        flat.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
+        flat.setInputType(InputType.TYPE_CLASS_NUMBER);
 
 
         bindingButton = view.findViewById(R.id.bindingButton);
@@ -151,7 +151,7 @@ public class BindingLsDialog extends DialogFragment {
 
         String userLogin = UserModel.getInstance().getLogin();
         if(requestData.get("numberLs").equals(userLogin)){
-            Toast.makeText(getContext(), "Привязываемый логин не должен совпадать с текущим", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "Привязываемый ЛС не должен совпадать с текущим", Toast.LENGTH_LONG).show();
             return;
         }
         PostRequest request = new PostRequest(mQueue);

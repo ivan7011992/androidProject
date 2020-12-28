@@ -74,14 +74,15 @@ public class Registration extends AppCompatActivity {
         image2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createAlertDialog("Код абонента", "Код абонента вводится в формате **-*******(пр.10-7777777)");
+                createAlertDialog("", "Поле 'Логин' соответствует коду лицевого счёта (Код абонента) и вводится в формате **-*******(пр.10-7777777)." + "\n" +
+                        "Код абонента отражен в кассовом чеке, либо уточнить по тел: 204-99-19.");
             }
         });
         View imageFlat = findViewById(R.id.imageFlat);
         imageFlat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createAlertDialog("Квартира", "Квартира – квартира регистрации потребителя. Если у вас отсутствует номер квартиры, необходимо указать 0.");
+                createAlertDialog("", "Если отсутствует номер квартиры, необходимо указать цифру 0");
             }
         });
 
