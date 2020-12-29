@@ -81,6 +81,16 @@
         android:name="com.gorvodokanalVer1.meters.activity.ListBindingLsFragment"
 
         android:label="Список ЛС"
-        tools:layout="@layout/fragment_list_binding_ls" />
+        tools:layout="@layout/fragment_list_binding_ls" >
+        <action
+            android:id="@+id/action_listBindingLsFragment_to_contactsFragment"
+            app:destination="@id/contactsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/contactsFragment"
+        android:name="com.gorvodokanalVer1.meters.activity.ContactsFragment"
+        android:label="Контакты"
+        tools:layout="@layout/fragment_contacts"
+        />
 
 </navigation>

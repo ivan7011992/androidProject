@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/con3"
+    android:padding="15dp"
+
+    >
+
+    <TextView
+        android:id="@+id/headerContact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Номера телефонов:"
+        android:textSize="22dp"
+        android:textColor="#000000"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/headerContact"
+      android:background="#00FFFFFF"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        >
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:padding="5dp"
+    >
+    <TextView
+        android:id="@+id/qustionRaschet"
+        android:layout_width="wrap_content"
+        android:fontFamily="@font/roboto_medium"
+        android:layout_height="wrap_content"
+        android:text="По вопросам расчетов "
+        android:textSize="16dp"
+   android:layout_marginLeft="10dp"
+        android:textColor="#000000"
+
+       />
+    <TextView
+        android:id="@+id/qustionRaschetValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_medium"
+        android:text="204-99-19"
+        android:textSize="16dp"
+        android:layout_marginRight="10dp"
+        android:layout_alignParentRight="true"
+        android:textColor="#000000"
+
+        />
+</RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/headerContact"
+        android:background="#BCBCBC"
+        android:gravity="center"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="5dp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="По вопросам установки, \n замены,поверки ИПУ"
+                android:fontFamily="@font/roboto_medium"
+                android:layout_marginLeft="10dp"
+                android:textSize="16dp"
+
+                android:textColor="#000000"
+
+                />
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="204-95-66"
+                android:textSize="16dp"
+                android:fontFamily="@font/roboto_medium"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentRight="true"
+                android:textColor="#000000"
+
+                />
+        </RelativeLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/headerContact"
+        android:background="#00FFFFFF"
+        android:gravity="center"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="5dp"
+            >
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Центральная диспетчерская  \n служба"
+                android:textSize="16dp"
+                android:fontFamily="@font/roboto_medium"
+                android:textColor="#000000"
+
+                />
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="210-33-88 \n223-36-09"
+                android:textSize="16dp"
+                android:fontFamily="@font/roboto_medium"
+                android:layout_alignParentRight="true"
+                android:textColor="#000000"
+
+                />
+        </RelativeLayout>
+    </LinearLayout>
+
+
+</LinearLayout>
