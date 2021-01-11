@@ -152,8 +152,10 @@ public class AppActivity extends AppCompatActivity implements NavigationView.OnN
 
             UserModel.getInstance().setLogin(currentLogin);
                 Intent intent = new Intent(AppActivity.this, AppActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                // intent.putExtra("login",currentLogin );
                 startActivity(intent);
+               AppActivity.this.finish();
             }
         });
         swithAccount.sendDataAuth();
