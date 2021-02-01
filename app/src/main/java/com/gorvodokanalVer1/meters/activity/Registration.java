@@ -40,6 +40,8 @@ public class Registration extends AppCompatActivity {
     public EditText passwordUserConfirm;
     private static HashMap<String, EditText> dataRegistr = new HashMap<>();
 
+
+
     private static final HashMap<String, Integer> inputNames = new HashMap<>();
     static {
         inputNames.put("kod", R.id.kod);
@@ -135,6 +137,7 @@ public class Registration extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 registrationSubmitData(data.getData());
+
             }
         });
 
@@ -233,7 +236,7 @@ public class Registration extends AppCompatActivity {
                     Toast.makeText(Registration.this, "Регистрация  удалась", Toast.LENGTH_LONG).show();
                     int userId = response.getInt("userId");
 
-                    RegistrationFinalDialog dialog = new RegistrationFinalDialog(userId,((EditText) findViewById(R.id.emailReg)).getText().toString());
+                    RegistrationFinalDialog dialog = new RegistrationFinalDialog(userId,data.get("emailReg"),data.get("kod"), Registration.this);
 
                     dialog.show(getSupportFragmentManager(), "NoticeDialogFragment");
 

@@ -26,6 +26,7 @@ import java.util.Set;
 public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.RecycleViewViewHolder> {
     private HashMap<Integer, String> userInputData = new HashMap<>();
     TextView paymentSumTotalPay;
+    TextView deptPeriodEnd;
     private SummaryPaymentData paymentData;
     private  PaymentFragment paymentFragment;
 
@@ -40,6 +41,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.RecycleV
         public TextView nachisPeriodValue;
         public TextView oplataPeriodPaymentValue;
         public TextView deptPeriodValue;
+        public TextView deptPeriodEnd;
         public EditText paymentValue;
         public TextView paymentSum;
         public TextView title;
@@ -51,12 +53,14 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.RecycleV
             nachisPeriodValue = itemView.findViewById(R.id.nachisPeriodValue);
             oplataPeriodPaymentValue = itemView.findViewById(R.id.oplataPeriodPaymentValue);
             deptPeriodValue = itemView.findViewById(R.id.deptPeriodValue);
+            deptPeriodEnd = itemView.findViewById(R.id.deptPeriodEnd);
             paymentValue = itemView.findViewById(R.id.payment);
             paymentValue.setMaxLines(1);
             paymentValue.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
             paymentValue.setKeyListener(DigitsKeyListener.getInstance(true, true));
             title = itemView.findViewById(R.id.TitlePayment);
             paymentSum = itemView.findViewById(R.id.paymentSum);
+
         }
     }
 
@@ -80,6 +84,10 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.RecycleV
             ((ViewManager) entry.getParent()).removeView(entry);
             double sum =0;
             double totalSum = item.dept();
+            if(item.deptEnd()<0){
+                recycleViewViewHolder.deptPeriodEnd.setText("Переплата на конец периода");
+
+            }
             paymentFragment.setTextSum(sum,totalSum);
             TextView title = recycleViewViewHolder.title;
             title.setBackgroundResource(0);
@@ -119,11 +127,13 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.RecycleV
                 }
             });
         }
-
+        if(item.deptEnd()<0){
+            recycleViewViewHolder.deptPeriodEnd.setText("Переплата на конец периода");
+        }
         recycleViewViewHolder.deptBeginPeriodValue.setText(String.format("%.2f", item.getSALDO_BEGIN()));
         recycleViewViewHolder.nachisPeriodValue.setText(String.format("%.2f", item.getNACHISLENO()));
         recycleViewViewHolder.oplataPeriodPaymentValue.setText(String.format("%.2f", item.getOPLATA()));
-        recycleViewViewHolder.deptPeriodValue.setText(String.format("%.2f", item.dept()));
+        recycleViewViewHolder.deptPeriodValue.setText(String.format("%.2f", item.deptEnd()));
         recycleViewViewHolder.title.setText(String.valueOf(item.getNAME_USLUGI()));
 
 

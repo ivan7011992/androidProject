@@ -64,7 +64,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_below="@+id/headerContact"
-        android:background="#BCBCBC"
+        android:background="@drawable/selector"
         android:gravity="center"
         >
         <RelativeLayout
@@ -80,6 +80,7 @@
                 android:fontFamily="@font/roboto_medium"
                 android:layout_marginLeft="10dp"
                 android:textSize="16dp"
+
 
                 android:textColor="#000000"
 

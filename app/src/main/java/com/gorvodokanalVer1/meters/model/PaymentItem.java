@@ -38,6 +38,11 @@ public class PaymentItem {
         return dept;
     }
 
+    public double deptEnd() {
+        double dept;
+        dept = getSALDO_BEGIN() + getNACHISLENO() - getOPLATA();
+        return dept;
+    }
     public String getDATE_OT() {
         return DATE_OT;
     }

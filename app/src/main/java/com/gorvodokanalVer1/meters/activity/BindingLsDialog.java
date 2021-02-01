@@ -33,6 +33,7 @@ import com.gorvodokanalVer1.meters.net.UrlCollection;
 import com.gorvodokanalVer1.meters.net.VolleyJsonErrorCallback;
 import com.gorvodokanalVer1.meters.net.VolleyJsonSuccessCallback;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -183,12 +184,15 @@ public class BindingLsDialog extends DialogFragment {
 
 
                        Toast.makeText(getContext(), "Аккаунт привязан", Toast.LENGTH_LONG).show();
-                        String userIdS =  response.getString("userId");
-                        Integer userId =  Integer.parseInt(userIdS);
-
+                        JSONArray ls =  response.getJSONArray("ls");
+                        UserModel.getInstance().clearLs();
+                        for(int i=0; i< ls.length();i++){
+                           JSONObject lsItem =  ls.getJSONObject(i);
+                           UserModel.getInstance().addLs(lsItem.getInt("ID"), lsItem.getString("LOGIN"));
+                        }
 
                     getDialog().dismiss();
-                    UserModel.getInstance().addLs(userId,numberLs);
+
 
 
                     Intent openSetting = new Intent(getActivity(), AppActivity.class);

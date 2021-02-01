@@ -8,22 +8,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/dra8"
+
     >
 
 
-    <TextView
-        android:id="@+id/registrationFinealText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:text="Подтверждение регистрации"
-        android:paddingTop="17dp"
-        android:paddingBottom="17dp"
-        android:paddingLeft="0dp"
-        android:paddingRight="0dp"
-        android:textSize="18sp"
-        android:gravity="center"
-        />
 
     <RelativeLayout
         android:id="@+id/con3"
@@ -31,61 +19,154 @@
         android:layout_height="wrap_content"
         android:layout_margin="2dp"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="5dp">
 
+        <TextView
+            android:id="@+id/registrationFinealText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Подтверждение регистрации"
+            android:paddingTop="17dp"
+            android:paddingBottom="17dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
+            android:textSize="14sp"
+            android:gravity="center"
+
+            />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingcloseFinealRegDialog"
+            android:scaleType="center"
+            android:layout_width="39dp"
+            app:fabSize="mini"
+            android:layout_height="42dp"
+            android:layout_alignParentRight="true"
+            android:clickable="true"
+            android:layout_marginRight="0dp"
+            app:backgroundTint="#FFFFFF"
+            android:background="@drawable/ic_baseline_close_8"
+            app:srcCompat="@drawable/ic_baseline_close_24"
+            tools:ignore="VectorDrawableCompat" />
 
         <TextView
             android:id="@+id/confirmText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:fontFamily="@font/roboto_medium"
-            android:paddingRight="3dp"
-            android:text="Текст"
-            android:textSize="14sp"
+            android:layout_below="@+id/registrationFinealText"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/roboto"
             android:gravity="center"
-            android:textColor="#000000"/>
+            android:padding="5dp"
+            android:text="Абонент успешно зарегистрирован. На почтовый ящик : ivan701-1992@mail.ru выслано письмо с кодом активации.Введите код из письма в форме ниже: "
+            android:textColor="#000000"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:id="@+id/codeForm"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+           android:layout_below="@+id/confirmText">
+
+            <EditText
+                android:id="@+id/digitOne"
+                android:layout_width="20dp"
+                android:layout_height="40dp"
+                android:textSize="17dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/dra10"
+                android:textColorHint="#000000"
+                android:gravity="center"
+                android:ems="10"
+                android:inputType="phone"
+                android:textColor="#000000"
+                android:maxLength="1"
+
+                />
+
+
+            <EditText
+                android:id="@+id/digitTwo"
+                android:layout_width="20dp"
+                android:layout_height="40dp"
+                android:textSize="17dp"
+                android:background="@drawable/dra10"
+                android:textColorHint="#000000"
+                android:gravity="center"
+                android:ems="10"
+                android:layout_marginRight="10dp"
+                android:inputType="phone"
+                android:textColor="#000000"
+                android:maxLength="1"
+                />
+
+            <EditText
+                android:id="@+id/digitThree"
+                android:layout_width="20dp"
+                android:layout_height="40dp"
+                android:textSize="17dp"
+                android:background="@drawable/dra10"
+                android:textColorHint="#000000"
+                android:gravity="center"
+                android:ems="10"
+                android:inputType="phone"
+                android:layout_marginRight="10dp"
+                android:textColor="#000000"
+                android:maxLength="1"
+                />
+
+            <EditText
+                android:id="@+id/digitFour"
+                android:layout_width="20dp"
+                android:layout_height="40dp"
+                android:textSize="17dp"
+                android:background="@drawable/dra10"
+                android:textColorHint="#000000"
+                android:gravity="center"
+                android:ems="10"
+                android:inputType="phone"
+                android:layout_marginRight="10dp"
+                android:textColor="#000000"
+                android:maxLength="1"
+                />
+
+
+
+        </LinearLayout>
 
 
         <Button
-            android:id="@+id/buttonResentMail"
+            android:id="@+id/finishRegistration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/confirmText"
+            android:layout_below="@+id/codeForm"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="10dp"
-            android:text="Отправить повторно письмо с активацией"
-            android:background="@drawable/dra9"
+            android:text="Завершить регистрацию"
             android:layout_marginTop="30dp"
             android:textColor="#FFFFFF"
+            android:background="@drawable/dra20"
             android:textSize="11dp"
-            android:padding="8dp"
-            android:layout_centerHorizontal="true"/>
-
-        <EditText
-            android:id="@+id/editemailConfirm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/buttonResentMail"
-            android:layout_marginTop="20dp"
-            android:layout_centerHorizontal="true"
-            android:hint="Введите почту"
-            android:textColor="#000000"
-            />
-
-        <TextView
-            android:id="@+id/buttonCloseRegistration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/editemailConfirm"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="10dp"
-            android:text="Закрыть окно"
-            android:layout_marginTop="30dp"
-            android:textColor="#1a90d0"
-            android:textSize="14dp"
             android:padding="10dp"
             android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:id="@+id/noSendEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/finishRegistration"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="39dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/dra19"
+            android:padding="10dp"
+            android:text="Если не пришло письмо"
+            android:textColor="#000000"
+            android:textSize="14dp" />
     </RelativeLayout>
 
 

@@ -34,13 +34,14 @@
         android:id="@+id/digitOne"
         android:layout_width="20dp"
        android:layout_height="40dp"
-        android:textSize="11dp"
+        android:textSize="17dp"
         android:layout_marginRight="10dp"
         android:background="@drawable/dra10"
         android:textColorHint="#000000"
         android:gravity="center"
         android:ems="10"
         android:textColor="#000000"
+        android:maxLength="1"
 
         />
 
@@ -56,6 +57,7 @@
         android:ems="10"
         android:layout_marginRight="10dp"
         android:textColor="#000000"
+        android:maxLength="1"
         />
 
     <EditText
@@ -69,6 +71,7 @@
         android:ems="10"
         android:layout_marginRight="10dp"
         android:textColor="#000000"
+        android:maxLength="1"
         />
 
     <EditText
@@ -82,13 +85,14 @@
         android:ems="10"
         android:layout_marginRight="10dp"
         android:textColor="#000000"
+        android:maxLength="1"
         />
 
 
 
 </LinearLayout>
     <Button
-        android:id="@+id/changePawwordButton"
+        android:id="@+id/confirmEmail"
         android:layout_width="310dp"
         android:layout_height="60dp"
         android:layout_below="@+id/confirmationPassword"

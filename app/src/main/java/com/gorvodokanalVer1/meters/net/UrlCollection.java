@@ -13,7 +13,7 @@ public final class UrlCollection {
     public static final String SET_METERS =  BASE_URL + "set_meters.php";
     public static final String PAYMENT_METERS =  BASE_URL + "payment_meters.php";
     public static final String PAYMENT_GENERATE_URL =  BASE_URL + "payment_url_generation.php";
-    public static final String REGISTRATION_URL =  BASE_URL + "registration.php";
+    public static final String REGISTRATION_URL =  BASE_URL + "registration2.php";
     public static final String RESENDING_URL =  BASE_URL + "resendingMail.php";
     public static final String RECOVERY_URL =  BASE_URL + "recovery.php";
     public static final String GET_USER_INFO_URL =  BASE_URL + "user_get_info.php";
@@ -25,6 +25,7 @@ public final class UrlCollection {
     public static final String BILDING_LS =  BASE_URL + "bindingLs.php";
     public static final String GET_BINDING_LS =  BASE_URL + "getBindLs.php";
     public static final String REMOVE_BINDING_LS =  BASE_URL + "removeBindingLs.php";
+    public static final String CONFIRM_EMAIL =  BASE_URL + "confirm_email.php";
 
 
 }

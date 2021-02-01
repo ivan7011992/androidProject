@@ -1,5 +1,9 @@
 package com.gorvodokanalVer1.meters.model;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 
 public class UserModel {
@@ -44,4 +48,20 @@ public class UserModel {
     public static void createInstance(String login, HashMap<Integer, String> ls,int countSupportItems) {
         instance = new UserModel(login, ls,countSupportItems);
     }
+    public  static void createInstanceFromJson(JSONObject json) throws JSONException {
+        HashMap<Integer, String> ls = new HashMap<>();
+        JSONArray lsList = json.getJSONArray("ls");
+        for(int i = 0; i < lsList.length(); i++) {
+            JSONObject currentLs = (JSONObject) lsList.get(i);
+            ls.put(Integer.parseInt(currentLs.getString("ID")), currentLs.getString("LOGIN"));
+        }
+        Integer countSupportItems = Integer.parseInt(json.getString("SupportItems"));
+        String login = json.getString("login");
+        UserModel.createInstance(login,ls,countSupportItems);
+    }
+    public void clearLs(){
+        this.ls =  new HashMap<Integer, String>();
+    }
+
+
 }

@@ -3,6 +3,7 @@ package com.gorvodokanalVer1.meters.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.preference.PreferenceManager;
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     public boolean showPassword = false;
     public Button button2;
     public Button button3;
+    private static MainActivity instance;
 
     EditText login;
     private TextView email1;
@@ -69,12 +71,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-
-
-
-
+        instance = this;
         imageView = this.findViewById(R.id.image2);
         passwordUser = findViewById(R.id.password);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -141,6 +138,10 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
        layoutparams.topMargin = 15;
        button.setLayoutParams(layoutparams);
     }
+//     CheckConfirmEmailDialog checkConfirmEmailDialog = new CheckConfirmEmailDialog("10-6666666",3333,"ivan701-1992@mail.ru",MainActivity.this);
+//
+//        FragmentManager fm = getSupportFragmentManager();
+//        checkConfirmEmailDialog.show(fm, "NoticeDialogFragment");
 
     }
 
@@ -202,21 +203,25 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                         String errorMessage = response.getString("message");
 
 
+                        JSONArray rows = response.getJSONArray("data");
+                        JSONObject userData = (JSONObject) rows.getJSONObject(0);
+                      if(!response.getBoolean("status")){
+                          CheckConfirmEmailDialog checkConfirmEmailDialog = new CheckConfirmEmailDialog(loginValue,userData.getInt("ID"),userData.getString("EMAIL"),MainActivity.this);
+                          FragmentManager fm = getSupportFragmentManager();
+                          checkConfirmEmailDialog.show(fm, "NoticeDialogFragment");
+
+
+                      }
+
                         Toast.makeText(MainActivity.this, String.valueOf(errorMessage), Toast.LENGTH_LONG).show();
                         return;
                     }
 
-                    HashMap<Integer, String> ls = new HashMap<>();
-                    JSONArray lsList = response.getJSONArray("ls");
-                    for(int i = 0; i < lsList.length(); i++) {
-                        JSONObject currentLs = (JSONObject) lsList.get(i);
-                        ls.put(Integer.parseInt(currentLs.getString("ID")), currentLs.getString("LOGIN"));
-                    }
-                 // String countSupportItems = response.getString("SupportItems");
-                    String countSupportItems = "0";
-                    int countSupport = Integer.parseInt(countSupportItems);
 
-                    UserModel.createInstance(loginValue, ls,countSupport);
+
+
+
+                    UserModel.createInstanceFromJson(response);
                     Intent intent = new Intent(MainActivity.this, AppActivity.class);
                     startActivity(intent);
 
@@ -296,6 +301,14 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
     }
 
+    public static MainActivity getInstance() {
+        return instance;
+    }
+public   void confirmCodeView(String login){
+        ConfirmCode confirmCode = new ConfirmCode(login,this);
+        FragmentManager fm = getSupportFragmentManager();
+        confirmCode.show(fm, "NoticeDialogFragment");
+    }
 
 }
 //сделать страницу на сервере для полуение дданных
