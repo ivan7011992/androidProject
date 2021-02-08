@@ -123,7 +123,7 @@ public class BindingLsDialog extends DialogFragment {
         emptyErrorMessages.put("bindingStreet", "Введите улицу");
         emptyErrorMessages.put("bindingHouse", "Введите дом");
         emptyErrorMessages.put("bindingFlat", "Введите квартиру");
-        emptyErrorMessages.put("binfingFio", "Введите Введите фамилию");
+        emptyErrorMessages.put("binfingFio", "Введите фамилию");
 
 
         ArrayList<String> errors = new ArrayList<>();

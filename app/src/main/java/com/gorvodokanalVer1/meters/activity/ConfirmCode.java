@@ -11,6 +11,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +35,7 @@ import com.gorvodokanalVer1.meters.net.VolleyJsonSuccessCallback;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -61,28 +64,21 @@ public ConfirmCode(String login, Activity activity ){
 
         confirmEmail.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                setCodeConfirm();
-                getDialog().dismiss();
+
+                setCodeConfirm(getCode());
+
 
             }
         });
 
-
+        enableSubmitButton(view);
         return view;
     }
 
-   public void setCodeConfirm(){
-
-       String confirmDigatal1 = ((EditText) getView().findViewById(R.id.digitOne)).getText().toString();
-       String confirmDigatal2 = ((EditText) getView().findViewById(R.id.digitTwo)).getText().toString();
-       String confirmDigatal3 = ((EditText) getView().findViewById(R.id.digitThree)).getText().toString();
-       String confirmDigatal4 = ((EditText) getView().findViewById(R.id.digitFour)).getText().toString();
+   public void setCodeConfirm(String code){
 
 
-       String code = confirmDigatal1 + confirmDigatal2 + confirmDigatal3 + confirmDigatal4;
        final RequestQueue mQueue = RequestQueueSingleton.getInstance(getContext());
-
-
 
        Map<String, Object> requestData = new HashMap<>();
 
@@ -96,18 +92,20 @@ public ConfirmCode(String login, Activity activity ){
                        try {
                            if (!response.has("success")) {
                                Log.e("server", String.format("Error response from url %s: %s", UrlCollection.AUTH_URL, response.toString()));
-                               Toast.makeText(getContext(), "Неизвестная ошибка, попробуйте еще раз", Toast.LENGTH_LONG).show();
+                               Toast.makeText(mActivity, "Неизвестная ошибка, попробуйте еще раз", Toast.LENGTH_LONG).show();
                                return;
                            }
                            final boolean isSuccess = response.getBoolean("success");
                           if(!isSuccess){
-                              Toast.makeText(getContext(), "Неудалось активировать аккаунт, попробуйте повторить попытку позже", Toast.LENGTH_LONG).show();
+                              Toast.makeText(mActivity, response.getString("message"), Toast.LENGTH_LONG).show();
                               return;
                           }
                            UserModel.createInstanceFromJson(response.getJSONObject("userData"));
+                           Toast.makeText(mActivity, "Аккаунт активирован", Toast.LENGTH_LONG).show();
+                           getDialog().dismiss();
                            Intent intent = new Intent(mActivity, AppActivity.class);
                            mActivity.startActivity(intent);
-                           Toast.makeText(getContext(), "Аккаунт акктивирован", Toast.LENGTH_LONG).show();
+
                        } catch (Exception e) {
                            Log.e("valley", "error", e);
                        }
@@ -123,5 +121,82 @@ public ConfirmCode(String login, Activity activity ){
 
 
    }
+    private String getCode() {
 
+        String confirmDigatal1 = ((EditText) getView().findViewById(R.id.digitOne)).getText().toString();
+        String confirmDigatal2 = ((EditText) getView().findViewById(R.id.digitTwo)).getText().toString();
+        String confirmDigatal3 = ((EditText) getView().findViewById(R.id.digitThree)).getText().toString();
+        String confirmDigatal4 = ((EditText) getView().findViewById(R.id.digitFour)).getText().toString();
+
+        return confirmDigatal1 + confirmDigatal2 + confirmDigatal3 + confirmDigatal4;
+
+    }
+
+    private void enableSubmitButton(View view) {
+        ArrayList<EditText> listInput = new ArrayList<>();
+        int[] inpitId = {R.id.digitOne, R.id.digitTwo, R.id.digitThree, R.id.digitFour};
+        for (int inoutId : inpitId) {
+            listInput.add((EditText) view.findViewById(inoutId));
+        }
+
+
+        for (int i = 0; i < listInput.size(); i++) {
+
+
+            final int finalI = i;
+            listInput.get(i).addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+
+                    if (editable.toString().isEmpty()) {
+//                        if (finalI > 0) {
+//                            EditText nextInput = listInput.get(finalI - 1);
+//                            nextInput.requestFocus();
+//                        }
+                    }else{
+                        if (finalI < listInput.size() - 1) {
+                            EditText nextInput = listInput.get(finalI + 1);
+                            nextInput.requestFocus();
+                        }
+                    }
+                }
+
+            });
+
+
+            listInput.get(i).addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    String code = getCode();
+                    if (code.length() != 4) {
+                        Toast.makeText(getContext(), "Введие код", Toast.LENGTH_LONG).show();
+                    }
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+
+                }
+            });
+        }
+
+    }
 }

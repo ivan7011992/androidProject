@@ -16,6 +16,7 @@ public final class RequestQueueSingleton {
            final CookieManager manager = new CookieManager();
            CookieHandler.setDefault(manager);
 
+
            mQueue =  Volley.newRequestQueue(context);
        }
        return mQueue;

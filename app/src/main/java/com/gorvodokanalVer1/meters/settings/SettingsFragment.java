@@ -39,64 +39,15 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         findPreference("change_password").setOnPreferenceClickListener(preference -> showChangePasswordFragment());
         findPreference("change_email").setOnPreferenceClickListener(preference -> showChangeEmailFragment());
-        getStatusConfirmEmail();
 
-
+ if(!UserModel.getInstance().isStatus()) {
+     ConfirmedDialogMessage confirmedDialogMessage = new ConfirmedDialogMessage(UserModel.getInstance().getEmail());
+     confirmedDialogMessage.setTargetFragment(SettingsFragment.this, 1);
+     confirmedDialogMessage.show(SettingsFragment.this.getFragmentManager(), "MyCustomDialog");
+ }
     }
 
-    public void getStatusConfirmEmail() {
-        final RequestQueue mQueue = RequestQueueSingleton.getInstance(getContext());
-        PostRequest request = new PostRequest(mQueue);
-        Map<String, Object> requestData = new HashMap<>();
-        requestData.put("login", "10-6666666");
 
-        request.makeRequest(UrlCollection.GET_STATUS_CONFIRM_EMAIL, requestData, new VolleyJsonSuccessCallback() {
-            @Override
-            public void onSuccess(JSONObject response) {
-                try {
-                    if (!response.has("success")) {
-                        Log.e("server", String.format("Error response from url %s: %s", UrlCollection.AUTH_URL, response.toString()));
-                        Toast.makeText(getContext(), "Неизвестная ошибка, попробуйте еще раз", Toast.LENGTH_LONG).show();
-                        return;
-                    }
-                    final boolean isSuccess = response.getBoolean("success");
-
-                    if (!isSuccess) {
-
-
-                        String errorMessage = response.getString("message");
-
-
-                       // JSONArray rows = response.getJSONArray("data");
-                       // JSONObject userData = (JSONObject) rows.getJSONObject(0);
-                        JSONObject emailObject = response.getJSONObject("data");
-                        String email = emailObject.getString("EMAIL");
-                        ConfirmedDialogMessage confirmedDialogMessage = new ConfirmedDialogMessage(email);
-                        confirmedDialogMessage.setTargetFragment(SettingsFragment.this, 1);
-                        confirmedDialogMessage.show(SettingsFragment.this.getFragmentManager(), "MyCustomDialog");
-
-                       Toast.makeText(getContext(), String.valueOf(errorMessage), Toast.LENGTH_LONG).show();
-                        return;
-                    }
-
-
-
-                } catch (Exception e) {
-                    Log.e("valley", "error", e);
-                }
-            }
-        }, new VolleyJsonErrorCallback() {
-            @Override
-            public void onError(VolleyError error) {
-
-                showErrorDialog();
-            }
-
-
-        });
-
-
-    }
 
     private void showErrorDialog() {
 

@@ -47,8 +47,7 @@ public class ChangePasswordDialog extends DialogFragment {
 
     private void processUserData() {
 
-        SettingsFragment confirm = new SettingsFragment();
-        confirm.getStatusConfirmEmail();
+
         String oldPassword = ((EditText) getView().findViewById(R.id.oldPassword)).getText().toString();
         String newPassword = ((EditText) getView().findViewById(R.id.newPassword)).getText().toString();
         String confirmationPassword = ((EditText) getView().findViewById(R.id.confirmationPassword)).getText().toString();

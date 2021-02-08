@@ -33,7 +33,7 @@ public class PaymentItem {
         double dept;
         dept = getSALDO_BEGIN() + getNACHISLENO() - getOPLATA();
         if(dept<0){
-            dept = 0;
+           dept = 0;
         }
         return dept;
     }

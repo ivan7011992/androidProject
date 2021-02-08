@@ -48,7 +48,7 @@
             android:layout_marginTop="15dp"
             android:padding="20dp"
             android:paddingRight="3dp"
-            android:text="Вопрос отправлен.Ответ будет дан в разделе 'Поддержка' позже или выслан по электронной почте"
+            android:text="Вопрос отправлен\nОтвет будет дан в разделе 'Поддержка' позже или выслан по электронной почте."
             android:textSize="14dp"
             android:layout_centerHorizontal="true"
             android:gravity="center"

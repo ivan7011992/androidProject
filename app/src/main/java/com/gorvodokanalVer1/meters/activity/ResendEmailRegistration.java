@@ -56,7 +56,7 @@ public class ResendEmailRegistration extends DialogFragment {
 
 
 
-        ((TextView) view.findViewById(R.id.textResentEmail)).setText("Если вам не пришло письмо на почту, то проверьте корректность введенных вами данных.Email:" + emailReg +" Если почта указана неверно, у вас есть возможность изменить электронный адрес, указав новую почту в поле ниже");
+        ((TextView) view.findViewById(R.id.textResentEmail)).setText("Если вам не пришло письмо на почту, то проверьте корректность введенных вами данных(" + emailReg +") \n Если почта указана неверно, у вас есть возможность изменить электронный адрес, указав новую почту в поле ниже");
         //EditText editemailConfirm =  view.findViewById(R.id.editemailResent);
        // String emailReg =editemailConfirm.getText().toString();
 

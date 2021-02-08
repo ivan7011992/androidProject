@@ -4,11 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
-import androidx.navigation.NavController;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.preference.PreferenceManager;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,11 +14,9 @@ import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,7 +38,12 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.net.CookieHandler;
+import java.net.CookieManager;
+import java.net.CookieStore;
+import java.net.HttpCookie;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import ru.tinkoff.decoro.MaskImpl;
@@ -61,7 +61,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     public Button button2;
     public Button button3;
     private static MainActivity instance;
-
     EditText login;
     private TextView email1;
     public Button button;
@@ -132,16 +131,23 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             }
 
         });
-        float height = this.getResources().getDisplayMetrics().heightPixels/this.getResources().getDisplayMetrics().density;
-    if(height<600){
-        RelativeLayout.LayoutParams layoutparams = (RelativeLayout.LayoutParams) button.getLayoutParams();
-       layoutparams.topMargin = 15;
-       button.setLayoutParams(layoutparams);
-    }
-//     CheckConfirmEmailDialog checkConfirmEmailDialog = new CheckConfirmEmailDialog("10-6666666",3333,"ivan701-1992@mail.ru",MainActivity.this);
-//
-//        FragmentManager fm = getSupportFragmentManager();
-//        checkConfirmEmailDialog.show(fm, "NoticeDialogFragment");
+        float height = this.getResources().getDisplayMetrics().heightPixels / this.getResources().getDisplayMetrics().density;
+        if (height < 600) {
+            RelativeLayout.LayoutParams layoutparams = (RelativeLayout.LayoutParams) button.getLayoutParams();
+            layoutparams.topMargin = 15;
+            button.setLayoutParams(layoutparams);
+        }
+
+        login = findViewById(R.id.login);
+
+        login.setText(SettingsManager. getInstanse().getlogin(this));
+
+        String cookies = SettingsManager.getInstanse().getCookies(this);
+        if(cookies != null) {
+            CookieManager cookieManager = (CookieManager) CookieHandler.getDefault();
+            CookieStore cookieStore = cookieManager.getCookieStore();
+            //      cookieStore.add();//добавть куки
+        }
 
     }
 
@@ -171,7 +177,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     }
 
     public void formSubmit(View view) {
-        login = findViewById(R.id.login);
+
+
         final EditText password = findViewById(R.id.password);
 
 
@@ -201,23 +208,32 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
 
                         String errorMessage = response.getString("message");
+                        if (response.has("status")) {
+                        if (!response.getBoolean("status")) {
 
+                            JSONArray rows = response.getJSONArray("data");
+                            JSONObject userData = (JSONObject) rows.getJSONObject(0);
+                            CheckConfirmEmailDialog checkConfirmEmailDialog = new CheckConfirmEmailDialog(loginValue, userData.getInt("ID"), userData.getString("EMAIL"), MainActivity.this);
 
-                        JSONArray rows = response.getJSONArray("data");
-                        JSONObject userData = (JSONObject) rows.getJSONObject(0);
-                      if(!response.getBoolean("status")){
-                          CheckConfirmEmailDialog checkConfirmEmailDialog = new CheckConfirmEmailDialog(loginValue,userData.getInt("ID"),userData.getString("EMAIL"),MainActivity.this);
-                          FragmentManager fm = getSupportFragmentManager();
-                          checkConfirmEmailDialog.show(fm, "NoticeDialogFragment");
+                            FragmentManager fm = getSupportFragmentManager();
+                            checkConfirmEmailDialog.show(fm, "NoticeDialogFragment");
 
-
-                      }
+                        }
+                        }
 
                         Toast.makeText(MainActivity.this, String.valueOf(errorMessage), Toast.LENGTH_LONG).show();
                         return;
                     }
+                    String loginValueShared = login.getText().toString();
+                    SettingsManager. getInstanse().savelogin(MainActivity.this, loginValueShared);
+                    CookieManager cookieManager = (CookieManager) CookieHandler.getDefault();
+                    List<HttpCookie> coookies = cookieManager.getCookieStore().getCookies();
 
-
+                    StringBuilder cookieStr = new StringBuilder();
+                    for (HttpCookie cookie : coookies){
+                       cookieStr.append(cookie.getName() + "=" + cookie.getValue());
+                        cookieStr.append(";");
+                    }
 
 
 
@@ -295,7 +311,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         sharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
     }
 
-    private void  showErrorDialog(){
+    private void showErrorDialog() {
 
         Toast.makeText(this, "Произошла ошибка, попробуйте повторить попытку позже", Toast.LENGTH_LONG).show();
 
@@ -304,8 +320,9 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     public static MainActivity getInstance() {
         return instance;
     }
-public   void confirmCodeView(String login){
-        ConfirmCode confirmCode = new ConfirmCode(login,this);
+
+    public void confirmCodeView(String login) {
+        ConfirmCode confirmCode = new ConfirmCode(login, this);
         FragmentManager fm = getSupportFragmentManager();
         confirmCode.show(fm, "NoticeDialogFragment");
     }

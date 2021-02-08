@@ -127,9 +127,9 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.RecycleV
                 }
             });
         }
-        if(item.deptEnd()<0){
-            recycleViewViewHolder.deptPeriodEnd.setText("Переплата на конец периода");
-        }
+//        if(item.deptEnd()<0){
+//            recycleViewViewHolder.deptPeriodEnd.setText("Переплата на конец периода");
+//        }
         recycleViewViewHolder.deptBeginPeriodValue.setText(String.format("%.2f", item.getSALDO_BEGIN()));
         recycleViewViewHolder.nachisPeriodValue.setText(String.format("%.2f", item.getNACHISLENO()));
         recycleViewViewHolder.oplataPeriodPaymentValue.setText(String.format("%.2f", item.getOPLATA()));

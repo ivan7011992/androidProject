@@ -76,9 +76,9 @@ public class BindingLsDialogGroup extends DialogFragment {
                         "\n" +
                         "1)Должен быть открыт лицевой счёт\n" +
                         "\n" +
-                        "2)Электронные адреса текущего и привязываемого аккаунта должны совпадать\n" +
+                        "2)Email текущего и привязываемого аккаунта должны совпадать\n" +
                         "\n" +
-                        "3)Почта должна быть подтверждена\n" +
+                        "3)Почта привязываемого аккаунта должна быть подтверждена\n" +
                         "\n" );
             }
         });
@@ -96,9 +96,7 @@ public class BindingLsDialogGroup extends DialogFragment {
         String lsnumber = "";
         String flat = "";
         String numberLs = ((EditText) view.findViewById(R.id.numberLs)).getText().toString();
-        TextView textBindLs =  view.findViewById(R.id.TextBindLs);
-        textBindLs.setText("На электронной почте" + email   +  " уже есть привязанные счета.\n" +
-                "         Если хотите привязать текущий ЛС,"  + lsnumber  + "то нажмите кнопку «Принять»");
+
 
         Map<String, String> requestData = new HashMap<>();
         requestData.put("numberLs", numberLs);

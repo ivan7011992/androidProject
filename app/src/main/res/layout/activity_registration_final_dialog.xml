@@ -44,7 +44,7 @@
             android:layout_alignParentRight="true"
             android:clickable="true"
             android:layout_marginRight="0dp"
-            app:backgroundTint="#FFFFFF"
+            app:backgroundTint="#FFF1F0F0"
             android:background="@drawable/ic_baseline_close_8"
             app:srcCompat="@drawable/ic_baseline_close_24"
             tools:ignore="VectorDrawableCompat" />
@@ -59,7 +59,7 @@
             android:fontFamily="@font/roboto"
             android:gravity="center"
             android:padding="5dp"
-            android:text="Абонент успешно зарегистрирован. На почтовый ящик : ivan701-1992@mail.ru выслано письмо с кодом активации.Введите код из письма в форме ниже: "
+            android:text="Абонент успешно зарегистрирован. \n На почтовый ящик : ivan701-1992@mail.ru выслано письмо с кодом активации.Введите код из письма в форме ниже: "
             android:textColor="#000000"
             android:textSize="14sp" />
 

@@ -17,6 +17,7 @@ import android.view.Window;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -237,8 +238,16 @@ public class RegistrationFinalDialog extends DialogFragment {
                     String code = getCode();
                     if (code.length() != 4) {
                         finishRegistration.setBackgroundResource(R.drawable.dra20);
+                        int paddingDp = 10;
+                        float density = getContext().getResources().getDisplayMetrics().density;
+                        int paddingPixel = (int)(paddingDp * density);
+                        finishRegistration.setPadding(paddingPixel,paddingPixel,paddingPixel,paddingPixel);
                     } else {
                         finishRegistration.setBackgroundResource(R.drawable.dra9);
+                        int paddingDp = 10;
+                        float density = getContext().getResources().getDisplayMetrics().density;
+                        int paddingPixel = (int)(paddingDp * density);
+                        finishRegistration.setPadding(paddingPixel,paddingPixel,paddingPixel,paddingPixel);
                     }
 
                 }

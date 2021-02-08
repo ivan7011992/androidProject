@@ -34,8 +34,8 @@ public class RecoveryFinalDialog extends DialogFragment {
         }
         TextView closeDialog  = (TextView) view.findViewById(R.id.buttonCloseRecovery);
 
-        ((TextView) view.findViewById(R.id.RecoveryFinalText)).setText("На почтовый ящик" + " " + email +" "
-                + "выслано письмо с инструкцией по восстановлению пароля.");
+        ((TextView) view.findViewById(R.id.RecoveryFinalText)).setText("Для восстановления пароля на почтовый ящик" + " " + email +" "
+                + "выслан временный код. Используйте его при авторизации ");
 
         closeDialog.setOnClickListener(new View.OnClickListener() {
             @Override
