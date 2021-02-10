@@ -10,6 +10,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.UserManager;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.MenuItem;
@@ -42,6 +43,7 @@ import java.net.CookieHandler;
 import java.net.CookieManager;
 import java.net.CookieStore;
 import java.net.HttpCookie;
+import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -76,10 +78,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         setIntervalFromSharedPrefarences(sharedPreferences);
         button = findViewById(R.id.button);
-        //  buttom.getBackground().setAlpha(64);
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
         RegistrationData data = new RegistrationData();
-
         login = findViewById(R.id.login);
         login.setMaxLines(1);
         Slot[] slots = new UnderscoreDigitSlotsParser().parseSlots("__-_______");
@@ -104,7 +104,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             }
 
         });
-
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,35 +139,42 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         login = findViewById(R.id.login);
 
-        login.setText(SettingsManager. getInstanse().getlogin(this));
+        login.setText(SettingsManager.getInstanse().getlogin(this));
+
 
         String cookies = SettingsManager.getInstanse().getCookies(this);
-        if(cookies != null) {
-            CookieManager cookieManager = (CookieManager) CookieHandler.getDefault();
-            CookieStore cookieStore = cookieManager.getCookieStore();
-            //      cookieStore.add();//добавть куки
-        }
+//        if (cookies != null) {
+//            RequestQueueSingleton.getInstance(this);
+//            CookieManager cookieManager = (CookieManager) CookieHandler.getDefault();
+//            CookieStore cookieStore = cookieManager.getCookieStore();
+//
+//
+//            String[] cookiesParth = cookies.split(";", 0);
+//            for (String cookieParthValue : cookiesParth) {
+//                String[] cookieParthValueArray = cookieParthValue.split("=");
+//                HttpCookie httpCookie = new HttpCookie(cookieParthValueArray[0], cookieParthValueArray[1]);
+//                cookieStore.add(URI.create("www.gorvodokanal.com"), httpCookie);
+//            }
+//            Intent intent = new Intent(this, AppActivity.class);
+//            startActivity(intent);
+//
+//
+//        }
 
     }
 
     private void createAlertDialog(String title, String content) {
-        // объект Builder для создания диалогового окна
+
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        // добавляем различные компоненты в диалоговое окно
         builder.setTitle(title);
         builder.setMessage(content);
-        // устанавливаем кнопку, которая отвечает за позитивный ответ
         builder.setPositiveButton("OK",
-                // устанавливаем слушатель
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,
                                         int which) {
-                        // по нажатию создаем всплывающее окно с типом нажатой конпки
 
                     }
                 });
-        // объект Builder создал диалоговое окно и оно готово появиться на экране
-        // вызываем этот метод, чтобы показать AlertDialog на экране пользователя
         builder.show();
     }
 
@@ -181,14 +187,12 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         final EditText password = findViewById(R.id.password);
 
-
         final String loginValue = login.getText().toString();
         String passwordValue = password.getText().toString();
 
         Map<String, Object> requestData = new HashMap<>();
         requestData.put("login", loginValue);
         requestData.put("password", passwordValue);
-
 
         final RequestQueue mQueue = RequestQueueSingleton.getInstance(this);
 
@@ -205,42 +209,38 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                     final boolean isSuccess = response.getBoolean("success");
 
                     if (!isSuccess) {
-
-
                         String errorMessage = response.getString("message");
                         if (response.has("status")) {
-                        if (!response.getBoolean("status")) {
+                            if (!response.getBoolean("status")) {
 
-                            JSONArray rows = response.getJSONArray("data");
-                            JSONObject userData = (JSONObject) rows.getJSONObject(0);
-                            CheckConfirmEmailDialog checkConfirmEmailDialog = new CheckConfirmEmailDialog(loginValue, userData.getInt("ID"), userData.getString("EMAIL"), MainActivity.this);
+                                JSONArray rows = response.getJSONArray("data");
+                                JSONObject userData = (JSONObject) rows.getJSONObject(0);
+                                CheckConfirmEmailDialog checkConfirmEmailDialog = new CheckConfirmEmailDialog(loginValue, userData.getInt("ID"), userData.getString("EMAIL"), MainActivity.this);
 
-                            FragmentManager fm = getSupportFragmentManager();
-                            checkConfirmEmailDialog.show(fm, "NoticeDialogFragment");
-
+                                FragmentManager fm = getSupportFragmentManager();
+                                checkConfirmEmailDialog.show(fm, "NoticeDialogFragment");
+                            }
                         }
-                        }
-
                         Toast.makeText(MainActivity.this, String.valueOf(errorMessage), Toast.LENGTH_LONG).show();
                         return;
                     }
                     String loginValueShared = login.getText().toString();
-                    SettingsManager. getInstanse().savelogin(MainActivity.this, loginValueShared);
+                    SettingsManager.getInstanse().savelogin(MainActivity.this, loginValueShared);
                     CookieManager cookieManager = (CookieManager) CookieHandler.getDefault();
                     List<HttpCookie> coookies = cookieManager.getCookieStore().getCookies();
 
                     StringBuilder cookieStr = new StringBuilder();
-                    for (HttpCookie cookie : coookies){
-                       cookieStr.append(cookie.getName() + "=" + cookie.getValue());
+                    for (HttpCookie cookie : coookies) {
+                        cookieStr.append(cookie.getName() + "=" + cookie.getValue());
                         cookieStr.append(";");
                     }
 
+                    SettingsManager.getInstanse().saveCookies(MainActivity.this, cookieStr.toString());
 
 
                     UserModel.createInstanceFromJson(response);
                     Intent intent = new Intent(MainActivity.this, AppActivity.class);
                     startActivity(intent);
-
 
                 } catch (Exception e) {
                     Log.e("valley", "error", e);
@@ -253,9 +253,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                 showErrorDialog();
             }
 
-
         });
-
 
     }
 
@@ -293,9 +291,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         Log.i("email", "" + email);
         SettingVariable.password = password;
 
-
     }
-
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {

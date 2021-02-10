@@ -50,7 +50,6 @@ public class ConfirmedDialogMessage extends DialogFragment {
         myFab = (FloatingActionButton) view.findViewById(R.id.floatingcloseConfirmDialog);
 
 
-
        myFab.setOnClickListener(new View.OnClickListener() {
            public void onClick(View v) {
               getDialog().dismiss();
