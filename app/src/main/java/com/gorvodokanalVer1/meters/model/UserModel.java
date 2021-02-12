@@ -15,8 +15,17 @@ public class UserModel {
     private boolean status;
     private  String email;
     private int userId;
+    private int statusAuth = 0;
 
-    private UserModel(String login, HashMap<Integer, String> ls, int countSupportItems, boolean status,String email,int userId) {
+    public void setStatusAuth(int statusAuth) {
+        this.statusAuth = statusAuth;
+    }
+
+    public int getStatusAuth() {
+        return statusAuth;
+    }
+
+    private UserModel(String login, HashMap<Integer, String> ls, int countSupportItems, boolean status, String email, int userId) {
         this.login = login;
         this.ls = ls;
         this.countSupportItems = countSupportItems;

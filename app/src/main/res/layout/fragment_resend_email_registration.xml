@@ -38,25 +38,21 @@
 
 
             />
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
 
-         >
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingcloseDialogResent"
-            android:scaleType="center"
+            android:layout_height="42dp"
             android:layout_width="39dp"
             app:fabSize="mini"
-            android:layout_height="42dp"
-         android:layout_gravity="top|right"
+            app:elevation="0dp"
+            app:pressedTranslationZ="0dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
             android:layout_margin="5dp"
             android:clickable="true"
-            android:layout_marginRight="0dp"
             app:backgroundTint="#FFF1F0F0"
-            android:src="@drawable/ic_baseline_close_24"
-            tools:ignore="VectorDrawableCompat" />
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+            android:src="@drawable/ic_baseline_close_24" />
+
         <TextView
             android:id="@+id/textResentEmail"
             android:layout_width="wrap_content"

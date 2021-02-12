@@ -39,17 +39,17 @@
             />
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingcloseDialogSendMail"
-            android:scaleType="center"
+            android:layout_height="42dp"
             android:layout_width="39dp"
             app:fabSize="mini"
-            android:layout_height="42dp"
+            app:elevation="0dp"
+            app:pressedTranslationZ="0dp"
             android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="5dp"
             android:clickable="true"
-            android:layout_marginRight="0dp"
             app:backgroundTint="#FFF1F0F0"
-            android:background="@drawable/ic_baseline_close_8"
-            app:srcCompat="@drawable/ic_baseline_close_24"
-            tools:ignore="VectorDrawableCompat" />
+            android:src="@drawable/ic_baseline_close_24" />
 
         <TextView
             android:id="@+id/texSentEmail"

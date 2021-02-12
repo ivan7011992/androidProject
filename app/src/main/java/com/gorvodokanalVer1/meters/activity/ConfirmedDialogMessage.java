@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,9 +48,11 @@ public class ConfirmedDialogMessage extends DialogFragment {
         }
         Button buttonConfirm = (Button) view.findViewById(R.id.buttonConfirm);
         ((TextView) view.findViewById(R.id.emailConfirm)).setText(email);
-        myFab = (FloatingActionButton) view.findViewById(R.id.floatingcloseConfirmDialog);
+        myFab =  view.findViewById(R.id.floatingcloseConfirmDialog);
 
-
+        RelativeLayout.LayoutParams layoutparams = (RelativeLayout.LayoutParams) myFab.getLayoutParams();
+        layoutparams.setMargins(0, 0, 0, 0);
+        myFab.setLayoutParams(layoutparams);
        myFab.setOnClickListener(new View.OnClickListener() {
            public void onClick(View v) {
               getDialog().dismiss();

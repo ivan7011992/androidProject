@@ -143,24 +143,26 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
 
         String cookies = SettingsManager.getInstanse().getCookies(this);
-//        if (cookies != null) {
-//            RequestQueueSingleton.getInstance(this);
-//            CookieManager cookieManager = (CookieManager) CookieHandler.getDefault();
-//            CookieStore cookieStore = cookieManager.getCookieStore();
-//
-//
-//            String[] cookiesParth = cookies.split(";", 0);
-//            for (String cookieParthValue : cookiesParth) {
-//                String[] cookieParthValueArray = cookieParthValue.split("=");
-//                HttpCookie httpCookie = new HttpCookie(cookieParthValueArray[0], cookieParthValueArray[1]);
-//                cookieStore.add(URI.create("www.gorvodokanal.com"), httpCookie);
-//            }
-//            Intent intent = new Intent(this, AppActivity.class);
-//            startActivity(intent);
-//
-//
-//        }
+        if (cookies != null) {
+            RequestQueueSingleton.getInstance(this);
+            CookieManager cookieManager = (CookieManager) CookieHandler.getDefault();
+            CookieStore cookieStore = cookieManager.getCookieStore();
 
+
+            String[] cookiesParth = cookies.split(";", 0);
+            for (String cookieParthValue : cookiesParth) {
+                String[] cookieParthValueArray = cookieParthValue.split("=");
+                HttpCookie httpCookie = new HttpCookie(cookieParthValueArray[0], cookieParthValueArray[1].toString().substring(1));
+                cookieStore.add(URI.create("www.gorvodokanal.com"), httpCookie);
+            }
+
+
+
+
+        }
+        if(UserModel.getInstance().getStatusAuth() == 1) {
+            authAutomat();
+        }
     }
 
     private void createAlertDialog(String title, String content) {
@@ -237,6 +239,80 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
                     SettingsManager.getInstanse().saveCookies(MainActivity.this, cookieStr.toString());
 
+                    UserModel.getInstance(). setStatusAuth(0);
+                    UserModel.createInstanceFromJson(response);
+                    Intent intent = new Intent(MainActivity.this, AppActivity.class);
+                    startActivity(intent);
+
+                } catch (Exception e) {
+                    Log.e("valley", "error", e);
+                }
+            }
+        }, new VolleyJsonErrorCallback() {
+            @Override
+            public void onError(VolleyError error) {
+
+                showErrorDialog();
+            }
+
+        });
+
+    }
+    public void authAutomat() {
+
+
+        final EditText password = findViewById(R.id.password);
+
+        final String loginValue = login.getText().toString();
+        String passwordValue = password.getText().toString();
+
+        Map<String, Object> requestData = new HashMap<>();
+        requestData.put("login", loginValue);
+        requestData.put("password", passwordValue);
+
+        final RequestQueue mQueue = RequestQueueSingleton.getInstance(this);
+
+        PostRequest request = new PostRequest(mQueue);
+        request.makeRequest(UrlCollection.AUTH_URL, requestData, new VolleyJsonSuccessCallback() {
+            @Override
+            public void onSuccess(JSONObject response) {
+                try {
+                    if (!response.has("success")) {
+                        Log.e("server", String.format("Error response from url %s: %s", UrlCollection.AUTH_URL, response.toString()));
+                        Toast.makeText(MainActivity.this, "Неизвестная ошибка, попробуйте еще раз", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    final boolean isSuccess = response.getBoolean("success");
+
+                    if (!isSuccess) {
+                        String errorMessage = response.getString("message");
+                        if (response.has("status")) {
+                            if (!response.getBoolean("status")) {
+
+                                JSONArray rows = response.getJSONArray("data");
+                                JSONObject userData = (JSONObject) rows.getJSONObject(0);
+                                CheckConfirmEmailDialog checkConfirmEmailDialog = new CheckConfirmEmailDialog(loginValue, userData.getInt("ID"), userData.getString("EMAIL"), MainActivity.this);
+
+                                FragmentManager fm = getSupportFragmentManager();
+                                checkConfirmEmailDialog.show(fm, "NoticeDialogFragment");
+                            }
+                        }
+                        Toast.makeText(MainActivity.this, String.valueOf(errorMessage), Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    String loginValueShared = login.getText().toString();
+                    SettingsManager.getInstanse().savelogin(MainActivity.this, loginValueShared);
+                    CookieManager cookieManager = (CookieManager) CookieHandler.getDefault();
+                    List<HttpCookie> coookies = cookieManager.getCookieStore().getCookies();
+
+                    StringBuilder cookieStr = new StringBuilder();
+                    for (HttpCookie cookie : coookies) {
+                        cookieStr.append(cookie.getName() + "=" + cookie.getValue());
+                        cookieStr.append(";");
+                    }
+
+                    SettingsManager.getInstanse().saveCookies(MainActivity.this, cookieStr.toString());
+
 
                     UserModel.createInstanceFromJson(response);
                     Intent intent = new Intent(MainActivity.this, AppActivity.class);
@@ -256,7 +332,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         });
 
     }
-
     public String convert(String inString, String inCharset, String outCharset) throws UnsupportedEncodingException {
         byte[] bytes = inString.getBytes(inCharset);
         return new String(bytes, outCharset);

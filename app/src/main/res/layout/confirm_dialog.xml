@@ -36,35 +36,36 @@
 
             />
 
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingcloseConfirmDialog"
             android:layout_height="42dp"
             android:layout_width="39dp"
             app:fabSize="mini"
-            android:layout_gravity="top|right"
+            app:elevation="0dp"
+            app:pressedTranslationZ="0dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
             android:layout_margin="5dp"
             android:clickable="true"
             app:backgroundTint="#FFF1F0F0"
             android:src="@drawable/ic_baseline_close_24"
           />
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
         <TextView
             android:id="@+id/confirmText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/confirm"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="15dp"
-             android:padding="20dp"
+            android:fontFamily="@font/roboto_medium"
+            android:gravity="center"
+            android:padding="20dp"
             android:paddingRight="3dp"
             android:text="Почтовый ящик не подтверждён! Пожалуйста, проверте актуальность вашей почты и подтвердите  почтовый адрес"
-            android:textSize="14dp"
-          android:layout_centerHorizontal="true"
-            android:gravity="center"
-            android:textColor="#FF424F"/>
+            android:textColor="#FF424F"
+            android:textSize="14dp" />
 
         <TextView
             android:id="@+id/emailConfirm"
@@ -84,6 +85,7 @@
             android:layout_below="@+id/emailConfirm"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="10dp"
+            android:fontFamily="@font/roboto_medium"
             android:text="Подтвердить"
             android:background="@drawable/dra4"
             android:layout_marginTop="30dp"

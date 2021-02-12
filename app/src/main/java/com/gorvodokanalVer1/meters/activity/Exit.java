@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.gorvodokanalVer1.R;
+import com.gorvodokanalVer1.meters.model.UserModel;
 
 
 public class Exit extends Fragment {
@@ -18,7 +19,7 @@ public class Exit extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         Bundle bundle = new Bundle();
-
+        UserModel.getInstance(). setStatusAuth(1);
         getActivity().finish();
 
         //System.exit (0);
