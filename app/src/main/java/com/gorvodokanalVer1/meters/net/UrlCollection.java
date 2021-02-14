@@ -4,7 +4,7 @@ public final class UrlCollection {
     public static final String BASE_URL = "https://www.gorvodokanal.com/mobile_app/";
     public static String KOD = "10-6666666";
 
-    public static final String AUTH_URL = BASE_URL + "auth2.php"; //url, из которого мы будем брать JSON-объект
+    public static final String AUTH_URL = BASE_URL + "auth.php"; //url, из которого мы будем брать JSON-объект
     public static final String GENERAL_INFO_URL = BASE_URL + "general_info.php";
     public static final String CHANGE_PASSWORD_URL = BASE_URL + "change_password.php";
     public static final String CHANGE_EMAIL_URL = BASE_URL + "change_email.php";
@@ -26,6 +26,7 @@ public final class UrlCollection {
     public static final String GET_BINDING_LS =  BASE_URL + "getBindLs.php";
     public static final String REMOVE_BINDING_LS =  BASE_URL + "removeBindingLs.php";
     public static final String CONFIRM_EMAIL =  BASE_URL + "confirm_email.php";
+    public static final String GET_USER_DATA =  BASE_URL + "get_data_user.php";
 
 
 }

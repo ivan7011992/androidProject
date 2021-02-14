@@ -5,6 +5,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.preference.PreferenceManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -24,7 +26,10 @@ import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
+import com.gorvodokanalVer1.meters.historyUtilClass.SummaryHistoryItemAdapter;
+import com.gorvodokanalVer1.meters.model.SummaryHistoryItem;
 import com.gorvodokanalVer1.meters.model.UserModel;
+import com.gorvodokanalVer1.meters.net.GetRequest;
 import com.gorvodokanalVer1.meters.net.PostRequest;
 import com.gorvodokanalVer1.R;
 import com.gorvodokanalVer1.meters.net.RequestQueueSingleton;
@@ -44,7 +49,9 @@ import java.net.CookieManager;
 import java.net.CookieStore;
 import java.net.HttpCookie;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -148,23 +155,46 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             CookieManager cookieManager = (CookieManager) CookieHandler.getDefault();
             CookieStore cookieStore = cookieManager.getCookieStore();
 
-
+            URI cookieUrl = URI.create("https://www.gorvodokanal.com");
             String[] cookiesParth = cookies.split(";", 0);
             for (String cookieParthValue : cookiesParth) {
                 String[] cookieParthValueArray = cookieParthValue.split("=");
-                HttpCookie httpCookie = new HttpCookie(cookieParthValueArray[0], cookieParthValueArray[1].toString().substring(1));
-                cookieStore.add(URI.create("www.gorvodokanal.com"), httpCookie);
+                HttpCookie httpCookie = new HttpCookie(cookieParthValueArray[0], cookieParthValueArray[1]);
+                httpCookie.setDomain("www.gorvodokanal.com");
+                 httpCookie.setPath("/mobile_app/");
+                cookieStore.add( cookieUrl,httpCookie);
             }
 
-
-
+            getUserData();
 
         }
-        if(UserModel.getInstance().getStatusAuth() == 1) {
-            authAutomat();
-        }
+
     }
+public  void getUserData(){
+    final RequestQueue mQueue = RequestQueueSingleton.getInstance(this);
+    GetRequest request = new GetRequest(mQueue);
+    String requestUrl = UrlCollection.GET_USER_DATA;
+    request.makeRequest(requestUrl, new VolleyJsonSuccessCallback() {
+        @Override
+        public void onSuccess(JSONObject response) {
 
+            try {
+                UserModel.createInstanceFromJson(response);
+                Intent appActivity = new Intent(MainActivity.this, AppActivity.class);
+                startActivity(appActivity);
+            } catch (Exception e) {
+                Log.e("valley", "error", e);
+            }
+        }
+    }, new VolleyJsonErrorCallback() {
+        @Override
+        public void onError(VolleyError error) {
+
+            showErrorDialog();
+        }
+    });
+
+}
     private void createAlertDialog(String title, String content) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
@@ -239,8 +269,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
                     SettingsManager.getInstanse().saveCookies(MainActivity.this, cookieStr.toString());
 
-                    UserModel.getInstance(). setStatusAuth(0);
-                    UserModel.createInstanceFromJson(response);
+                   UserModel.createInstanceFromJson(response);
                     Intent intent = new Intent(MainActivity.this, AppActivity.class);
                     startActivity(intent);
 
@@ -258,80 +287,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         });
 
     }
-    public void authAutomat() {
 
-
-        final EditText password = findViewById(R.id.password);
-
-        final String loginValue = login.getText().toString();
-        String passwordValue = password.getText().toString();
-
-        Map<String, Object> requestData = new HashMap<>();
-        requestData.put("login", loginValue);
-        requestData.put("password", passwordValue);
-
-        final RequestQueue mQueue = RequestQueueSingleton.getInstance(this);
-
-        PostRequest request = new PostRequest(mQueue);
-        request.makeRequest(UrlCollection.AUTH_URL, requestData, new VolleyJsonSuccessCallback() {
-            @Override
-            public void onSuccess(JSONObject response) {
-                try {
-                    if (!response.has("success")) {
-                        Log.e("server", String.format("Error response from url %s: %s", UrlCollection.AUTH_URL, response.toString()));
-                        Toast.makeText(MainActivity.this, "Неизвестная ошибка, попробуйте еще раз", Toast.LENGTH_LONG).show();
-                        return;
-                    }
-                    final boolean isSuccess = response.getBoolean("success");
-
-                    if (!isSuccess) {
-                        String errorMessage = response.getString("message");
-                        if (response.has("status")) {
-                            if (!response.getBoolean("status")) {
-
-                                JSONArray rows = response.getJSONArray("data");
-                                JSONObject userData = (JSONObject) rows.getJSONObject(0);
-                                CheckConfirmEmailDialog checkConfirmEmailDialog = new CheckConfirmEmailDialog(loginValue, userData.getInt("ID"), userData.getString("EMAIL"), MainActivity.this);
-
-                                FragmentManager fm = getSupportFragmentManager();
-                                checkConfirmEmailDialog.show(fm, "NoticeDialogFragment");
-                            }
-                        }
-                        Toast.makeText(MainActivity.this, String.valueOf(errorMessage), Toast.LENGTH_LONG).show();
-                        return;
-                    }
-                    String loginValueShared = login.getText().toString();
-                    SettingsManager.getInstanse().savelogin(MainActivity.this, loginValueShared);
-                    CookieManager cookieManager = (CookieManager) CookieHandler.getDefault();
-                    List<HttpCookie> coookies = cookieManager.getCookieStore().getCookies();
-
-                    StringBuilder cookieStr = new StringBuilder();
-                    for (HttpCookie cookie : coookies) {
-                        cookieStr.append(cookie.getName() + "=" + cookie.getValue());
-                        cookieStr.append(";");
-                    }
-
-                    SettingsManager.getInstanse().saveCookies(MainActivity.this, cookieStr.toString());
-
-
-                    UserModel.createInstanceFromJson(response);
-                    Intent intent = new Intent(MainActivity.this, AppActivity.class);
-                    startActivity(intent);
-
-                } catch (Exception e) {
-                    Log.e("valley", "error", e);
-                }
-            }
-        }, new VolleyJsonErrorCallback() {
-            @Override
-            public void onError(VolleyError error) {
-
-                showErrorDialog();
-            }
-
-        });
-
-    }
     public String convert(String inString, String inCharset, String outCharset) throws UnsupportedEncodingException {
         byte[] bytes = inString.getBytes(inCharset);
         return new String(bytes, outCharset);
