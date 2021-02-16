@@ -6,6 +6,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.fragment.app.FragmentManager;
+import androidx.preference.CheckBoxPreference;
 import androidx.preference.PreferenceFragmentCompat;
 
 import com.android.volley.RequestQueue;
@@ -40,7 +41,15 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         findPreference("change_password").setOnPreferenceClickListener(preference -> showChangePasswordFragment());
         findPreference("change_email").setOnPreferenceClickListener(preference -> showChangeEmailFragment());
 
+
+        CheckBoxPreference showContact = (CheckBoxPreference)findPreference("change_email1");
+        showContact.setChecked(true);
+        showContact.setTitle("Почта  подтверждена");
+      
+
  if(!UserModel.getInstance().isStatus()) {
+     showContact.setChecked(false);
+     showContact.setTitle("Почта не подтверждена");
      ConfirmedDialogMessage confirmedDialogMessage = new ConfirmedDialogMessage(UserModel.getInstance().getEmail());
      confirmedDialogMessage.setTargetFragment(SettingsFragment.this, 1);
      confirmedDialogMessage.show(SettingsFragment.this.getFragmentManager(), "MyCustomDialog");

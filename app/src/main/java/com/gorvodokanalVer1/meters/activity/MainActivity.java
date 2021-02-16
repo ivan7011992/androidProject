@@ -170,6 +170,11 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         }
 
     }
+//абстрактыне поля ?
+   public void saveCookie(CookieStore cookieStore){
+
+   }
+
 public  void getUserData(){
     final RequestQueue mQueue = RequestQueueSingleton.getInstance(this);
     GetRequest request = new GetRequest(mQueue);
@@ -213,6 +218,7 @@ public  void getUserData(){
     private void showMessage(String textInMessage) {
         Toast.makeText(getApplicationContext(), textInMessage, Toast.LENGTH_LONG).show();
     }
+
 
     public void formSubmit(View view) {
 
@@ -266,7 +272,37 @@ public  void getUserData(){
                         cookieStr.append(cookie.getName() + "=" + cookie.getValue());
                         cookieStr.append(";");
                     }
+                    saveCookie(new CookieStore() {
+                        @Override
+                        public void add(URI uri, HttpCookie httpCookie) {
 
+                        }
+
+                        @Override
+                        public List<HttpCookie> get(URI uri) {
+                            return null;
+                        }
+
+                        @Override
+                        public List<HttpCookie> getCookies() {
+                            return null;
+                        }
+
+                        @Override
+                        public List<URI> getURIs() {
+                            return null;
+                        }
+
+                        @Override
+                        public boolean remove(URI uri, HttpCookie httpCookie) {
+                            return false;
+                        }
+
+                        @Override
+                        public boolean removeAll() {
+                            return false;
+                        }
+                    });
                     SettingsManager.getInstanse().saveCookies(MainActivity.this, cookieStr.toString());
 
                    UserModel.createInstanceFromJson(response);

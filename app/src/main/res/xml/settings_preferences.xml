@@ -3,9 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <Preference
-
         android:key="change_email"
         android:title="Изменить email" />
+    <CheckBoxPreference
+
+        android:key="change_email1"
+        android:title="Почта подтверждена"
+        android:clickable="false"/>
+
     <Preference
         android:key="change_password"
         android:title="Изменить пароль" />
