@@ -30,6 +30,7 @@ import com.gorvodokanalVer1.meters.historyUtilClass.SummaryHistoryItemAdapter;
 import com.gorvodokanalVer1.meters.model.SummaryHistoryItem;
 import com.gorvodokanalVer1.meters.model.UserModel;
 import com.gorvodokanalVer1.meters.net.GetRequest;
+import com.gorvodokanalVer1.meters.net.PersistentCookieStore;
 import com.gorvodokanalVer1.meters.net.PostRequest;
 import com.gorvodokanalVer1.R;
 import com.gorvodokanalVer1.meters.net.RequestQueueSingleton;
@@ -149,57 +150,58 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         login.setText(SettingsManager.getInstanse().getlogin(this));
 
 
-        String cookies = SettingsManager.getInstanse().getCookies(this);
-        if (cookies != null) {
-            RequestQueueSingleton.getInstance(this);
-            CookieManager cookieManager = (CookieManager) CookieHandler.getDefault();
-            CookieStore cookieStore = cookieManager.getCookieStore();
+//        String cookies = SettingsManager.getInstanse().getCookies(this);
+//        if (cookies != null) {
+//            RequestQueueSingleton.getInstance(this);
+//            CookieManager cookieManager = (CookieManager) CookieHandler.getDefault();
+//            CookieStore cookieStore = cookieManager.getCookieStore();
+//
+//            URI cookieUrl = URI.create("https://www.gorvodokanal.com");
+//            String[] cookiesParth = cookies.split(";", 0);
+//            for (String cookieParthValue : cookiesParth) {
+//                String[] cookieParthValueArray = cookieParthValue.split("=");
+//                HttpCookie httpCookie = new HttpCookie(cookieParthValueArray[0], cookieParthValueArray[1]);
+//                httpCookie.setDomain("www.gorvodokanal.com");
+//                 httpCookie.setPath("/mobile_app/");
+//                cookieStore.add( cookieUrl,httpCookie);
+//            }
 
-            URI cookieUrl = URI.create("https://www.gorvodokanal.com");
-            String[] cookiesParth = cookies.split(";", 0);
-            for (String cookieParthValue : cookiesParth) {
-                String[] cookieParthValueArray = cookieParthValue.split("=");
-                HttpCookie httpCookie = new HttpCookie(cookieParthValueArray[0], cookieParthValueArray[1]);
-                httpCookie.setDomain("www.gorvodokanal.com");
-                 httpCookie.setPath("/mobile_app/");
-                cookieStore.add( cookieUrl,httpCookie);
-            }
-
+//        }
+        RequestQueueSingleton.getInstance(this);
+        CookieManager cookieManager = (CookieManager) CookieHandler.getDefault();
+        CookieStore cookieStore = cookieManager.getCookieStore();
+        if (cookieStore.getCookies().size() > 0) {
             getUserData();
-
         }
+        ;
+    }
+
+    public void getUserData() {
+        final RequestQueue mQueue = RequestQueueSingleton.getInstance(this);
+        GetRequest request = new GetRequest(mQueue);
+        String requestUrl = UrlCollection.GET_USER_DATA;
+        request.makeRequest(requestUrl, new VolleyJsonSuccessCallback() {
+            @Override
+            public void onSuccess(JSONObject response) {
+
+                try {
+                    UserModel.createInstanceFromJson(response);
+                    Intent appActivity = new Intent(MainActivity.this, AppActivity.class);
+                    startActivity(appActivity);
+                } catch (Exception e) {
+                    Log.e("valley", "error", e);
+                }
+            }
+        }, new VolleyJsonErrorCallback() {
+            @Override
+            public void onError(VolleyError error) {
+
+                showErrorDialog();
+            }
+        });
 
     }
-//абстрактыне поля ?
-   public void saveCookie(CookieStore cookieStore){
 
-   }
-
-public  void getUserData(){
-    final RequestQueue mQueue = RequestQueueSingleton.getInstance(this);
-    GetRequest request = new GetRequest(mQueue);
-    String requestUrl = UrlCollection.GET_USER_DATA;
-    request.makeRequest(requestUrl, new VolleyJsonSuccessCallback() {
-        @Override
-        public void onSuccess(JSONObject response) {
-
-            try {
-                UserModel.createInstanceFromJson(response);
-                Intent appActivity = new Intent(MainActivity.this, AppActivity.class);
-                startActivity(appActivity);
-            } catch (Exception e) {
-                Log.e("valley", "error", e);
-            }
-        }
-    }, new VolleyJsonErrorCallback() {
-        @Override
-        public void onError(VolleyError error) {
-
-            showErrorDialog();
-        }
-    });
-
-}
     private void createAlertDialog(String title, String content) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
@@ -264,48 +266,17 @@ public  void getUserData(){
                     }
                     String loginValueShared = login.getText().toString();
                     SettingsManager.getInstanse().savelogin(MainActivity.this, loginValueShared);
-                    CookieManager cookieManager = (CookieManager) CookieHandler.getDefault();
-                    List<HttpCookie> coookies = cookieManager.getCookieStore().getCookies();
+//                    CookieManager cookieManager = (CookieManager) CookieHandler.getDefault();
+//                    List<HttpCookie> coookies = cookieManager.getCookieStore().getCookies();
 
-                    StringBuilder cookieStr = new StringBuilder();
-                    for (HttpCookie cookie : coookies) {
-                        cookieStr.append(cookie.getName() + "=" + cookie.getValue());
-                        cookieStr.append(";");
-                    }
-                    saveCookie(new CookieStore() {
-                        @Override
-                        public void add(URI uri, HttpCookie httpCookie) {
+//                    StringBuilder cookieStr = new StringBuilder();
+//                    for (HttpCookie cookie : coookies) {
+//                        cookieStr.append(cookie.getName() + "=" + cookie.getValue());
+//                        cookieStr.append(";");
+//                    }
 
-                        }
 
-                        @Override
-                        public List<HttpCookie> get(URI uri) {
-                            return null;
-                        }
-
-                        @Override
-                        public List<HttpCookie> getCookies() {
-                            return null;
-                        }
-
-                        @Override
-                        public List<URI> getURIs() {
-                            return null;
-                        }
-
-                        @Override
-                        public boolean remove(URI uri, HttpCookie httpCookie) {
-                            return false;
-                        }
-
-                        @Override
-                        public boolean removeAll() {
-                            return false;
-                        }
-                    });
-                    SettingsManager.getInstanse().saveCookies(MainActivity.this, cookieStr.toString());
-
-                   UserModel.createInstanceFromJson(response);
+                    UserModel.createInstanceFromJson(response);
                     Intent intent = new Intent(MainActivity.this, AppActivity.class);
                     startActivity(intent);
 

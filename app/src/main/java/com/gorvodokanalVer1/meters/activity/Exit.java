@@ -10,6 +10,11 @@ import android.view.ViewGroup;
 
 import com.gorvodokanalVer1.R;
 import com.gorvodokanalVer1.meters.model.UserModel;
+import com.gorvodokanalVer1.meters.net.RequestQueueSingleton;
+
+import java.net.CookieHandler;
+import java.net.CookieManager;
+import java.net.CookieStore;
 
 
 public class Exit extends Fragment {
@@ -22,7 +27,11 @@ public class Exit extends Fragment {
         UserModel.getInstance(). setStatusAuth(1);
         getActivity().finish();
 
-        //System.exit (0);
+        RequestQueueSingleton.getInstance(getContext());
+        CookieManager cookieManager = (CookieManager) CookieHandler.getDefault();
+        CookieStore cookieStore = cookieManager.getCookieStore();
+        cookieStore.removeAll();
+
 
         return inflater.inflate(R.layout.fragment_exit, container, false);
 

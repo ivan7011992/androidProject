@@ -23,7 +23,6 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation files('..\\libs\\android-async-http-1.4.8.jar')
     //noinspection GradleCompatible
     compile "ru.tinkoff.decoro:decoro:1.1.1"
     compile 'cz.msebera.android:httpclient:4.3.6'

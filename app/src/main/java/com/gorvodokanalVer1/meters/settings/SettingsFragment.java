@@ -44,12 +44,10 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         CheckBoxPreference showContact = (CheckBoxPreference)findPreference("change_email1");
         showContact.setChecked(true);
-        showContact.setTitle("Почта  подтверждена");
+        showContact.setTitle("Почта  подтверждена ✓");
       
 
  if(!UserModel.getInstance().isStatus()) {
-     showContact.setChecked(false);
-     showContact.setTitle("Почта не подтверждена");
      ConfirmedDialogMessage confirmedDialogMessage = new ConfirmedDialogMessage(UserModel.getInstance().getEmail());
      confirmedDialogMessage.setTargetFragment(SettingsFragment.this, 1);
      confirmedDialogMessage.show(SettingsFragment.this.getFragmentManager(), "MyCustomDialog");

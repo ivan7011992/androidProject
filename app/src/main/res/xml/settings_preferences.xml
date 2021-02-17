@@ -6,10 +6,11 @@
         android:key="change_email"
         android:title="Изменить email" />
     <CheckBoxPreference
-
         android:key="change_email1"
         android:title="Почта подтверждена"
-        android:clickable="false"/>
+        android:clickable="false"
+        android:enabled="false"
+        />
 
     <Preference
         android:key="change_password"
