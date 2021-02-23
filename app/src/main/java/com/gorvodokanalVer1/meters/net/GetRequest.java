@@ -3,6 +3,7 @@ package com.gorvodokanalVer1.meters.net;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -39,6 +40,11 @@ public class GetRequest {
                     }
                 }
             });
+
+            request.setRetryPolicy(new DefaultRetryPolicy(
+                    10000,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             mQueue.add(request);
         } catch (Exception e) {
             Log.d("VolleyError", e.getMessage());

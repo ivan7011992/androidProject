@@ -48,6 +48,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
       
 
  if(!UserModel.getInstance().isStatus()) {
+
      ConfirmedDialogMessage confirmedDialogMessage = new ConfirmedDialogMessage(UserModel.getInstance().getEmail());
      confirmedDialogMessage.setTargetFragment(SettingsFragment.this, 1);
      confirmedDialogMessage.show(SettingsFragment.this.getFragmentManager(), "MyCustomDialog");

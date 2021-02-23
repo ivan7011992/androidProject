@@ -22,6 +22,9 @@ android {
 }
 
 dependencies {
+    def acraVersion = '5.7.0'
+    implementation "ch.acra:acra-http:$acraVersion"
+    implementation "ch.acra:acra-toast:$acraVersion"
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     //noinspection GradleCompatible
     compile "ru.tinkoff.decoro:decoro:1.1.1"

@@ -80,6 +80,9 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+//        if (true) {
+//            throw new RuntimeException("Error");
+//        }
         instance = this;
         imageView = this.findViewById(R.id.image2);
         passwordUser = findViewById(R.id.password);
@@ -196,7 +199,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             @Override
             public void onError(VolleyError error) {
 
-                showErrorDialog();
+                showErrorDialog(error);
             }
         });
 
@@ -288,7 +291,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             @Override
             public void onError(VolleyError error) {
 
-                showErrorDialog();
+                showErrorDialog(error);
             }
 
         });
@@ -345,8 +348,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         sharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
     }
 
-    private void showErrorDialog() {
-
+    private void showErrorDialog(VolleyError error) {
+        Log.e("server", String.format("Error response from url %s: %s", UrlCollection.AUTH_URL, error.toString()));
         Toast.makeText(this, "Произошла ошибка, попробуйте повторить попытку позже", Toast.LENGTH_LONG).show();
 
     }

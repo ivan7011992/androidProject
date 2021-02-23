@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+  >
+
 
     <Preference
         android:key="change_email"
         android:title="Изменить email" />
-    <CheckBoxPreference
+    <Preference
         android:key="change_email1"
         android:title="Почта подтверждена"
-        android:clickable="false"
-        android:enabled="false"
         />
 
     <Preference
