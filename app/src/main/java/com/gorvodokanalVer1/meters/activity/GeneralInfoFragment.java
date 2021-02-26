@@ -42,6 +42,7 @@ public class GeneralInfoFragment extends Fragment {
     LinearLayout fieldParrent2;
     LinearLayout fieldParrent3;
     RelativeLayout fieldBlockTarif;
+    RelativeLayout fieldParrentDataUser;
     public static int confirm = 0;
 
     @Override
@@ -60,6 +61,7 @@ public class GeneralInfoFragment extends Fragment {
         fieldParrent2 = view.findViewById(R.id.PriborBlock);
         fieldParrent3 = view.findViewById(R.id.fieldBlockIPU0);
         fieldBlockTarif = view.findViewById(R.id.fieldBlockTarif);
+        fieldParrentDataUser = view.findViewById(R.id.fieldParrentDataUser);
         ProgressDialog mDialog = new ProgressDialog(getContext());
         mDialog.setMessage("Загрузка...");
         mDialog.setCancelable(false);
@@ -85,7 +87,17 @@ public class GeneralInfoFragment extends Fragment {
                             String IPU = firstRow.getString("IPU");
                             String kod = firstRow.getString("KOD");
                             UrlCollection.KOD = kod;
-                            ((TextView) getView().findViewById(R.id.fio)).setText(firstRow.getString("FIO"));
+
+
+                            if (firstRow.has("FIO")) {
+                                ((TextView) getView().findViewById(R.id.fio)).setText(firstRow.getString("FIO"));
+
+                            }else{
+                                TextView fio = getView().findViewById(R.id.fio);
+                                fieldParrentDataUser.removeView(fio);
+                                TextView fio_abonent  =getView().findViewById(R.id.fio_abonent);
+                                fieldParrentDataUser.removeView(fio_abonent);
+                            }
                             address = firstRow.getString("NAIMUL") + " " + firstRow.getString("DOM") + " " + "КВ" + " "
                                     + firstRow.getString("KVARTIRA");
 

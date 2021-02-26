@@ -16,7 +16,7 @@ import org.acra.sender.HttpSender;
 
 
 @AcraCore(buildConfigClass = BuildConfig.class)
-@AcraHttpSender(uri = "https://www.gorvodkanal.com/mobile_app/log_receiver.php",
+@AcraHttpSender(uri = "https://www.gorvodokanal.com/mobile_app/log_receiver.php",
         httpMethod = HttpSender.Method.POST)
 
 public class MyApplication extends Application {

@@ -1,58 +1,41 @@
 package com.gorvodokanalVer1.meters.settings;
 
-import android.content.Intent;
+
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
-import androidx.fragment.app.FragmentManager;
-import androidx.preference.CheckBoxPreference;
+import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
-
-import com.android.volley.RequestQueue;
-import com.android.volley.VolleyError;
+import androidx.preference.PreferenceScreen;
 import com.gorvodokanalVer1.R;
-import com.gorvodokanalVer1.meters.activity.AppActivity;
 import com.gorvodokanalVer1.meters.activity.ChangeEmailDialog;
 import com.gorvodokanalVer1.meters.activity.ChangePasswordDialog;
-import com.gorvodokanalVer1.meters.activity.CheckConfirmEmailDialog;
 import com.gorvodokanalVer1.meters.activity.ConfirmedDialogMessage;
-import com.gorvodokanalVer1.meters.activity.MainActivity;
 import com.gorvodokanalVer1.meters.model.UserModel;
-import com.gorvodokanalVer1.meters.net.GetRequest;
-import com.gorvodokanalVer1.meters.net.PostRequest;
-import com.gorvodokanalVer1.meters.net.RequestQueueSingleton;
-import com.gorvodokanalVer1.meters.net.UrlCollection;
-import com.gorvodokanalVer1.meters.net.VolleyJsonErrorCallback;
-import com.gorvodokanalVer1.meters.net.VolleyJsonSuccessCallback;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
 
-import java.util.HashMap;
-import java.util.Map;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.settings_preferences);
-
+        PreferenceScreen preferenceScreen = findPreference(getResources().getString(R.string.preferenceScreen));
         findPreference("change_password").setOnPreferenceClickListener(preference -> showChangePasswordFragment());
         findPreference("change_email").setOnPreferenceClickListener(preference -> showChangeEmailFragment());
 
 
-        CheckBoxPreference showContact = (CheckBoxPreference)findPreference("change_email1");
-        showContact.setChecked(true);
+        Preference showContact = findPreference("change_emailsConfirm");
         showContact.setTitle("Почта  подтверждена ✓");
-      
 
- if(!UserModel.getInstance().isStatus()) {
 
-     ConfirmedDialogMessage confirmedDialogMessage = new ConfirmedDialogMessage(UserModel.getInstance().getEmail());
-     confirmedDialogMessage.setTargetFragment(SettingsFragment.this, 1);
-     confirmedDialogMessage.show(SettingsFragment.this.getFragmentManager(), "MyCustomDialog");
- }
+        if(!UserModel.getInstance().isStatus()) {
+
+            preferenceScreen.removePreference(showContact);
+            ConfirmedDialogMessage confirmedDialogMessage = new ConfirmedDialogMessage(UserModel.getInstance().getEmail());
+            confirmedDialogMessage.setTargetFragment(SettingsFragment.this, 1);
+            confirmedDialogMessage.show(SettingsFragment.this.getFragmentManager(), "MyCustomDialog");
+        }
     }
 
 
