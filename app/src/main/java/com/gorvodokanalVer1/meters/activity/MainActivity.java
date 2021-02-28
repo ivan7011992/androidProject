@@ -8,9 +8,12 @@ import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.UserManager;
 import android.text.method.PasswordTransformationMethod;
@@ -75,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     private TextView email1;
     public Button button;
     ImageView imageView;
+    ProgressDialog mDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -180,6 +184,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     }
 
     public void getUserData() {
+
+
         final RequestQueue mQueue = RequestQueueSingleton.getInstance(this);
         GetRequest request = new GetRequest(mQueue);
         String requestUrl = UrlCollection.GET_USER_DATA;
@@ -226,8 +232,13 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
 
     public void formSubmit(View view) {
+        mDialog = new ProgressDialog(MainActivity.this);
+        mDialog.setMessage("Загрузка...");
+        mDialog.setCancelable(false);
+        mDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        mDialog.show();
 
-
+        button.setEnabled(false);
         final EditText password = findViewById(R.id.password);
 
         final String loginValue = login.getText().toString();
@@ -243,6 +254,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         request.makeRequest(UrlCollection.AUTH_URL, requestData, new VolleyJsonSuccessCallback() {
             @Override
             public void onSuccess(JSONObject response) {
+                button.setEnabled(true);
+                mDialog.dismiss();
                 try {
                     if (!response.has("success")) {
                         Log.e("server", String.format("Error response from url %s: %s", UrlCollection.AUTH_URL, response.toString()));
@@ -267,6 +280,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                         Toast.makeText(MainActivity.this, String.valueOf(errorMessage), Toast.LENGTH_LONG).show();
                         return;
                     }
+
                     String loginValueShared = login.getText().toString();
                     SettingsManager.getInstanse().savelogin(MainActivity.this, loginValueShared);
 //                    CookieManager cookieManager = (CookieManager) CookieHandler.getDefault();
@@ -290,7 +304,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         }, new VolleyJsonErrorCallback() {
             @Override
             public void onError(VolleyError error) {
-
+                mDialog.dismiss();
+                button.setEnabled(true);
                 showErrorDialog(error);
             }
 

@@ -41,7 +41,7 @@ public class PostRequest {
                     , new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.d("VolleyError", error.getMessage());
+                   // Log.d("VolleyError", error.getMessage());
                     if(errorCallback!= null){
                     errorCallback.onError(error);
                     }
@@ -49,12 +49,12 @@ public class PostRequest {
 
             });
             request.setRetryPolicy(new DefaultRetryPolicy(
-                    10000,
+                    5000,
                     DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                     DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             mQueue.add(request);
         } catch (Exception e) {
-            Log.d("VolleyError", e.getMessage());
+            //Log.d("VolleyError", e.getMessage());
         }
     }
 
