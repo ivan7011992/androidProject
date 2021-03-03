@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.os.UserManager;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -84,9 +85,9 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        if (true) {
-//            throw new RuntimeException("Error");
-//        }
+        if (true) {
+            throw new RuntimeException("Error");
+        }
         instance = this;
         imageView = this.findViewById(R.id.image2);
         passwordUser = findViewById(R.id.password);
@@ -232,11 +233,12 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
 
     public void formSubmit(View view) {
-        mDialog = new ProgressDialog(MainActivity.this);
-        mDialog.setMessage("Загрузка...");
+
+        mDialog = new ProgressDialog(MainActivity.this,R.style.MyTheme);
         mDialog.setCancelable(false);
-        mDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        mDialog.setProgressStyle(android.R.style.Widget_ProgressBar_Small);
         mDialog.show();
+
 
         button.setEnabled(false);
         final EditText password = findViewById(R.id.password);

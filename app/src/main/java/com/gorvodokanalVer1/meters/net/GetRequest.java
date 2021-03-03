@@ -42,7 +42,7 @@ public class GetRequest {
             });
 
             request.setRetryPolicy(new DefaultRetryPolicy(
-                    10000,
+                    5000,
                     DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                     DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             mQueue.add(request);

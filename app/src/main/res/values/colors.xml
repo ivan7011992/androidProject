@@ -6,7 +6,7 @@
     <color name="Transparent">#00000000</color>
     <color name="app_name">#00EC0909</color>
     <color name="WhiteColor">#00FFFFFF</color>
-
+    <color name="transparent">#00000000</color>
 
 
 </resources>

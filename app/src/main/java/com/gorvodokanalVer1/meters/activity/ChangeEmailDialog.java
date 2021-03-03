@@ -1,5 +1,6 @@
 package com.gorvodokanalVer1.meters.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -99,6 +100,8 @@ public class ChangeEmailDialog extends DialogFragment {
                         UserModel.getInstance().setEmail(email);
                         UserModel.getInstance().setStatus(false);
                         getDialog().dismiss();
+
+
                         ConfirmedDialogMessage confirmedDialogMessage = new ConfirmedDialogMessage(UserModel.getInstance().getEmail());
                         confirmedDialogMessage.setTargetFragment(ChangeEmailDialog.this, 1);
                         confirmedDialogMessage.show(ChangeEmailDialog.this.getFragmentManager(), "MyCustomDialog");
